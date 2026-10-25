@@ -1,0 +1,19 @@
+.DS_Store
+__MACOSX/
+*.pyc
+node_modules/
+dist/
+qa/
+
+# Claude skills
+.agents/
+.claude/skills/
+
+# Local audits
+_audit/
+
+# Temporary QA files
+*.qa.html
+
+.asset-env/
+whynicky-arima-deploy.tar.gz

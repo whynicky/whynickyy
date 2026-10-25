@@ -1,0 +1,97 @@
+[
+  {
+    "name": "chatra",
+    "source": "docs/assets/originals/chatra.png",
+    "sha256": "aa0042fd7e20efad44696434c77de03dd513201a474b7e32423bede0703469f2",
+    "sourceSize": [
+      1060,
+      662
+    ],
+    "treatment": {
+      "grayscale": true,
+      "midtoneGamma": 1.5,
+      "contrast": 1.13,
+      "offset": -13,
+      "blackPoint": 7,
+      "whitePoint": 246,
+      "grainAmplitude": 1.2
+    },
+    "provenance": "Unmodified original screenshot recovered from local checkpoint ce3265a; artwork and interface within the screenshot belong to the existing project."
+  },
+  {
+    "name": "chatra-mobile",
+    "source": "docs/assets/originals/chatra-mobile.png",
+    "sha256": "bd80362d875fe2418f4f111e8f9dd78c453830beb1a47904c20fbfd90093c32e",
+    "sourceSize": [
+      360,
+      780
+    ],
+    "treatment": {
+      "grayscale": true,
+      "midtoneGamma": 1.5,
+      "contrast": 1.1,
+      "offset": -10,
+      "blackPoint": 7,
+      "whitePoint": 246,
+      "grainAmplitude": 1.2
+    },
+    "provenance": "Unmodified original screenshot recovered from local checkpoint ce3265a; artwork and interface within the screenshot belong to the existing project."
+  },
+  {
+    "name": "soyle-home",
+    "source": "docs/assets/originals/soyle-home.png",
+    "sha256": "9a6f87a9176cb62da5b4847c1af667ee5966c935071a10163558ead39fde34f6",
+    "sourceSize": [
+      1440,
+      900
+    ],
+    "treatment": {
+      "grayscale": true,
+      "midtoneGamma": 1.5,
+      "contrast": 1.07,
+      "offset": -8,
+      "blackPoint": 7,
+      "whitePoint": 246,
+      "grainAmplitude": 1.2
+    },
+    "provenance": "Unmodified original screenshot recovered from local checkpoint ce3265a; artwork and interface within the screenshot belong to the existing project."
+  },
+  {
+    "name": "soyle-plan",
+    "source": "docs/assets/originals/soyle-plan.png",
+    "sha256": "2dc723c7ac77697deb46867b252ffdb81f314aebe9997c0f717dd951dca8bf95",
+    "sourceSize": [
+      1440,
+      1000
+    ],
+    "treatment": {
+      "grayscale": true,
+      "midtoneGamma": 1.5,
+      "contrast": 1.1,
+      "offset": -12,
+      "blackPoint": 7,
+      "whitePoint": 246,
+      "grainAmplitude": 1.2
+    },
+    "provenance": "Unmodified original screenshot recovered from local checkpoint ce3265a; artwork and interface within the screenshot belong to the existing project."
+  },
+  {
+    "name": "urpaq",
+    "source": "docs/assets/originals/urpaq.png",
+    "sha256": "ea7ffc6d2ce20ed070d404f4ebdceeb5c559b5dd71fa8cd2e817a763b186a0d8",
+    "sourceSize": [
+      1060,
+      662
+    ],
+    "treatment": {
+      "grayscale": true,
+      "midtoneGamma": 1.5,
+      "contrast": 1.05,
+      "offset": 0,
+      "blackPoint": 7,
+      "whitePoint": 246,
+      "grainAmplitude": 1.2
+    },
+    "provenance": "Unmodified original screenshot recovered from local checkpoint ce3265a; artwork and interface within the screenshot belong to the existing project."
+  }
+]
