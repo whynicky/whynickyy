@@ -2,6 +2,7 @@
 .directory-cv{gap:7px}.reading-next .icon-arrow{width:.8em;height:.8em}
 @media(max-width:700px){
  /* Keep the original gallery; only its index moves beside the artwork. */
+ .route-work .project-gallery:not([data-layout=grid]){touch-action:none}
  .route-work .project-gallery:not([data-layout=grid]) .gallery-index{display:block;left:16px;right:auto;top:var(--gallery-center-y,47%);bottom:auto;width:31%;height:216px;transform:translateY(-50%);text-align:left;mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);z-index:20}
  .route-work .project-gallery:not([data-layout=grid]) .gallery-index button{text-align:left;font-size:clamp(10px,2.8vw,13px);line-height:24px;min-height:24px;padding:0;white-space:nowrap}
  .route-work .project-gallery:not([data-layout=grid]) .gallery-frame{left:65%}

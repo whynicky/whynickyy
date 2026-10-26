@@ -21,11 +21,11 @@ ${projects.map((p,i)=>`<a class="gallery-card" href="#/work/${p.id}" data-galler
 export function mountWorkGallery({gsap,reduced,lenis}){
  const root=document.querySelector('.project-gallery');if(!root)return()=>{};
  const cards=[...root.querySelectorAll('.gallery-card')],indices=[...root.querySelectorAll('[data-select-project]')],modes=[...root.querySelectorAll('[data-gallery-mode]')];
- const frame=root.querySelector('.gallery-frame'),stage=root.querySelector('.gallery-stage'),indexWindow=root.querySelector('.gallery-index');
+ const frame=root.querySelector('.gallery-frame'),stage=root.querySelector('.gallery-stage'),indexWindow=root.querySelector('.gallery-index'),dragSurface=root;
  const gridSlots=[[0,0],[2,0],[4,0],[5,1],[1,1],[3,1],[6,1],[0,2],[3,2],[6,2]];
  let mode=saved.mode,position=saved.position,target=position,active=-1,disposed=false,layoutTween=false,layoutTimeline,settle,entryTimeline,entryDelay,entryObserver,entryPending=false;
  let width=innerWidth,height=Math.max(innerHeight,480),dimensions=[],centers=[],span=1,indexHeight=0;
- let pointer=null,lastPoint=0,lastTime=0,velocity=0,travel=0;
+ let pointer=null,touchId=null,lastPoint=0,lastTime=0,velocity=0,travel=0;
  const mobile=()=>width<700;
  const fit=(i,maxW,maxH)=>{const w=Math.min(maxW,maxH*projects[i].aspect);return{width:w,height:w/projects[i].aspect};};
  const centerY=()=>height*(mobile()?.47:.50);
@@ -110,15 +110,23 @@ export function mountWorkGallery({gsap,reduced,lenis}){
  const onFocus=e=>{if(pointer===null)selectCard(e.target.closest('[data-gallery-card]'));};
  const onHover=e=>{if(mode==='grid'&&!layoutTween)selectCard(e.target.closest('[data-gallery-card]'));};
  const point=e=>mode==='horizontal'?e.clientX:e.clientY;
- const onPointerDown=e=>{cancelEntry();if(mode==='grid'||e.button>0||layoutTween)return;pointer=e.pointerId;lastPoint=point(e);lastTime=performance.now();velocity=0;travel=0;clearTimeout(settle);};
- const onPointerMove=e=>{if(pointer!==e.pointerId)return;const now=performance.now(),value=point(e),delta=lastPoint-value,dt=Math.max(8,now-lastTime);travel+=Math.abs(delta);velocity=velocity*.55+(delta/dt)*.45;if(travel>5){e.preventDefault();if(!stage.hasPointerCapture(e.pointerId))stage.setPointerCapture(e.pointerId);root.classList.add('is-dragging');movePixels(delta);}lastPoint=value;lastTime=now;};
- const endPointer=e=>{if(pointer!==e.pointerId)return;const id=pointer;pointer=null;if(stage.hasPointerCapture(id))stage.releasePointerCapture(id);root.classList.remove('is-dragging');if(travel>5){movePixels(Math.max(-180,Math.min(180,velocity*130)));settleSoon(220);}};
+ const beginDrag=value=>{cancelEntry();lastPoint=value;lastTime=performance.now();velocity=0;travel=0;clearTimeout(settle);};
+ const moveDrag=(value,event)=>{const now=performance.now(),delta=lastPoint-value,dt=Math.max(8,now-lastTime);travel+=Math.abs(delta);velocity=velocity*.55+(delta/dt)*.45;if(travel>5){event.preventDefault();root.classList.add('is-dragging');movePixels(delta);}lastPoint=value;lastTime=now;};
+ const finishDrag=()=>{root.classList.remove('is-dragging');if(travel>5){movePixels(Math.max(-180,Math.min(180,velocity*130)));settleSoon(220);}};
+ const onPointerDown=e=>{if(e.pointerType==='touch'&&mobile())return;if(mode==='grid'||e.button>0||layoutTween)return;pointer=e.pointerId;beginDrag(point(e));};
+ const onPointerMove=e=>{if(pointer!==e.pointerId)return;moveDrag(point(e),e);if(travel>5&&!dragSurface.hasPointerCapture(e.pointerId))dragSurface.setPointerCapture(e.pointerId);};
+ const endPointer=e=>{if(pointer!==e.pointerId)return;const id=pointer;pointer=null;if(dragSurface.hasPointerCapture(id))dragSurface.releasePointerCapture(id);finishDrag();};
  const cancelPointer=e=>{if(pointer!==e.pointerId)return;velocity=0;endPointer(e);};
+ const findTouch=(list,id)=>[...list].find(touch=>touch.identifier===id);
+ const onTouchStart=e=>{if(!mobile()||mode==='grid'||layoutTween||touchId!==null||e.touches.length!==1)return;const touch=e.touches[0];touchId=touch.identifier;beginDrag(point(touch));};
+ const onTouchMove=e=>{if(touchId===null)return;const touch=findTouch(e.touches,touchId);if(touch)moveDrag(point(touch),e);};
+ const endTouch=e=>{if(touchId===null||!findTouch(e.changedTouches,touchId))return;touchId=null;finishDrag();};
+ const cancelTouch=e=>{if(touchId===null)return;touchId=null;velocity=0;finishDrag();};
  const suppressDragClick=e=>{if(travel>5){e.preventDefault();e.stopPropagation();travel=0;}};
  const tick=()=>{if(layoutTween||disposed)return;const start=distanceAt(position),diff=distanceAt(target)-start;if(Math.abs(diff)<.01)return;position=positionAt(start+diff*(reduced?1:1-Math.pow(.895,gsap.ticker.deltaRatio())));saved.position=wrap(position);paint();};
  const resize=()=>{cancelEntry();layoutTimeline?.kill();layoutTween=false;root.classList.remove('is-rearranging');width=innerWidth;height=Math.max(innerHeight,480);measure();paint(false,true);};
  measure();gsap.set(cards,{xPercent:-50,yPercent:-50});gsap.set(frame,{xPercent:-50,yPercent:-50,x:0,y:0});modes.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.galleryMode===mode)));paint(false,true);prepareEntry();
  root.addEventListener('click',onClick);root.addEventListener('focusin',onFocus);root.addEventListener('pointerover',onHover);root.addEventListener('wheel',onWheel,{passive:false});root.addEventListener('keydown',onKey);
- stage.addEventListener('pointerdown',onPointerDown);stage.addEventListener('pointermove',onPointerMove,{passive:false});stage.addEventListener('pointerup',endPointer);stage.addEventListener('pointercancel',cancelPointer);stage.addEventListener('lostpointercapture',cancelPointer);stage.addEventListener('click',suppressDragClick,true);window.addEventListener('resize',resize);gsap.ticker.add(tick);
- return()=>{disposed=true;clearTimeout(settle);entryObserver?.disconnect();entryDelay?.kill();entryTimeline?.kill();layoutTimeline?.kill();gsap.ticker.remove(tick);gsap.killTweensOf([...cards,...indices,...entryUI,frame]);delete document.body.dataset.workLayout;window.removeEventListener('resize',resize);root.removeEventListener('click',onClick);root.removeEventListener('focusin',onFocus);root.removeEventListener('pointerover',onHover);root.removeEventListener('keydown',onKey);root.removeEventListener('wheel',onWheel);stage.removeEventListener('pointerdown',onPointerDown);stage.removeEventListener('pointermove',onPointerMove);stage.removeEventListener('pointerup',endPointer);stage.removeEventListener('pointercancel',cancelPointer);stage.removeEventListener('lostpointercapture',cancelPointer);stage.removeEventListener('click',suppressDragClick,true);};
+ dragSurface.addEventListener('pointerdown',onPointerDown);dragSurface.addEventListener('pointermove',onPointerMove,{passive:false});dragSurface.addEventListener('pointerup',endPointer);dragSurface.addEventListener('pointercancel',cancelPointer);dragSurface.addEventListener('lostpointercapture',cancelPointer);dragSurface.addEventListener('touchstart',onTouchStart,{passive:true});dragSurface.addEventListener('touchmove',onTouchMove,{passive:false});dragSurface.addEventListener('touchend',endTouch);dragSurface.addEventListener('touchcancel',cancelTouch);dragSurface.addEventListener('click',suppressDragClick,true);window.addEventListener('resize',resize);gsap.ticker.add(tick);
+ return()=>{disposed=true;clearTimeout(settle);entryObserver?.disconnect();entryDelay?.kill();entryTimeline?.kill();layoutTimeline?.kill();gsap.ticker.remove(tick);gsap.killTweensOf([...cards,...indices,...entryUI,frame]);delete document.body.dataset.workLayout;window.removeEventListener('resize',resize);root.removeEventListener('click',onClick);root.removeEventListener('focusin',onFocus);root.removeEventListener('pointerover',onHover);root.removeEventListener('keydown',onKey);root.removeEventListener('wheel',onWheel);dragSurface.removeEventListener('pointerdown',onPointerDown);dragSurface.removeEventListener('pointermove',onPointerMove);dragSurface.removeEventListener('pointerup',endPointer);dragSurface.removeEventListener('pointercancel',cancelPointer);dragSurface.removeEventListener('lostpointercapture',cancelPointer);dragSurface.removeEventListener('touchstart',onTouchStart);dragSurface.removeEventListener('touchmove',onTouchMove);dragSurface.removeEventListener('touchend',endTouch);dragSurface.removeEventListener('touchcancel',cancelTouch);dragSurface.removeEventListener('click',suppressDragClick,true);};
 }
