@@ -1,58 +1,145 @@
-# whynicky® — Portfolio
+<p align="center">
+  <img src="./public/favicon.svg" width="88" height="88" alt="whynicky logo">
+</p>
 
-Portfolio for Alimzhan Galymzhan: frontend development, web and mobile applications.
+<h1 align="center">whynicky®</h1>
+
+<p align="center">
+  Personal portfolio of Alimzhan Galymzhan.<br>
+  Code with purpose. Interfaces with character.
+</p>
+
+<p align="center">
+  <a href="https://whynicky19.github.io/whynicky/"><strong>View the live website ↗</strong></a>
+  &nbsp;·&nbsp;
+  <a href="./public/documents/Alimzhan-Galymzhan-CV.pdf">Résumé</a>
+  &nbsp;·&nbsp;
+  <a href="mailto:alimzhanart@icloud.com">Contact</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/actions/workflow/status/whynicky19/whynicky/pages.yml?branch=main&style=flat-square&label=GitHub%20Pages" alt="GitHub Pages status">
+  <img src="https://img.shields.io/badge/Vite-7-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite 7">
+  <img src="https://img.shields.io/badge/Three.js-WebGL-111111?style=flat-square&logo=threedotjs&logoColor=white" alt="Three.js">
+  <img src="https://img.shields.io/badge/JavaScript-ES%20modules-F7DF1E?style=flat-square&logo=javascript&logoColor=111111" alt="JavaScript ES modules">
+</p>
+
+![whynicky portfolio — homepage](./docs/portfolio-preview.jpg)
+
+## About
+
+`whynicky®` is an editorial portfolio built to present selected web and mobile work without separating design from implementation. The site combines a grainy monochrome art direction with a Chrome Blue portrait treatment, restrained typography, tactile motion and project stories that remain readable on every screen.
+
+The experience is intentionally framework-light: semantic HTML is rendered from JavaScript modules, motion is orchestrated with GSAP and Lenis, and the portrait is drawn in WebGL with Three.js.
+
+## Highlights
+
+- **Animated identity** — a custom WebGL portrait with procedural grain, blue tonal treatment, pointer depth and a static fallback.
+- **Circular work gallery** — vertical, horizontal and grid layouts with wheel, drag, full-screen touch and keyboard navigation.
+- **Editorial reading pages** — About, Process, Credentials and Contact use a quieter typographic system built for long-form content.
+- **Project case studies** — responsive stories with role, stack, contribution, imagery and verified project links.
+- **Considered motion** — route transitions, reveal sequences and an opening animation, with reduced-motion support throughout.
+- **Accessible controls** — visible focus, native buttons and links, keyboard-operable dialogs, labelled regions and non-emoji SVG arrows.
+
+## Pages
+
+| Route | Purpose |
+| --- | --- |
+| `#/` | Animated introduction and personal positioning |
+| `#/work` | Interactive selected-work gallery |
+| `#/work/:project` | Individual project case study |
+| `#/about` | Biography, experience and education |
+| `#/process` | Six-stage working process and FAQ |
+| `#/credentials` | Certificates and original documents |
+| `#/contact` | Direct contact details and project enquiry guidance |
+
+## Technology
+
+| Layer | Tools |
+| --- | --- |
+| Build | Vite 7 |
+| Interface | HTML, CSS, JavaScript ES modules |
+| Motion | GSAP, ScrollTrigger, Lenis |
+| Graphics | Three.js, GLSL, WebGL |
+| Hosting | GitHub Pages, GitHub Actions |
+
+No component framework or CSS library is used. Layout, navigation, animation and responsive behaviour are implemented specifically for this portfolio.
 
 ## Run locally
 
-```sh
+Requirements: Node.js 22 or newer and npm.
+
+```bash
+git clone https://github.com/whynicky19/whynicky.git
+cd whynicky
 npm install
 npm run dev
 ```
 
-Open http://127.0.0.1:5176/.
+Open [http://127.0.0.1:5176](http://127.0.0.1:5176).
 
-```sh
+### Production build
+
+```bash
 npm run build
 npm run preview
 ```
 
-The production build is written to `dist/`. Preview runs at http://127.0.0.1:4176/.
+The production bundle is written to `dist/`; preview runs at [http://127.0.0.1:4176](http://127.0.0.1:4176).
 
-## Structure
+## Project structure
 
-- `src/main.js` — routes, page transitions, shared navigation and opening animation.
-- `src/studio-home.js`, `src/studio-scene.js` — homepage and animated Chrome Blue portrait.
-- `src/work-gallery.js`, `src/data.js` — circular project gallery and project content.
-- `src/case-page.js` — individual project pages.
-- `src/editorial-pages.js` — About, Contact, Process and Credentials.
-- `src/site-footer.js`, `src/sound.js` — shared footer and optional audio.
-- `src/mobile.css` — mobile layout and safe-area adjustments.
-- `public/projects`, `public/certificates`, `public/documents` — portfolio screenshots, certificates and résumé.
-- `public/images`, `public/fonts`, `public/audio` — active visual, type and audio resources.
-
-This repository contains the current website only. Earlier experiments and preview recordings are not part of the project.
+```text
+.
+├── .github/workflows/pages.yml   # GitHub Pages deployment
+├── docs/                         # Asset notes, licences and README preview
+├── public/
+│   ├── certificates/             # Original credentials
+│   ├── documents/                # Résumé
+│   ├── fonts/                    # Local typefaces and licences
+│   ├── images/                   # Portrait source and fallbacks
+│   └── projects/                 # Project imagery
+├── src/
+│   ├── main.js                   # Routing, transitions and shared lifecycle
+│   ├── studio-home.js            # Homepage markup
+│   ├── studio-scene.js           # Three.js portrait renderer
+│   ├── work-gallery.js           # Interactive project gallery
+│   ├── case-page.js              # Case-study renderer
+│   ├── editorial-pages.js        # About, Process, Credentials, Contact
+│   ├── data.js                   # Project content
+│   └── *.css                     # Route and responsive styling
+└── vite.config.js
+```
 
 ## Interaction and accessibility
 
-The project gallery supports wheel, touch and keyboard navigation. Directory and certificate dialogs support keyboard focus and Escape. Reduced-motion preferences are supported, with a manual toggle in Directory. The portrait has a static fallback when WebGL is unavailable. Sound is off by default and starts only after user interaction.
+The gallery supports wheel, pointer, touchscreen and arrow-key input. Touch gestures are handled across the complete mobile gallery surface, while Grid mode returns to native page scrolling. Dialogs retain keyboard focus and close with `Escape`; sound is off by default and starts only after explicit interaction.
 
-The generated anonymous portrait is visual artwork, not a photograph of Alimzhan.
+`prefers-reduced-motion` is respected, and visitors can also disable motion manually from Directory. When WebGL is unavailable, the homepage uses a static portrait composition instead of leaving an empty canvas.
 
-## Asset licenses
+## Deployment
 
-Music: **Chill lofi inspired** by **omfgdude**, released under CC0. See [audio source and license](docs/AUDIO-LICENSE.md). Font licenses are included in `public/fonts/`.
+Every push to `main` triggers [`.github/workflows/pages.yml`](./.github/workflows/pages.yml). GitHub Actions installs dependencies with Node 22, creates a Vite build using `/whynicky/` as the production base and deploys `dist/` to GitHub Pages.
 
-## GitHub Pages
+To reproduce the Pages build locally:
 
-Live website: https://whynicky19.github.io/whynicky/
-
-Pushes to `main` run `.github/workflows/pages.yml`, build with Node 22, and deploy `dist/` to GitHub Pages. Public asset paths use the configured Vite base so local development remains at `/`.
-
-To preview the Pages build locally:
-
-```sh
+```bash
 DEPLOY_BASE=/whynicky/ npm run build
 DEPLOY_BASE=/whynicky/ npm run preview
 ```
 
-Open http://127.0.0.1:4176/whynicky/.
+Then open [http://127.0.0.1:4176/whynicky/](http://127.0.0.1:4176/whynicky/).
+
+## Assets and licences
+
+- Portrait artwork and implementation notes: [`docs/HERO-ASSET.md`](./docs/HERO-ASSET.md)
+- Audio source and CC0 licence: [`docs/AUDIO-LICENSE.md`](./docs/AUDIO-LICENSE.md)
+- Font licences are stored beside the corresponding files in [`public/fonts`](./public/fonts)
+
+The anonymous portrait is visual artwork and is not a photograph of Alimzhan.
+
+---
+
+<p align="center">
+  Designed and developed by <a href="https://github.com/whynicky19">Alimzhan Galymzhan</a> · 2026
+</p>
