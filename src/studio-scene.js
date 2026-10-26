@@ -1,3 +1,4 @@
+import {assetUrl} from './asset-url.js';
 import * as THREE from 'three';
 
 const vertex = `
@@ -12,6 +13,7 @@ const fragment = `
 precision highp float;
 varying vec2 vUv;
 uniform sampler2D uPortrait;
+uniform sampler2D uDetail;
 uniform float uTime;
 uniform vec2 uResolution;
 uniform vec3 uFrame;
@@ -43,9 +45,9 @@ float perlin(vec3 p){
 float fractal(vec3 p){
  float result=0.,amplitude=.25;
  mat2 turn=mat2(.87758,.47943,-.47943,.87758);
- for(int i=0;i<7;i++){
+ for(int i=0;i<8;i++){
   result+=amplitude*perlin(p);
-  p.xy=turn*p.xy*2.5+100.;
+  p.xy=p.xy*turn*2.5+100.;
   amplitude*=.659;
  }
  return result;
@@ -82,7 +84,8 @@ void main(){
                   fractal(vec3(field-drift+vec2(8.2,1.3),phase)));
  float folded=fractal(vec3(field+domain-drift,phase));
  // Move sample coordinates, including the alpha edge: real holes show paper.
- vec2 displacement=(vec2(folded)*.70+domain*.35)*influence;
+ // Our cutout is narrower than the reference photo: keep its head connected.
+ vec2 displacement=(vec2(folded)*.70+domain*.35)*influence*.40;
  vec2 warped=screen+displacement;
  vec2 photo=vec2((warped.x-.5)*uResolution.x/uFrame.x+.5,
                 (warped.y*uResolution.y-uFrame.z)/uFrame.y);
@@ -94,12 +97,13 @@ void main(){
  float inFrame=step(0.,photo.x)*step(photo.x,1.)*step(0.,photo.y)*step(photo.y,1.);
  float alpha=smoothstep(.40,.94,portrait.a)*inFrame;
  float lum=portraitLuma(portrait.rgb);
- float neck=smoothstep(.18,.30,photo.y)*(1.-smoothstep(.735,.80,photo.y));
+ float neck=smoothstep(.235,.34,photo.y)*(1.-smoothstep(.735,.80,photo.y));
  float skin=(1.-smoothstep(.105,.15,abs(photo.x-.494)))*neck;
  // Side-lit blue skin carries the distorted material instead of painted stripes.
  float sideLight=.20+.80*smoothstep(.018,.102,abs(photo.x-.5));
- float lit=pow(max(lum,0.),.58)*1.35;
- lit+=sideLight*.16;
+ float detail=portraitLuma(texture2D(uDetail,clamp(vec2(photo.x,1.-photo.y),0.,1.)).rgb);
+ float lit=pow(max(mix(lum,detail,.88),0.),.72)*1.55;
+ lit+=sideLight*.035;
  vec3 blue=vec3(.192,.357,1.);
  vec3 body=vec3(.004+lum*.20);
  vec3 skinColor=blue*clamp(lit,0.,1.);
@@ -121,10 +125,13 @@ export class PrintScene {
   this.renderer=new THREE.WebGLRenderer({canvas,antialias:false,alpha:false,powerPreference:'low-power'});
   this.renderer.setPixelRatio(1);
   this.scene=new THREE.Scene();this.camera=new THREE.Camera();
-  let complete;
-  this.ready=new Promise(resolve=>{complete=resolve;});
-  const portrait=new THREE.TextureLoader().load('/images/presence-faceless-v2.png',()=>{if(!this.disposed)this.render(0);complete();},undefined,()=>{if(!this.disposed)document.body.classList.add('no-canvas');complete();});
-  this.u={uPortrait:{value:portrait},uTime:{value:0},uResolution:{value:new THREE.Vector2()},uFrame:{value:new THREE.Vector3()},uPointer:{value:this.pointer}};
+  const loader=new THREE.TextureLoader(),waiting=[];
+  const load=url=>{
+   let complete;waiting.push(new Promise(resolve=>{complete=resolve;}));
+   return loader.load(assetUrl(url),()=>{if(!this.disposed)this.render(0);complete();},undefined,()=>{if(!this.disposed)document.body.classList.add('no-canvas');complete();});
+  };
+  this.u={uPortrait:{value:load('/images/presence-faceless-v2.png')},uDetail:{value:load('/images/presence-portrait.jpg')},uTime:{value:0},uResolution:{value:new THREE.Vector2()},uFrame:{value:new THREE.Vector3()},uPointer:{value:this.pointer}};
+  this.ready=Promise.all(waiting);
   this.mesh=new THREE.Mesh(new THREE.PlaneGeometry(2,2),new THREE.ShaderMaterial({uniforms:this.u,vertexShader:vertex,fragmentShader:fragment,depthTest:false,depthWrite:false}));
   this.scene.add(this.mesh);
   this.onResize=()=>this.resize();
@@ -156,7 +163,7 @@ export class PrintScene {
   this.time+=delta;this.frameTime+=delta;
   if(dt>0&&this.frameTime<1/24)return;
   this.pointer.lerp(this.pointerTarget,1.-Math.exp(-5.*this.frameTime));
-  this.frameTime=0;
+  this.frameTime%=1/24;
   this.u.uTime.value=this.reduced?0:this.time;
   this.renderer.render(this.scene,this.camera);
  }
@@ -165,6 +172,6 @@ export class PrintScene {
   this.resizeObserver.disconnect();this.canvas.removeEventListener('webglcontextlost',this.onLoss);
   this.canvas.parentElement.removeEventListener('pointermove',this.onPointer);
   this.canvas.parentElement.removeEventListener('pointerleave',this.onLeave);
-  this.mesh.geometry.dispose();this.mesh.material.dispose();this.u.uPortrait.value.dispose();this.renderer.dispose();
+  this.mesh.geometry.dispose();this.mesh.material.dispose();this.u.uPortrait.value.dispose();this.u.uDetail.value.dispose();this.renderer.dispose();
  }
 }
