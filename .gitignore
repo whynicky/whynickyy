@@ -1,19 +1,10 @@
-.DS_Store
-__MACOSX/
-*.pyc
 node_modules/
 dist/
+.DS_Store
+.env
+.env.*
+!.env.example
+.openai/
 qa/
-
-# Claude skills
-.agents/
-.claude/skills/
-
-# Local audits
-_audit/
-
-# Temporary QA files
-*.qa.html
-
-.asset-env/
-whynicky-arima-deploy.tar.gz
+research/previews/
+*.log

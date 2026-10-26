@@ -1,0 +1,29 @@
+/* Homepage capabilities use the same paper, type scale and columns as About. */
+.home-method{padding:65px 5% 105px;min-height:0;background:var(--editorial-paper,#dededb);color:#101010}
+.home-method .section-caption{color:#555852;font:9px/1.4 var(--mono);letter-spacing:.025em;padding-bottom:26px;border-bottom:1px solid #10101025}
+.home-method .section-caption>a{color:#101010;font:12px/1.3 var(--font);letter-spacing:0}
+.home-method .method-overview{display:grid;grid-template-columns:40% 1fr;gap:0;margin:68px 0 75px 16.7%;align-items:end}
+.home-method .method-overview h2{font:400 clamp(40px,4.4vw,65px)/1.04 var(--editorial-serif);letter-spacing:-.035em}
+.home-method .method-overview>p{font:15px/1.5 var(--font);max-width:350px;padding-left:1.4%;margin-bottom:2px}
+.home-method .method-record{display:grid;grid-template-columns:16.7% 33.3% 1fr;gap:0;border-top:1px solid #10101025;padding:32px 0 40px;align-items:start}
+.home-method .method-context{font:9px/1.5 var(--mono);padding:5px 20px 0 0;color:#555852}
+.home-method .method-record h3{font:400 clamp(25px,2.5vw,38px)/1.12 var(--editorial-serif);letter-spacing:-.025em;padding-right:40px}
+.home-method .method-record>div{max-width:470px;padding-right:20px}
+.home-method .method-record p{font:15px/1.5 var(--font);margin:0}
+.home-method .method-tools{display:block;font:9px/1.5 var(--mono);margin-top:23px;color:#63665f;letter-spacing:.01em}
+@media(max-width:900px) and (min-width:701px){.home-method .method-overview{grid-template-columns:45% 1fr}.home-method .method-overview h2{font-size:40px}.home-method .method-overview>p{font-size:13px}.home-method .method-record h3{padding-right:25px}.home-method .method-record p{font-size:14px}}
+@media(max-width:700px){
+ .home-method{padding:45px 6% 70px;min-height:0}
+ .home-method .section-caption{font-size:7px;gap:28px;align-items:start;padding-bottom:22px}
+ .home-method .section-caption>span{max-width:155px}
+ .home-method .section-caption>a{font-size:10px;max-width:130px;text-align:right;line-height:1.4}
+ .home-method .method-overview{grid-template-columns:1fr;gap:23px;margin:44px 0 48px 14%;align-items:start}
+ .home-method .method-overview h2{font-size:clamp(37px,10.8vw,54px);line-height:1.06}
+ .home-method .method-overview>p{font-size:13px;line-height:1.5;padding-left:0;margin:0}
+ .home-method .method-record{grid-template-columns:1fr;gap:18px;padding:25px 0 32px}
+ .home-method .method-context{font-size:8px;padding:0}
+ .home-method .method-record h3{font-size:31px;line-height:1.1;padding:0;margin-left:14%}
+ .home-method .method-record>div{padding:0;margin-left:14%;max-width:360px}
+ .home-method .method-record p{font-size:14px;line-height:1.55}
+ .home-method .method-tools{font-size:8px;line-height:1.5;margin-top:18px}
+}

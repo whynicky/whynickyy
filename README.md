@@ -1,53 +1,43 @@
-# whynicky® — AFTERIMAGE
+# whynicky® — Portfolio
 
-An interactive digital artwork. A photographic print splits into sixteen deforming surfaces; the camera enters the layers, circles a helicoidal chamber and returns to an image. The visitor can change tension, perspective, lighting and photographic polarity.
+Portfolio for Alimzhan Galymzhan: frontend development, web and mobile applications.
 
-This is Portfolio 2. It links to the existing professional portfolio at https://whynicky19.github.io/Portfolio/ and does not replace it.
-
-## Run
-
-Node 22.12+:
+## Run locally
 
 ```sh
-npm ci
+npm install
 npm run dev
 ```
 
-Production validation:
+Open http://127.0.0.1:5176/.
 
 ```sh
 npm run build
-npm run check
 npm run preview
 ```
 
-Only `dist/` is deployable. Relative asset paths support subdirectory hosting. Publish it to a **separate repository/site** if desired. No deployment workflow is included: the original repository remote is retained only for provenance, and nothing has been pushed or published.
+The production build is written to `dist/`. Preview runs at http://127.0.0.1:4176/.
 
-## Restore the rejected direction
+## Structure
 
-The previous implementation is committed as `ce3265a` and tagged `checkpoint-before-experiment`. The new work lives on `experiment/afterimage`. For a non-destructive comparison, create a separate checkout from that tag. The old screen recording remains `whynicky-site-recording.mp4`; it shows the rejected direction, not this experiment.
+- `src/main.js` — routes, page transitions, shared navigation and opening animation.
+- `src/studio-home.js`, `src/studio-scene.js` — homepage and animated Chrome Blue portrait.
+- `src/work-gallery.js`, `src/data.js` — circular project gallery and project content.
+- `src/case-page.js` — individual project pages.
+- `src/editorial-pages.js` — About, Contact, Process and Credentials.
+- `src/site-footer.js`, `src/sound.js` — shared footer and optional audio.
+- `src/mobile.css` — mobile layout and safe-area adjustments.
+- `public/projects`, `public/certificates`, `public/documents` — portfolio screenshots, certificates and résumé.
+- `public/images`, `public/fonts`, `public/audio` — active visual, type and audio resources.
 
-## Edit the experience
+This repository contains the current website only. Earlier experiments and preview recordings are not part of the project.
 
-- `index.html`: minimal identity, scene navigation, accessible controls and original-portfolio exit.
-- `src/experiment/surface.js`: sampled geometry, GPU deformation, photographic material, matching shadow deformation and print lettering.
-- `src/experiment/choreography.js`: camera trajectory and continuous transformations.
-- `src/experiment/scene.js`: lighting, materials, pointer input, rendering quality and lifecycle.
-- `src/experiment/main.js`: scroll coordination, accessibility, motion preferences and fallback.
-- `src/experiment/style.css`: frame, kinetic typography and mobile layout.
+## Interaction and accessibility
 
-The three-dimensional topology has 8,544 vertices and 14,080 triangles; it is generated in code, not imported as a primitive or external model. The portrait version changes the physical proportions, photographic crop and printed lettering. A native range control and negative toggle duplicate the pointer interactions for keyboard users. Normal scrolling is retained.
+The project gallery supports wheel, touch and keyboard navigation. Directory and certificate dialogs support keyboard focus and Escape. Reduced-motion preferences are supported, with a manual toggle in Directory. The portrait has a static fallback when WebGL is unavailable. Sound is off by default and starts only after user interaction.
 
-## Art and verification
+The generated anonymous portrait is visual artwork, not a photograph of Alimzhan.
 
-Concept, reference observations, asset provenance and generation prompt are in `docs/DIRECTION.md`. The generated photographic master is `docs/assets/membrane-source.png`; production WebP textures are in `public/art/`. These assets were created using the built-in ImageGen tool. No supplied reference image was incorporated. Inter is covered by the included SIL OFL.
+## Asset licenses
 
-Still mode presents a composed photographic artwork with the portfolio link. It is also used for reduced-motion preferences, missing WebGL, rendering-context loss or a failed texture load. The camera and pointer have damping; rendering stops in settled scenes and when the document is hidden. The exploration scene continues its slow material motion. Mobile texture and pixel-density limits reduce GPU load.
-
-## Verified locally
-
-The actual browser was used to inspect the opening, intermediate camera positions, separated layers, the coiled scene, positive/negative material and the exit. Viewports checked: 320 × 740, 390 × 844, 768 × 1024, 1280 × 800 and 1440 × 900. All five act anchors were checked at 320 px without horizontal overflow. Keyboard range controls, negative toggle, motion preference and hash restoration were exercised.
-
-Separate local fixtures checked disabled JavaScript, unavailable WebGL, simulated system reduced motion and actual WebGL context loss. They are excluded from the build. The production build was served under `/Portfolio/`; its browser console was clear. Safari/Firefox and physical touch devices were not separately tested.
-
-`afterimage-preview.mp4` is a 56-second browser capture of the new experience. `qa/afterimage-opening.png` and `qa/afterimage-film-review.jpg` are visual review artifacts. The recording's capture cadence is not a runtime performance benchmark. Three.js is loaded on demand (about 131 KB gzipped); Vite reports the uncompressed module as a large-chunk warning.
+Music: **Chill lofi inspired** by **omfgdude**, released under CC0. See [audio source and license](docs/AUDIO-LICENSE.md). Font licenses are included in `public/fonts/`.
