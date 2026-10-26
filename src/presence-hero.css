@@ -1,4 +1,4 @@
-/* Faceless portrait: independent paper, fixed cutout, and blue print surface. */
+/* Portrait scene framing and static fallback for unavailable WebGL. */
 .route-home .grain{display:none}
 .home-stage{--portrait-height:90%;--portrait-top:12%}
 .home-stage .print-scene{position:absolute;inset:0;width:100%;height:100%;display:block}

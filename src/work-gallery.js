@@ -14,7 +14,7 @@ ${projects.map((p,i)=>`<a class="gallery-card" href="#/work/${p.id}" data-galler
 </div>
 <div class="gallery-frame" aria-hidden="true"><i></i><i></i></div>
 <div class="gallery-info"><span class="gallery-category"></span><span class="gallery-focus"></span></div>
-<div class="gallery-footer"><div class="gallery-modes" role="group" aria-label="Gallery layout"><button data-gallery-mode="vertical">Vertical</button><button data-gallery-mode="horizontal">Horizontal</button><button data-gallery-mode="grid">Grid</button></div><span class="gallery-hint">SCROLL / DRAG</span><div class="gallery-arrows"><button data-gallery-step="-1" aria-label="Previous project">←</button><button data-gallery-step="1" aria-label="Next project">→</button></div></div>
+<div class="gallery-footer"><div class="gallery-modes" role="group" aria-label="Gallery layout"><button data-gallery-mode="vertical">Vertical</button><button data-gallery-mode="horizontal">Horizontal</button><button data-gallery-mode="grid">Grid</button></div><span class="gallery-hint">SCROLL / DRAG</span></div>
 <p class="gallery-colophon">PERSONAL WORK / WHYNICKY®</p><p class="sr-only" aria-live="polite" data-gallery-status></p>
 </section>`;}
 
@@ -29,6 +29,8 @@ export function mountWorkGallery({gsap,reduced,lenis}){
  const mobile=()=>width<700;
  const fit=(i,maxW,maxH)=>{const w=Math.min(maxW,maxH*projects[i].aspect);return{width:w,height:w/projects[i].aspect};};
  const centerY=()=>height*(mobile()?.47:.50);
+ const centerX=()=>width*(mobile()?.65:.5);
+ const frameWidth=()=>width*(mobile()?.55:.338);
  function measure(){
   const gridMobile=mobile()&&mode==='grid';
   root.style.height=gridMobile?`${Math.ceil(count/2)*225+240}px`:'100svh';
@@ -56,17 +58,17 @@ export function mountWorkGallery({gsap,reduced,lenis}){
   }
   const distance=circular(centers[i]-distanceAt(position),span),d=circular(i-position,count);
   const edgeFade=Math.min(1,Math.max(0,(span*.5-Math.abs(distance))/(mode==='horizontal'?dimensions[i].width:dimensions[i].height)));
-  return{x:width*.5+(mode==='horizontal'?distance:0),y:centerY()+(mode==='vertical'?distance:0),...dimensions[i],opacity:(.24+.76*Math.exp(-Math.abs(d)*1.5))*edgeFade};
+  return{x:centerX()+(mode==='horizontal'?distance:0),y:centerY()+(mode==='vertical'?distance:0),...dimensions[i],opacity:(.24+.76*Math.exp(-Math.abs(d)*1.5))*edgeFade};
  }
  function paint(transition=false,instantFrame=false){
   if(disposed)return;const changed=updateMeta();
-  indices.forEach((button,i)=>{const d=circular(i-position,count);gsap.set(button,{y:indexHeight/2+d*(mobile()?17:14),yPercent:-50,opacity:i===active?1:.38});button.style.visibility=Math.abs(d)<(mobile()?2.7:4.8)?'visible':'hidden';});
+  indices.forEach((button,i)=>{const d=circular(i-position,count);gsap.set(button,{y:indexHeight/2+d*(mobile()?24:14),yPercent:-50,opacity:i===active?1:.38});button.style.visibility=Math.abs(d)<4.8?'visible':'hidden';});
   cards.forEach((card,i)=>{
    const c=coordinates(i),distance=Math.abs(circular(i-position,count));card.style.zIndex=String(10-Math.min(9,Math.round(distance)));card.tabIndex=mode==='grid'||i===active?0:-1;
    card.classList.toggle('is-current',i===active);card.querySelector('.gallery-card-caption').style.opacity=mode==='grid'?'1':'0';
    if(transition)layoutTimeline.to(card,{...c,duration:.95,ease:'expo.inOut',overwrite:true},Math.min(distance,4)*.025);else gsap.set(card,c);
   });
-  const selected=coordinates(active),frameState={width:mode==='grid'?0:width*(mobile()?.79:.338),height:mode==='grid'?0:selected.height,opacity:mode==='grid'?0:1,y:0};
+  const selected=coordinates(active),frameState={width:mode==='grid'?0:frameWidth(),height:mode==='grid'?0:selected.height,opacity:mode==='grid'?0:1,y:0};
   root.style.setProperty('--active-image-bottom',`${centerY()+selected.height/2}px`);root.style.setProperty('--gallery-center-y',`${centerY()}px`);
   if(transition)layoutTimeline.to(frame,{...frameState,duration:.95,ease:'expo.inOut',overwrite:true},0);else if(reduced||instantFrame)gsap.set(frame,frameState);else if(changed)gsap.to(frame,{...frameState,duration:.42,ease:'power3.out',overwrite:true});
  }
@@ -83,8 +85,8 @@ export function mountWorkGallery({gsap,reduced,lenis}){
   entryDelay=gsap.delayedCall(delay,()=>{
    entryDelay=null;if(disposed)return;entryPending=false;
    entryTimeline=gsap.timeline({onComplete:finishEntry});
-   cards.forEach((card,i)=>{const {opacity,...dest}=coordinates(i),d=Math.abs(circular(i-position,count)),offset=Math.min(d,4)*.055;entryTimeline.fromTo(card,{x:width*.5,y:centerY(),scale:.72,clipPath:'inset(18% 18% 18% 18%)'},{...dest,scale:1,clipPath:'inset(0% 0% 0% 0%)',duration:1.08,ease:'expo.inOut'},offset);entryTimeline.to(card,{opacity,duration:.25,ease:'power2.out'},Math.min(d,4)*.02);});
-   if(mode!=='grid')entryTimeline.to(frame,{width:width*(mobile()?.79:.338),height:coordinates(active).height,opacity:1,duration:.92,ease:'expo.inOut'},.16);
+   cards.forEach((card,i)=>{const {opacity,...dest}=coordinates(i),d=Math.abs(circular(i-position,count)),offset=Math.min(d,4)*.055;entryTimeline.fromTo(card,{x:centerX(),y:centerY(),scale:.72,clipPath:'inset(18% 18% 18% 18%)'},{...dest,scale:1,clipPath:'inset(0% 0% 0% 0%)',duration:1.08,ease:'expo.inOut'},offset);entryTimeline.to(card,{opacity,duration:.25,ease:'power2.out'},Math.min(d,4)*.02);});
+   if(mode!=='grid')entryTimeline.to(frame,{width:frameWidth(),height:coordinates(active).height,opacity:1,duration:.92,ease:'expo.inOut'},.16);
    if(mode!=='grid')entryTimeline.to(indexWindow,{opacity:1,clipPath:'inset(0% 0% 0% 0%)',duration:.9,ease:'power3.inOut'},.32);
    entryTimeline.to(entryUI.slice(mode==='grid'?2:1),{opacity:1,clipPath:'inset(0% 0% 0% 0%)',duration:.62,stagger:.07,ease:'power3.out'},.48);
   });

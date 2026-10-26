@@ -1,0 +1,17 @@
+.icon-arrow{display:inline-block;width:1em;height:1em;vertical-align:-.12em;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.directory-cv{gap:7px}.reading-next .icon-arrow{width:.8em;height:.8em}
+@media(max-width:700px){
+ /* Keep the original gallery; only its index moves beside the artwork. */
+ .route-work .project-gallery:not([data-layout=grid]) .gallery-index{display:block;left:16px;right:auto;top:var(--gallery-center-y,47%);bottom:auto;width:31%;height:216px;transform:translateY(-50%);text-align:left;mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);z-index:20}
+ .route-work .project-gallery:not([data-layout=grid]) .gallery-index button{text-align:left;font-size:clamp(10px,2.8vw,13px);line-height:24px;min-height:24px;padding:0;white-space:nowrap}
+ .route-work .project-gallery:not([data-layout=grid]) .gallery-frame{left:65%}
+ .route-work .project-gallery[data-layout=grid] .gallery-index{display:none}
+ .route-case .topline{display:flex;align-items:center;justify-content:space-between;gap:16px}
+ .route-case .topline .header-directory,.route-case .topline .header-clock{display:none}
+ .route-case .topline .inner-nav{display:flex;gap:12px;font-size:11px}
+ .route-case .topline .inner-nav a{min-height:44px;display:flex;align-items:center;gap:4px}
+ .route-case .case-page{padding-top:110px}
+ .route-case .case-top{flex-wrap:wrap;gap:12px}.route-case .case-opening h1{overflow-wrap:anywhere}
+ .route-case .project-facts,.route-case .project-detail-copy{min-width:0}
+ .route-case .project-links a{overflow-wrap:anywhere}
+}

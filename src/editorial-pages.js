@@ -9,38 +9,53 @@ export const certificates=[
 const words=text=>text.split(' ').map(w=>`<span class="reveal-word">${w}</span>`).join(' ');
 const mast=(label,section,name)=>`<div class="editorial-masthead"><a href="#/" class="editorial-signature">${label}<br><span>whynicky®</span></a><span>◢ ${section}</span><span>◣ ${name}</span></div>`;
 const experience=(period,title,subtitle,description,style)=>`<article class="experience-entry experience-${style}" data-reveal><div class="experience-date"><i aria-hidden="true"></i>${period}</div><h3>${title}</h3><div class="experience-detail"><h4>${subtitle}</h4><p>${description}</p></div></article>`;
-export function aboutMarkup(){return `<article class="editorial-page about-editorial">
-${mast('The person behind<br>the pixels.','About','Alimzhan Galymzhan')}
-<h1 class="editorial-title" data-page-title>About whynicky.</h1>
-
-<h2 class="editorial-manifesto" data-word-reveal>${words('I’m Alimzhan, a frontend developer who cares about thoughtful interfaces, clean code, and real ideas that make a difference.')}</h2>
-<div class="editorial-split"><p class="editorial-sublead" data-reveal>Design and code belong in the same conversation. I build interfaces with attention to both their purpose and their character.</p><div class="capabilities" data-reveal><span>Interests</span><p>Design<br>Code<br>Music<br>Ideas</p></div></div>
-<section class="experience-section"><div class="editorial-section-label"><span>Experience</span><span>Where the work happens</span><a href="${assetUrl('documents/Alimzhan-Galymzhan-CV.pdf')}" target="_blank" rel="noopener">Open résumé ↗</a></div><div class="experience-path">
-${experience('Jun — Dec 2025','Frontend<br>Developer','Interface development','Built interfaces and application features, integrated REST APIs, and debugged user flows for a confidential product. Worked on frontend logic and day-to-day delivery through Git.','beginning')}
-${experience('Dec 2025 — Sep 2026','Chatra','Co-founder & Mobile Application Developer','Owned the Flutter mobile client and coordinated FastAPI/PostgreSQL delivery: role-based flows, authentication, notifications, and automated tests.','product')}
-${experience('Independent','Söyle','Family speech practice · Web product','A family experience with separate child and parent flows, adaptive practice, and a typed web interface built with Next.js, React, and FastAPI.','independent')}
-</div>
-</section>
-<section class="learning-section"><div class="editorial-section-label"><span>Education & learning</span><span>Always a work in progress</span></div>
-<article class="degree-spread" data-reveal><p class="degree-status">Current · Second year</p><h3>Information<br>Systems <em>&</em><br>Management.</h3><div class="degree-detail"><h4>Kozybayev University<br><span>×</span><br>University of Arizona</h4><p>A dual-degree program connecting technology and management. I study alongside independent product development.</p></div></article>
-<div class="learning-marginalia"><article data-reveal><span>Courses & training</span><h3>Neural networks.<br>Python. The foundations.</h3><p>Completed the AI Center course in neural network development and integration at Kozybayev University. I also learn programming foundations through CS50’s Introduction to Programming with Python.</p></article><article data-reveal><span>Beyond coursework · 2026</span><h3>Ideas, out<br>in the world.</h3><p>Participated in CyberShield and HackAlem AI, received a second-degree team diploma at Digital Urpaq, and took part in a scientific and practical conference.</p></article></div>
-</section>
-<section class="certificate-section" id="certificates"><div class="editorial-section-label"><span>Certificates & recognition</span><span>03 / Five milestones</span></div><h2 class="editorial-section-title" data-reveal>Proof of progress.</h2>
+const certificateMarkup=()=>`<section class="certificate-section" id="certificates"><div class="editorial-section-label"><span>Certificates & recognition</span><span>03 / Five milestones</span></div><h2 class="editorial-section-title" data-reveal>Proof of progress.</h2>
 <div class="certificate-archive"><nav class="certificate-index" aria-label="Choose a certificate">${certificates.map((c,i)=>`<button data-certificate="${i}" aria-pressed="${i===0}"><small>0${i+1}</small><span>${c.name}<em>${c.kind}</em></span></button>`).join('')}</nav>
 <figure class="certificate-preview"><button class="certificate-open" aria-label="Enlarge CyberShield certificate"><img src="${assetUrl('certificates/'+certificates[0].file)}" alt="CyberShield — original certificate" loading="lazy"></button><figcaption><span class="certificate-date">${certificates[0].date}</span><button class="certificate-open">View document ↗</button></figcaption></figure>
 <div class="certificate-copy"><span class="certificate-count">01 / 05</span><h3>${certificates[0].name}</h3><p>${certificates[0].description}</p><div class="certificate-controls"><button data-certificate-step="-1" aria-label="Previous certificate">←</button><button data-certificate-step="1" aria-label="Next certificate">→</button></div></div></div></section>
 <dialog class="document-dialog" aria-label="Certificate viewer"><div class="document-toolbar"><span class="document-name">CyberShield</span><button data-document-close aria-label="Close certificate">Close ×</button></div><img src="${assetUrl('certificates/cybershield.jpg')}" alt="CyberShield certificate"><div class="document-toolbar"><button data-document-step="-1" aria-label="Previous document">← Previous</button><a class="document-original" href="${assetUrl('certificates/cybershield.jpg')}" target="_blank" rel="noopener">Open original ↗</a><button data-document-step="1" aria-label="Next document">Next →</button></div></dialog>
+`;
+export function aboutMarkup(){return `<article class="editorial-page about-editorial">
+${mast('The person behind<br>the interface.','About','Alimzhan Galymzhan')}
+<h1 class="editorial-title" data-page-title>About whynicky.</h1>
+<h2 class="editorial-manifesto" data-word-reveal>${words('I’m Alimzhan. I build thoughtful interfaces for the web and mobile, with care for the code behind them.')}</h2>
+<p class="about-principle" data-reveal>Design and code belong in the same conversation. From a first flow to the last interaction, I care about how a product works and how it feels.</p>
+<div class="about-context">
+<section class="capability-list" aria-labelledby="capability-heading"><h2 id="capability-heading">What I work on</h2><ul><li>Web interfaces <span>React / Next.js</span></li><li>Mobile applications <span>Flutter</span></li><li>Product behaviour <span>APIs / Authentication</span></li><li>Quality & delivery <span>Testing / Git</span></li></ul></section>
+<div class="about-biography" data-reveal><p>I’ve worked on frontend interfaces, co-founded Chatra and built its Flutter mobile client. That work involved more than screens: user roles, authentication, notifications and the connection between a mobile app and its backend.</p><p>With Söyle, I’m exploring a web experience for family speech practice. Separate child and parent flows and adaptive practice make the relationship between interface and product logic especially important.</p><p>Alongside independent development, I study Information Systems & Management in a dual-degree program at Kozybayev University and the University of Arizona. It connects my technical work with a broader view of how products and organisations function.</p><p>I keep learning through courses, competitions and building things. Design, code, music and ideas are the interests I return to — different ways to explore how something is put together and how it makes people feel.</p></div>
+</div>
+<section class="experience-section"><div class="editorial-section-label"><span>Experience</span><span>Building, learning, shipping</span><a href="${assetUrl('documents/Alimzhan-Galymzhan-CV.pdf')}" target="_blank" rel="noopener">Open résumé ↗</a></div><div class="experience-path">
+${experience('Jun — Dec 2025','Frontend Developer','Interface development','Built interfaces and application features for a confidential product. Integrated REST APIs, worked on frontend logic, debugged user flows and managed day-to-day delivery through Git.','beginning')}
+${experience('Dec 2025 — Sep 2026','Chatra','Co-founder & Mobile Application Developer','Owned the Flutter client and coordinated FastAPI/PostgreSQL delivery: roles, authentication, notifications and automated tests.','product')}
+${experience('Independent','Söyle','Family speech practice · Web product','Child and parent flows, adaptive practice, and a typed interface built with Next.js, React and FastAPI.','independent')}
+</div></section>
+<section class="education-records" aria-labelledby="education-heading"><div class="editorial-section-label"><span id="education-heading">Education & learning</span><span>Alongside the work</span></div>
+<div class="education-row" data-reveal><span>Current · Second year</span><h2>Information Systems<br>& Management</h2><p>Kozybayev University × University of Arizona.<br>A dual-degree program connecting technology and management.</p></div>
+<div class="education-row" data-reveal><span>Courses & training</span><h2>Neural networks.<br>Python foundations.</h2><p>Completed the Kozybayev University AI Center course in neural network development and integration. Continuing to learn through CS50’s Introduction to Programming with Python.</p></div>
+</section>
+<section class="credentials-teaser" data-reveal><span>Certificates & recognition / 05</span><h2>Learning,<br>out in the world.</h2><div><p>CyberShield, Digital Urpaq, HackAlem AI, a scientific conference and neural network training. Five milestones, with the original documents.</p><a class="underlink" href="#/credentials">Explore credentials <span>↗</span></a></div></section>
+<div class="reading-next"><a href="#/process">How I work <span>↗</span></a><a href="#/contact">Start a conversation <span>↗</span></a></div>
 </article>`;}
 export function contactMarkup(){return `<article class="editorial-page contact-editorial">
 ${mast('Connect or<br>start a conversation.','Contact','Alimzhan Galymzhan')}
 <h1 class="editorial-title" data-page-title>Talk to whynicky.</h1>
 <div class="direct-contacts" data-reveal><a href="mailto:alimzhanart@icloud.com"><small>Email</small><span>alimzhanart@icloud.com ↗</span></a><a href="https://t.me/whynickyy" target="_blank" rel="noopener"><small>Telegram</small><span>@whynickyy ↗</span></a><i></i><i></i><i></i></div>
-<div class="contact-editorial-notes"><p data-reveal>A project. A question. A first hello.<br>Send a message with what you have in mind.</p><p data-reveal>Frontend work, a collaboration, or something worth making together.</p><div data-reveal><p>Keep it direct.<br>Find the work behind the interface.</p><a href="https://github.com/whynicky19" target="_blank" rel="noopener">GitHub / whynicky19 ↗</a></div></div>
+<div class="contact-editorial-notes"><p data-reveal>Have something in mind?<br>Send the idea, who it’s for and what you need help with.</p><p data-reveal>A new interface, a mobile product or an existing flow that needs attention. Include any design, code or references you already have.</p><div data-reveal><p>Add your preferred timeline and the best way to reach you. We can work out the next step from there.</p><a href="https://github.com/whynicky19" target="_blank" rel="noopener">Find my code on GitHub ↗</a></div></div>
 <div class="contact-editorial-bottom"><span>ALIMZHAN GALYMZHAN / FRONTEND DEVELOPER</span><a href="#/work">Explore projects ↗</a><span>©2026</span></div>
 </article>`;}
 export function mountEditorial({gsap,ScrollTrigger,reduced,lenis}){
  const root=document.querySelector('.editorial-page');if(!root)return()=>{};
  const animations=[],maskedNodes=[],revealGroups=new Map(),rules=[];
+ let layoutFrame;
+ const updateLayout=()=>{cancelAnimationFrame(layoutFrame);layoutFrame=requestAnimationFrame(()=>{lenis.resize();ScrollTrigger.refresh();});};
+ const jumpToStep=e=>{
+  const link=e.target.closest('[data-process-step]');if(!link)return;
+  const target=root.querySelector(`#process-step-${link.dataset.processStep}`);if(!target)return;
+  e.preventDefault();
+  lenis.scrollTo(target,{offset:-24,immediate:reduced,onComplete:()=>target.focus({preventScroll:true})});
+ };
+ root.addEventListener('click',jumpToStep);
+ root.addEventListener('toggle',updateLayout,true);
  const detailed=root.matches('.about-editorial,.contact-editorial');
  let photoTween,disposeArchive=()=>{};
  const track=animation=>{animations.push(animation);return animation;};
@@ -108,6 +123,7 @@ export function mountEditorial({gsap,ScrollTrigger,reduced,lenis}){
   disposeArchive=()=>{const wasOpen=dialog.open;dialog.removeEventListener('close',closed);dialog.removeEventListener('keydown',key);root.removeEventListener('click',click);if(wasOpen){dialog.close();lenis.start();}};
  }
  return()=>{
+  cancelAnimationFrame(layoutFrame);root.removeEventListener('click',jumpToStep);root.removeEventListener('toggle',updateLayout,true);
   disposeArchive();photoTween?.kill();root.removeEventListener('focusin',revealFocused);
   animations.forEach(animation=>{animation.scrollTrigger?.kill();animation.revert();});
   maskedNodes.forEach(mask=>{if(mask.isConnected)mask.replaceWith(...mask.firstChild.childNodes);});
@@ -115,5 +131,26 @@ export function mountEditorial({gsap,ScrollTrigger,reduced,lenis}){
  };
 }
 
-export function processMarkup(){return `<article class="editorial-page process-editorial">${mast('From the first question<br>to the last detail.','Process','Alimzhan Galymzhan')}<h1 class="editorial-title" data-page-title>Considered.<br>Then constructed.</h1><div class="process-essays">${[['Understand','Before the interface, the intention.','I start with what someone needs to do, what gets in their way, and how a product can make that simpler. Sketching a flow is a way to ask better questions.'],['Build','Make the idea work.','I build the interface and its behavior together: structure, states, data and interactions. The visual treatment follows the purpose of the product.'],['Refine','The details are the experience.','I test the paths through the product, simplify what feels unclear, and tune motion, spacing and feedback. A finished interface should be easy to use as well as interesting to look at.']].map(([title,line,body])=>`<section data-reveal><h2>${title}.</h2><div><h3>${line}</h3><p>${body}</p></div></section>`).join('')}</div><a class="underlink" href="#/work">See the work ↗</a></article>`;}
-export function credentialsMarkup(){const content=aboutMarkup();return `<article class="editorial-page credentials-editorial">${mast('Learning, in public.','Credentials','Five milestones')}<h1 class="editorial-title" data-page-title>Still learning.</h1>${content.slice(content.indexOf('<section class="certificate-section"'),content.lastIndexOf('</article>'))}</article>`;}
+const processSteps=[
+ ['Understand','Start with the person using it.','We clarify what the product needs to do, who it is for and what already exists. A brief, a rough idea or an existing interface gives us a starting point.','A shared goal and a defined scope.'],
+ ['Plan','Make the important paths clear.','I map the screens, user roles, data and states before building. This is where we identify dependencies, technical constraints and the decisions that need to be made.','User flows and an implementation plan.'],
+ ['Shape','Give the interface its structure.','Layout, typography, responsive behaviour and interaction come together. If you already have a design, I work from it and clarify the details that affect implementation.','A clear direction for the interface.'],
+ ['Build','Connect the interface to the product.','I implement components, application logic and API integration. Authentication, permissions, loading and error states are part of the experience, not an afterthought.','A working interface to review.'],
+ ['Refine','Test the paths, then the details.','I check the key flows, responsive layouts and keyboard interaction. We review the work together and refine the details that affect clarity, reliability and feel.','Reviewed flows and resolved issues.'],
+ ['Deliver','Make the next step clear.','We agree how the work will be delivered, document the setup and review anything that remains. Deployment and any further work are scoped to the project.','A handover with a clear next step.']
+];
+const processQuestions=[
+ ['What should I send first?','A short description of the idea, who it is for, any existing design or code, and your preferred timeline. References are useful; a polished brief is not required.'],
+ ['Can you work with an existing design or product?','Yes. My work includes implementing interfaces, integrating APIs and debugging existing user flows. Send the current state and what you want to improve.'],
+ ['Do you build for web or mobile?','Both. My web work includes React and Next.js; I built Chatra’s mobile client with Flutter. The choice depends on the product and its existing stack.'],
+ ['How are scope and timing decided?','After reviewing the requirements and dependencies. The deliverables, milestones and review points should be agreed before implementation begins.']
+];
+export function processMarkup(){return `<article class="editorial-page process-editorial">
+${mast('From the first question<br>to the last detail.','Process','How I work')}
+<h1 class="editorial-title" data-page-title>From a first idea<br>to a working interface.</h1>
+<nav class="process-index" aria-label="Project stages"><span>Steps / 06</span><div>${processSteps.map(([title],i)=>`<a href="#process-step-${i+1}" data-process-step="${i+1}"><small>0${i+1}</small>${title}<span aria-hidden="true">↓</span></a>`).join('')}</div></nav>
+<div class="process-records">${processSteps.map(([title,line,body,result],i)=>`<section id="process-step-${i+1}" tabindex="-1"><span class="step-number">0${i+1}</span><h2 data-reveal>${title}.</h2><div class="step-description" data-reveal><h3>${line}</h3><p>${body}</p><div class="step-result"><span>Outcome</span><p>${result}</p></div></div></section>`).join('')}</div>
+<section class="process-faq"><div class="faq-heading"><h2>Questions.</h2><span>04</span></div><div>${processQuestions.map(([question,answer])=>`<details><summary>${question}<span aria-hidden="true">+</span></summary><p>${answer}</p></details>`).join('')}</div></section>
+<div class="reading-next"><a href="#/contact">Discuss your idea <span>↗</span></a><a href="mailto:alimzhanart@icloud.com">Send a brief <span>↗</span></a></div>
+</article>`;}
+export function credentialsMarkup(){return `<article class="editorial-page credentials-editorial">${mast('Learning, in public.','Credentials','Five milestones')}<h1 class="editorial-title" data-page-title>Proof of progress.</h1><p class="credentials-intro">Courses, competitions and a few steps forward.<br>Select a milestone to see the original document.</p>${certificateMarkup()}<div class="reading-next"><a href="#/about">Back to the person <span>↗</span></a><a href="#/contact">Start a conversation <span>↗</span></a></div></article>`;}

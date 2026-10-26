@@ -6,6 +6,9 @@ import './chrome.css';
 import './method-revision.css';
 import './mobile.css';
 import './presence-hero.css';
+import './reading-pages.css';
+import './mobile-work.css';
+import {replaceArrows} from './icons.js';
 import {projectPage} from './case-page.js';
 import {footerMarkup} from './site-footer.js';
 import {mountSound} from './sound.js';
@@ -28,6 +31,7 @@ const lenis=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)
 lenis.on('scroll',ScrollTrigger.update);
 let route='/',homeController,scene,transitioning=false,pendingChapter=null,menuOpen=false,restoreFocus,disposeRoute=()=>{};
 const positions=new Map();
+replaceArrows(document.body);
 const entranceTemplate=document.querySelector('.entry-cover').outerHTML;
 const sound=mountSound();
 gsap.ticker.add(t=>{lenis.raf(t*1000);if(!document.hidden)scene?.render(gsap.ticker.deltaRatio()/60);});
@@ -41,7 +45,8 @@ function draw(restore=false){
  document.body.className=`${sound.enabled?'sound-on ':''}${reduced?'quiet ':''}route-${route==='/'?'home':project?'case':route.slice(1)}`;
  document.body.dataset.chapter=0;
  main.innerHTML=route==='/'?homeMarkup():route==='/work'?workGalleryMarkup():route==='/about'?aboutMarkup():route==='/contact'?contactMarkup():route==='/process'?processMarkup():route==='/credentials'?credentialsMarkup():project?projectPage(project):`<section class="not-found"><h1>Wrong turn.</h1><a href="#/">Back to the beginning ↗</a></section>`;
- if(['/', '/about', '/contact', '/process', '/credentials'].includes(route))main.insertAdjacentHTML('beforeend',footerMarkup());
+ if(['/', '/about', '/process', '/credentials'].includes(route))main.insertAdjacentHTML('beforeend',footerMarkup());
+ replaceArrows(main);
  document.title=`${project?project.name:route==='/'?'Frontend & Creative Developer':route.slice(1).replace(/^./,c=>c.toUpperCase())} — whynicky®`;
  document.querySelector('.current-page').textContent=route==='/'?'Introduction':project?'Project':route.slice(1);
  document.querySelectorAll('.dock a,.menu-grid a,.inner-nav a,.header-directory a').forEach(a=>{a.hash===`#${route}`?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current');});
@@ -124,17 +129,18 @@ async function playEntrance(){
   if(reduced){done();return;}
   const mobile=innerWidth<=700,glyphs=[...cover.querySelectorAll('.entry-glyph>span')];
   const logo=cover.querySelector('.entry-logo'),mark=cover.querySelector('.entry-logo>sup');
+  const mobileSpread=Math.max(0,Math.min(innerWidth*.015,(innerWidth-logo.offsetWidth-32)/7));
   gsap.set(cover,{'--cut-w':'0vw','--cut-h':'0vh'});
   gsap.set(logo,{x:innerWidth*(mobile?.13:.22),y:innerHeight*(mobile?.25:.32),scale:mobile?.70:.55});
   entry=gsap.timeline({onComplete:done});
   entry.fromTo(glyphs,{yPercent:115},{yPercent:0,duration:.7,stagger:.055,ease:'power4.out'})
    .fromTo(mark,{opacity:0},{opacity:1,duration:.4},.35)
    .to(logo,{x:0,y:0,scale:1,duration:.95,ease:'power4.inOut'},.7)
-   .to(glyphs,{x:i=>(i-3.5)*innerWidth*(mobile?.13:.145),y:innerHeight*(mobile?.25:.30),duration:1.35,stagger:.018,ease:'power4.inOut'},1.65)
+   .to(glyphs,{x:i=>(i-3.5)*(mobile?mobileSpread:innerWidth*.145),y:innerHeight*(mobile?.25:.30),duration:1.35,stagger:.018,ease:'power4.inOut'},1.65)
    .to(mark,{opacity:0,duration:.2},1.65)
    .to(cover,{'--cut-w':mobile?'48vw':'24vw','--cut-h':mobile?'28vh':'32vh',duration:.75,ease:'power3.inOut'},1.85)
    .to(cover,{'--cut-w':'100vw','--cut-h':'100vh',duration:1.15,ease:'power4.inOut'},2.55)
-   .to(logo,{opacity:0,duration:.35},3.0);
+   .to(logo,{opacity:0,duration:mobile?.25:.35},mobile?3.3:3.0);
   if(route==='/'){
    entry.fromTo('.topline>*',{opacity:0,y:16},{opacity:1,y:0,duration:.65,stagger:.05,ease:'power3.out'},3.05);
    entry.fromTo('.presence-line>span',{yPercent:110},{yPercent:0,duration:.8,stagger:.08,ease:'power3.out'},2.75);
