@@ -1,3 +1,4 @@
+import {assetUrl} from './asset-url.js';
 export const projects = [
   {
     "id": "chatra",
@@ -325,5 +326,5 @@ export const projects = [
     ],
     "portrait": false
   }
-];
+].map(project => ({...project, images: project.images.map(assetUrl)}));
 export const github="https://github.com/whynicky19";

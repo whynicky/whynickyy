@@ -5,6 +5,7 @@ import './repertoire.css';
 import './chrome.css';
 import './method-revision.css';
 import './mobile.css';
+import './presence-hero.css';
 import {projectPage} from './case-page.js';
 import {footerMarkup} from './site-footer.js';
 import {mountSound} from './sound.js';
@@ -46,7 +47,7 @@ function draw(restore=false){
  document.querySelectorAll('.dock a,.menu-grid a,.inner-nav a,.header-directory a').forEach(a=>{a.hash===`#${route}`?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current');});
  lenis.scrollTo(0,{immediate:true,force:true});
  if(route==='/'){
-  if(!reduced&&params.get('webgl')!=='off'){try{scene=new PrintScene(document.querySelector('.print-scene'),reduced);}catch(e){document.body.classList.add('no-canvas');console.warn('Using the lightweight paper presentation.',e.message);}}else document.body.classList.add('no-canvas');
+  if(params.get('webgl')!=='off'){try{scene=new PrintScene(document.querySelector('.print-scene'),reduced);}catch(e){document.body.classList.add('no-canvas');console.warn('Using the static portrait presentation.',e.message);}}else document.body.classList.add('no-canvas');
   homeController=mountHome({gsap,ScrollTrigger,reduced,onProgress:p=>{if(scene)scene.p=p;}});
  }
  bindRoute();

@@ -1,8 +1,9 @@
+import {assetUrl} from './asset-url.js';
 // Recording: “Chill lofi inspired” by omfgdude, CC0. See docs/AUDIO-LICENSE.md.
 export function mountSound(){
  let ctx,enabled=false,lastHover=0;
  const button=document.querySelector('[data-sound]');
- const music=document.createElement('audio');music.src='/audio/lofi.mp3';music.preload='none';music.loop=true;music.volume=.22;music.hidden=true;music.dataset.backgroundMusic='';document.body.append(music);
+ const music=document.createElement('audio');music.src=assetUrl('audio/lofi.mp3');music.preload='none';music.loop=true;music.volume=.22;music.hidden=true;music.dataset.backgroundMusic='';document.body.append(music);
  function update(){button.setAttribute('aria-pressed',String(enabled));button.setAttribute('aria-label',enabled?'Mute sound':'Enable lo-fi sound');button.querySelector('span').textContent=enabled?'Sound on':'Sound off';document.body.classList.toggle('sound-on',enabled);}
  const audible=()=>enabled&&ctx?.state==='running'&&!document.hidden;
  function tone(frequency,volume,duration,delay=0){

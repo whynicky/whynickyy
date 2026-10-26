@@ -41,3 +41,18 @@ The generated anonymous portrait is visual artwork, not a photograph of Alimzhan
 ## Asset licenses
 
 Music: **Chill lofi inspired** by **omfgdude**, released under CC0. See [audio source and license](docs/AUDIO-LICENSE.md). Font licenses are included in `public/fonts/`.
+
+## GitHub Pages
+
+Live website: https://whynicky19.github.io/whynicky/
+
+Pushes to `main` run `.github/workflows/pages.yml`, build with Node 22, and deploy `dist/` to GitHub Pages. Public asset paths use the configured Vite base so local development remains at `/`.
+
+To preview the Pages build locally:
+
+```sh
+DEPLOY_BASE=/whynicky/ npm run build
+DEPLOY_BASE=/whynicky/ npm run preview
+```
+
+Open http://127.0.0.1:4176/whynicky/.

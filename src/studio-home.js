@@ -1,7 +1,8 @@
+import {assetUrl} from './asset-url.js';
 export const chapters=['Introduction','The person','The approach','A conversation'];
 export const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 export const smooth=(a,b,v)=>{const t=clamp((v-a)/(b-a));return t*t*(3-2*t);};
-export function homeMarkup(){return `<div class="home-score"><div class="home-stage"><canvas class="print-scene" aria-hidden="true"></canvas><div class="full-frame-fallback" aria-hidden="true"><div class="fallback-band"></div></div>
+export function homeMarkup(){return `<div class="home-score"><div class="home-stage"><canvas class="print-scene" aria-hidden="true"></canvas><div class="full-frame-fallback" aria-hidden="true"><div class="fallback-band"><img src="${assetUrl('images/presence-faceless-v2.png')}" alt="" width="1536" height="1024"><img class="fallback-surface" src="${assetUrl('images/presence-faceless-v2.png')}" alt="" width="1536" height="1024"></div></div>
 <section class="home-chapter opening" data-chapter="0" aria-label="Introduction">
 <div class="presence-caption"><span>INDEPENDENT DEVELOPER</span><span>INTERFACES / INTERACTION / MOTION</span></div>
 <div class="presence-copy"><i aria-hidden="true"></i><h1><span class="presence-line"><span>Alimzhan Galymzhan.</span></span><span class="presence-line"><span>Code with purpose.</span></span><span class="presence-line"><span>Interfaces with character.</span></span></h1><i aria-hidden="true"></i></div>
