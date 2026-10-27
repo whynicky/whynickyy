@@ -31,7 +31,7 @@ export const projects = [
     ],
     "contribution": "My contribution: Frontend, product UI and integration, bringing a broad set of tools into one classroom.",
     "links": [
-      "https://github.com/whynicky19/Chatra-Frontend-New"
+      "https://github.com/whynicky/Chatra-Frontend-New"
     ],
     "portrait": false
   },
@@ -67,7 +67,7 @@ export const projects = [
     ],
     "contribution": "My contribution: Product design and full-stack implementation, including accessible family interactions.",
     "links": [
-      "https://github.com/whynicky19/Soyle"
+      "https://github.com/whynicky/Soyle"
     ],
     "portrait": false
   },
@@ -101,7 +101,7 @@ export const projects = [
     ],
     "contribution": "My contribution: Full-stack team implementation, with a focus on the product flow.",
     "links": [
-      "https://github.com/whynicky19/Digital-urpaq"
+      "https://github.com/whynicky/Digital-urpaq"
     ],
     "portrait": false
   },
@@ -160,8 +160,8 @@ export const projects = [
     ],
     "contribution": "Work shown: The scanner interface and its API-connected frontend.",
     "links": [
-      "https://github.com/whynicky19/RugPull-Frontend",
-      "https://github.com/whynicky19/RugPull-Backend"
+      "https://github.com/whynicky/RugPull-Frontend",
+      "https://github.com/whynicky/RugPull-Backend"
     ],
     "portrait": false
   },
@@ -193,7 +193,7 @@ export const projects = [
     "contribution": "Work shown: A connected Nuxt and FastAPI platform, from problem definition to an agreed brief. A live product is available to explore.",
     "links": [
       "https://forge-ai-sana.vercel.app",
-      "https://github.com/whynicky19/FORGE"
+      "https://github.com/whynicky/FORGE"
     ],
     "portrait": false
   },
@@ -224,7 +224,7 @@ export const projects = [
     ],
     "contribution": "My contribution: Interface system, frontend implementation and motion: native scrolling, reduced-motion alternatives and readable content without scripts.",
     "links": [
-      "https://github.com/whynicky19/Portfolio"
+      "https://github.com/whynicky/Portfolio"
     ],
     "portrait": false
   },
@@ -255,7 +255,7 @@ export const projects = [
     ],
     "contribution": "Work shown: The service layer and API documentation behind the classroom system.",
     "links": [
-      "https://github.com/whynicky19/Chatra-Backend-New"
+      "https://github.com/whynicky/Chatra-Backend-New"
     ],
     "portrait": false
   },
@@ -288,7 +288,7 @@ export const projects = [
     ],
     "contribution": "Work shown: The platform-specific mobile interface, presented alongside the connected web and API system.",
     "links": [
-      "https://github.com/whynicky19/Chatra-app-IOS"
+      "https://github.com/whynicky/Chatra-app-IOS"
     ],
     "portrait": true
   },
@@ -322,9 +322,9 @@ export const projects = [
     ],
     "contribution": "Work shown: Learning exercises that build understanding of the language and make small interface pieces work reliably.",
     "links": [
-      "https://github.com/whynicky19/Odin-course"
+      "https://github.com/whynicky/Odin-course"
     ],
     "portrait": false
   }
 ].map(project => ({...project, images: project.images.map(assetUrl)}));
-export const github="https://github.com/whynicky19";
+export const github="https://github.com/whynicky";

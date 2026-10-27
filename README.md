@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://whynicky19.github.io/whynicky/"><strong>View the live website ↗</strong></a>
+  <a href="https://whynicky.github.io/whynickyy/"><strong>View the live website ↗</strong></a>
   &nbsp;·&nbsp;
   <a href="./public/documents/Alimzhan-Galymzhan-CV.pdf">Résumé</a>
   &nbsp;·&nbsp;
@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/whynicky19/whynicky/pages.yml?branch=main&style=flat-square&label=GitHub%20Pages" alt="GitHub Pages status">
+  <img src="https://img.shields.io/github/actions/workflow/status/whynicky/whynickyy/pages.yml?branch=main&style=flat-square&label=GitHub%20Pages" alt="GitHub Pages status">
   <img src="https://img.shields.io/badge/Vite-7-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite 7">
   <img src="https://img.shields.io/badge/Three.js-WebGL-111111?style=flat-square&logo=threedotjs&logoColor=white" alt="Three.js">
   <img src="https://img.shields.io/badge/JavaScript-ES%20modules-F7DF1E?style=flat-square&logo=javascript&logoColor=111111" alt="JavaScript ES modules">
@@ -70,8 +70,8 @@ No component framework or CSS library is used. Layout, navigation, animation and
 Requirements: Node.js 22 or newer and npm.
 
 ```bash
-git clone https://github.com/whynicky19/whynicky.git
-cd whynicky
+git clone https://github.com/whynicky/whynickyy.git
+cd whynickyy
 npm install
 npm run dev
 ```
@@ -119,16 +119,16 @@ The gallery supports wheel, pointer, touchscreen and arrow-key input. Touch gest
 
 ## Deployment
 
-Every push to `main` triggers [`.github/workflows/pages.yml`](./.github/workflows/pages.yml). GitHub Actions installs dependencies with Node 22, creates a Vite build using `/whynicky/` as the production base and deploys `dist/` to GitHub Pages.
+Every push to `main` triggers [`.github/workflows/pages.yml`](./.github/workflows/pages.yml). GitHub Actions installs dependencies with Node 22, creates a Vite build using the repository name as the production base and deploys `dist/` to GitHub Pages.
 
 To reproduce the Pages build locally:
 
 ```bash
-DEPLOY_BASE=/whynicky/ npm run build
-DEPLOY_BASE=/whynicky/ npm run preview
+DEPLOY_BASE=/whynickyy/ npm run build
+DEPLOY_BASE=/whynickyy/ npm run preview
 ```
 
-Then open [http://127.0.0.1:4176/whynicky/](http://127.0.0.1:4176/whynicky/).
+Then open [http://127.0.0.1:4176/whynickyy/](http://127.0.0.1:4176/whynickyy/).
 
 ## Assets and licences
 
@@ -141,5 +141,5 @@ The anonymous portrait is visual artwork and is not a photograph of Alimzhan.
 ---
 
 <p align="center">
-  Designed and developed by <a href="https://github.com/whynicky19">Alimzhan Galymzhan</a> · 2026
+  Designed and developed by <a href="https://github.com/whynicky">Alimzhan Galymzhan</a> · 2026
 </p>
