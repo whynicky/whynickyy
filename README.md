@@ -3,68 +3,62 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./public/images/eye-mark-white.png">
-    <img src="./docs/readme-mark.svg" width="190" height="140" alt="whynicky eye">
+    <img src="./docs/readme-mark.svg" width="210" height="154" alt="whynicky eye">
   </picture>
 </p>
 
 <p align="center">
-  <strong>FRONTEND,<br>BUT MAKE IT WEIRD.</strong>
+  <strong>NOT EVERYTHING NEEDS<br>TO LOOK LIKE EVERYTHING ELSE.</strong>
 </p>
 
-<p align="center"><sub>ALIMZHAN GALYMZHAN / INDEPENDENT DEVELOPER / KAZAKHSTAN</sub></p>
+<p align="center"><sub>A different point of view. By whynicky.</sub></p>
 
 <br>
 
-<a href="https://whynicky.github.io/whynickyy/">
-  <img src="./docs/readme-motion.gif" width="100%" alt="The whynicky portfolio in motion: a distorted monochrome portrait surrounded by the Contact and Credentials pages.">
-</a>
+<p align="center">
+  <img src="./docs/readme-cover.svg" width="100%" alt="Frontend, but make it weird. Oversized black typography on off-white paper.">
+</p>
 
 <p align="center">
-  <a href="https://whynicky.github.io/whynickyy/"><strong>STEP INSIDE ↗</strong></a>
+  <a href="https://whynicky.github.io/whynickyy/"><strong>ENTER THE WEBSITE ↗</strong></a>
   &nbsp;&nbsp;/&nbsp;&nbsp;
   <a href="./public/documents/Alimzhan-Galymzhan-CV.pdf">RÉSUMÉ ↗</a>
   &nbsp;&nbsp;/&nbsp;&nbsp;
   <a href="mailto:alimzhanart@icloud.com">SAY HELLO ↗</a>
 </p>
 
-<br>
-
-A personal portfolio for the things I build and the way I see them. Web and mobile interfaces, a living portrait, type in motion, and a collection of work that’s still growing.
-
-**Off-white paper. Black ink. A little room for the unexpected.**
-
-<br>
-
-<p align="center">
-  <a href="https://whynicky.github.io/whynickyy/#/work">01 / WORK</a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="https://whynicky.github.io/whynickyy/#/about">02 / ABOUT</a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="https://whynicky.github.io/whynickyy/#/process">03 / PROCESS</a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="https://whynicky.github.io/whynickyy/#/credentials">04 / CREDENTIALS</a>
-  &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="https://whynicky.github.io/whynickyy/#/contact">05 / CONTACT</a>
-</p>
-
-<br>
-
 ---
 
-<details>
-<summary><strong>FOR THE CURIOUS / How it’s built ↗</strong></summary>
+### 01 / THE IDEA
 
-<br>
+A personal portfolio by **Alimzhan Galymzhan**, also known as **whynicky**. Web and mobile work, experiments, and the person behind them.
 
-**Vite 7 / JavaScript / Three.js + GLSL / GSAP + ScrollTrigger / Lenis**
+Off-white paper. Black ink. Oversized type. A portrait that refuses to sit still.
 
-No component framework. The interface is rendered from JavaScript modules; CSS handles the editorial layouts. The portrait uses procedural displacement, monochrome lighting and tonal grain. The README animation is a recording of the site itself.
+The visual language carries through the entire site: from the distorted WebGL introduction to the asymmetric reading pages and the original certificates. Built with HTML, CSS and JavaScript modules, without a component framework.
 
-The work gallery supports pointer, touch and keyboard navigation. Original certificates open in a native dialog with arrow-key navigation and `Escape` to close. Contact prepares an email draft for the visitor to review and send.
+[![The monochrome whynicky homepage](./docs/portfolio-preview.png)](https://whynicky.github.io/whynickyy/)
 
-Motion follows `prefers-reduced-motion` and the Directory switch. A static portrait appears when WebGL is unavailable; sound starts only after the visitor enables it.
+### 02 / LOOK AROUND
 
-#### Run it
+| Where | What you’ll find |
+| :--- | :--- |
+| [Home](https://whynicky.github.io/whynickyy/#/) | A procedural portrait, a closing-aperture scroll transition, and a personal introduction. |
+| [Work](https://whynicky.github.io/whynickyy/#/work) | A circular project gallery with vertical, horizontal and grid layouts. Individual case studies sit behind each project. |
+| [About](https://whynicky.github.io/whynickyy/#/about) | Biography, experience, education and an invitation to make things a little weird. |
+| [Process](https://whynicky.github.io/whynickyy/#/process) | Six stages of working together, a kinetic type composition and a few useful answers. |
+| [Credentials](https://whynicky.github.io/whynickyy/#/credentials) | Five original documents arranged as a paper collection. Open, inspect and move between them. |
+| [Contact](https://whynicky.github.io/whynickyy/#/contact) | A note to Alimzhan. The form prepares a draft in your email app for you to review and send. |
+
+### 03 / UNDER THE SURFACE
+
+**Vite 7** / **JavaScript ES modules** / **Three.js + GLSL** / **GSAP + ScrollTrigger** / **Lenis**
+
+The portrait uses procedural displacement, monochrome lighting and tonal grain. Scroll motion is separate from the portrait animation. Type, photographs and small editorial annotations carry the rest of the interface.
+
+Keyboard controls, visible focus and labelled fields are part of the experience. Document viewers support arrow keys and `Escape`. Reduced-motion preferences and the Directory motion switch are respected; a static portrait appears when WebGL is unavailable. Sound starts only after the visitor enables it.
+
+### 04 / MAKE IT RUN
 
 Use **Node.js 22+** and npm.
 
@@ -75,16 +69,19 @@ npm ci
 npm run dev
 ```
 
-Open [127.0.0.1:5176](http://127.0.0.1:5176).
+Local site: **[127.0.0.1:5176](http://127.0.0.1:5176)**
 
 ```bash
 npm run build
 npm run preview
 ```
 
-Output: `dist/`. Preview: [127.0.0.1:4176](http://127.0.0.1:4176).
+Production files go to `dist/`. Preview: **[127.0.0.1:4176](http://127.0.0.1:4176)**
 
-#### Find your way around
+<details>
+<summary><strong>Inside the repository ↗</strong></summary>
+
+<br>
 
 ```text
 src/
@@ -107,11 +104,16 @@ public/
   fonts/                  Local typefaces and licences
 ```
 
-#### Publish it
+</details>
 
-Pushes to `main` run [the GitHub Pages workflow](./.github/workflows/pages.yml): install with Node 22, build with the repository base path, and deploy `dist/`.
+<details>
+<summary><strong>Publish to GitHub Pages ↗</strong></summary>
 
-To check that base path locally:
+<br>
+
+Pushes to `main` run [the deployment workflow](./.github/workflows/pages.yml): install with Node 22, build with the repository base path, and deploy `dist/` to GitHub Pages.
+
+To check the same base path locally:
 
 ```bash
 DEPLOY_BASE=/whynickyy/ npm run build
@@ -123,7 +125,7 @@ Open [127.0.0.1:4176/whynickyy/](http://127.0.0.1:4176/whynickyy/).
 </details>
 
 <details>
-<summary><strong>SMALL PRINT / Artwork & credits ↗</strong></summary>
+<summary><strong>Artwork, audio and type ↗</strong></summary>
 
 <br>
 
@@ -138,6 +140,7 @@ The anonymous animated portrait is visual artwork, not a photograph of Alimzhan.
 ---
 
 <p align="center">
-  <sub>DESIGN AND CODE IN THE SAME CONVERSATION.</sub><br>
-  <a href="https://github.com/whynicky">whynicky®</a> / 2026
+  <strong>CURIOUS BY NATURE.</strong><br><br>
+  Designed & built by <a href="https://github.com/whynicky">whynicky</a><br>
+  Kazakhstan / 2026
 </p>
