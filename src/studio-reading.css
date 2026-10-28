@@ -62,3 +62,12 @@ body[class] .directory-socials a:hover,body[class] .directory-settings button:ho
 @keyframes kinetic-drift{from{transform:translateX(0)}to{transform:translateX(-180px)}}
 @media(max-width:600px){.kinetic-row{font-size:11px;line-height:1.08}.kinetic-type{inset:-20px -30px}}
 .kinetic-number{z-index:2;color:#111;opacity:.16;mix-blend-mode:multiply}
+
+/* Keep the figure within the poster at every aspect ratio. */
+.process-kinetic{container-type:size}
+.kinetic-number{font-size:clamp(120px,20vw,260px);font-size:76cqh;opacity:.64;color:#080808;line-height:1;transform:rotate(-3deg);padding:0}
+.kinetic-row{animation-timing-function:linear}
+.dock{align-items:stretch}
+.dock .dock-links{height:100%;align-items:stretch}
+.dock .dock-links>a{height:100%;min-height:0}
+.dock .menu-toggle{height:100%;min-height:0;align-self:stretch;box-sizing:border-box;border-top:0;border-bottom:0;flex-shrink:0}
