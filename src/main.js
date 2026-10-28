@@ -8,6 +8,10 @@ import './mobile.css';
 import './presence-hero.css';
 import './reading-pages.css';
 import './mobile-work.css';
+import './about-studio.css';
+import './studio-reading.css';
+import './entry-intro.css';
+import {mountCredentialArchive} from './credential-archive.js';
 import {replaceArrows} from './icons.js';
 import {projectPage} from './case-page.js';
 import {footerMarkup} from './site-footer.js';
@@ -45,7 +49,7 @@ function draw(restore=false){
  document.body.className=`${sound.enabled?'sound-on ':''}${reduced?'quiet ':''}route-${route==='/'?'home':project?'case':route.slice(1)}`;
  document.body.dataset.chapter=0;
  main.innerHTML=route==='/'?homeMarkup():route==='/work'?workGalleryMarkup():route==='/about'?aboutMarkup():route==='/contact'?contactMarkup():route==='/process'?processMarkup():route==='/credentials'?credentialsMarkup():project?projectPage(project):`<section class="not-found"><h1>Wrong turn.</h1><a href="#/">Back to the beginning ↗</a></section>`;
- if(['/', '/about', '/process', '/credentials'].includes(route))main.insertAdjacentHTML('beforeend',footerMarkup());
+ if(['/'].includes(route))main.insertAdjacentHTML('beforeend',footerMarkup());
  replaceArrows(main);
  document.title=`${project?project.name:route==='/'?'Frontend & Creative Developer':route.slice(1).replace(/^./,c=>c.toUpperCase())} — whynicky®`;
  document.querySelector('.current-page').textContent=route==='/'?'Introduction':project?'Project':route.slice(1);
@@ -65,9 +69,10 @@ function draw(restore=false){
 function bindRoute(){
  const disposeGallery=route==='/work'?mountWorkGallery({gsap,reduced,lenis}):()=>{};
  const disposeEditorial=mountEditorial({gsap,ScrollTrigger,reduced,lenis});
+ const disposeCredentials=mountCredentialArchive({lenis});
  const rows=[...document.querySelectorAll('[data-work]')];rows.forEach(row=>{const active=()=>{rows.forEach(r=>r.classList.toggle('active',r===row));document.querySelectorAll('[data-work-art]').forEach(a=>a.classList.toggle('active',a.dataset.workArt===row.dataset.work));};row.addEventListener('pointerenter',active);row.addEventListener('focus',active);});
  const cover=document.querySelector('.case-cover');if(cover&&!reduced)gsap.fromTo(cover,{rotate:2,y:30},{rotate:0,y:0,duration:1,ease:'power3.out'});
- disposeRoute=()=>{disposeGallery();disposeEditorial();};
+ disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();};
 }
 async function navigate(){
  if(transitioning)return;transitioning=true;positions.set(route,window.scrollY);closeMenu();sound.route();
@@ -127,24 +132,28 @@ async function playEntrance(){
  try{
   await Promise.race([Promise.all([document.fonts.ready,scene?.ready||Promise.resolve()]),new Promise(resolve=>setTimeout(resolve,2500))]);
   if(reduced){done();return;}
-  const mobile=innerWidth<=700,glyphs=[...cover.querySelectorAll('.entry-glyph>span')];
-  const logo=cover.querySelector('.entry-logo'),mark=cover.querySelector('.entry-logo>sup');
-  const mobileSpread=Math.max(0,Math.min(innerWidth*.015,(innerWidth-logo.offsetWidth-32)/7));
-  gsap.set(cover,{'--cut-w':'0vw','--cut-h':'0vh'});
-  gsap.set(logo,{x:innerWidth*(mobile?.13:.22),y:innerHeight*(mobile?.25:.32),scale:mobile?.70:.55});
+  const glyphs=[...cover.querySelectorAll('.entry-glyph>span')];
+  const eye=cover.querySelector('.entry-eye'),identity=cover.querySelector('.entry-identity');
+  const imageReady=eye.decode?.().catch(()=>{});
+  await Promise.race([imageReady||Promise.resolve(),new Promise(resolve=>setTimeout(resolve,700))]);
+  gsap.set(cover.querySelectorAll('.entry-shutter'),{yPercent:0});
+  gsap.set(identity,{opacity:1,y:0});
   entry=gsap.timeline({onComplete:done});
-  entry.fromTo(glyphs,{yPercent:115},{yPercent:0,duration:.7,stagger:.055,ease:'power4.out'})
-   .fromTo(mark,{opacity:0},{opacity:1,duration:.4},.35)
-   .to(logo,{x:0,y:0,scale:1,duration:.95,ease:'power4.inOut'},.7)
-   .to(glyphs,{x:i=>(i-3.5)*(mobile?mobileSpread:innerWidth*.145),y:innerHeight*(mobile?.25:.30),duration:1.35,stagger:.018,ease:'power4.inOut'},1.65)
-   .to(mark,{opacity:0,duration:.2},1.65)
-   .to(cover,{'--cut-w':mobile?'48vw':'24vw','--cut-h':mobile?'28vh':'32vh',duration:.75,ease:'power3.inOut'},1.85)
-   .to(cover,{'--cut-w':'100vw','--cut-h':'100vh',duration:1.15,ease:'power4.inOut'},2.55)
-   .to(logo,{opacity:0,duration:mobile?.25:.35},mobile?3.3:3.0);
+  entry.fromTo('.entry-meta,.entry-colophon',{opacity:0},{opacity:1,duration:.45,ease:'power2.out'},0)
+   .fromTo(eye,{opacity:0,scale:.8,rotation:-7,clipPath:'inset(48% 0 48% 0)'},{opacity:1,scale:1,rotation:0,clipPath:'inset(0% 0 0% 0)',duration:.7,ease:'power3.out'},.08)
+   .fromTo(glyphs,{yPercent:115},{yPercent:0,duration:.65,stagger:.045,ease:'power4.out'},.25)
+   .fromTo(cover.querySelector('.entry-logo>sup'),{opacity:0},{opacity:1,duration:.3},.75)
+   .fromTo('.entry-tagline',{opacity:0,y:8},{opacity:1,y:0,duration:.45,ease:'power2.out'},.85)
+   .to(eye,{clipPath:'inset(48% 0 48% 0)',duration:.12,ease:'power2.in'},1.5)
+   .to(eye,{clipPath:'inset(0% 0 0% 0)',duration:.2,ease:'power3.out'},1.62)
+   .to(identity,{opacity:0,y:-22,duration:.4,ease:'power2.in'},1.95)
+   .to('.entry-meta,.entry-colophon',{opacity:0,duration:.25},1.95)
+   .to(cover.querySelector('.shutter-top'),{yPercent:-101,duration:.9,ease:'power4.inOut'},2.05)
+   .to(cover.querySelector('.shutter-bottom'),{yPercent:101,duration:.9,ease:'power4.inOut'},2.05);
   if(route==='/'){
-   entry.fromTo('.topline>*',{opacity:0,y:16},{opacity:1,y:0,duration:.65,stagger:.05,ease:'power3.out'},3.05);
-   entry.fromTo('.presence-line>span',{yPercent:110},{yPercent:0,duration:.8,stagger:.08,ease:'power3.out'},2.75);
-   entry.fromTo('.presence-alias,.presence-cta,.presence-discover,.presence-caption',{opacity:0},{opacity:1,duration:.65,stagger:.05,ease:'power2.out'},3.0);
+   entry.fromTo('.topline>*',{opacity:0,y:12},{opacity:1,y:0,duration:.55,stagger:.04,ease:'power3.out'},2.35);
+   entry.fromTo('.presence-line>span',{yPercent:110},{yPercent:0,duration:.7,stagger:.07,ease:'power3.out'},2.25);
+   entry.fromTo('.presence-alias,.presence-cta,.presence-discover,.presence-caption',{opacity:0},{opacity:1,duration:.5,stagger:.04,ease:'power2.out'},2.4);
   }
   // The critical cover is released only after CSS, assets and the first animation frame are prepared.
   window.__portfolioBootReady?.();

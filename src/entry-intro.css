@@ -1,0 +1,16 @@
+/* A paper opening, signed with the eye and wordmark. */
+.entry-cover{background:transparent!important;display:block;clip-path:none!important;color:#111;isolation:isolate;overflow:hidden;--cut-w:0;--cut-h:0}
+.entry-cover:after{display:none!important}
+.entry-cover .entry-shutter{display:block!important;position:absolute;left:0;right:0;top:auto;bottom:auto;width:100%;height:calc(50% + 1px);background:#fafaf8;z-index:0;will-change:transform}
+.entry-cover .shutter-top{top:0}.entry-cover .shutter-bottom{bottom:0}
+.entry-identity{position:absolute;left:50%;top:49%;translate:-50% -50%;width:min(90vw,1100px);display:flex;flex-direction:column;align-items:center;z-index:1;will-change:transform,opacity}
+.entry-eye{display:block;width:clamp(130px,18vw,260px);height:clamp(130px,18vw,260px);object-fit:contain;filter:invert(1);margin-bottom:12px;will-change:clip-path,transform}
+.entry-cover .entry-logo{position:relative;left:auto;right:auto;top:auto;bottom:auto;translate:none;transform:none;display:flex;align-items:center;perspective:none;font:700 clamp(60px,11.5vw,170px)/1.16 var(--font);letter-spacing:-.075em;color:#111;white-space:nowrap;clip-path:none}
+.entry-cover .entry-glyph{display:inline-block;height:1.16em;overflow:hidden!important;padding:0 .01em;margin:0 -.01em;vertical-align:top}
+.entry-cover .entry-glyph>span{display:block;padding:0 .02em;will-change:transform}
+.entry-cover .entry-logo>sup{position:relative;align-self:flex-start;top:.7em;margin:0 0 0 .22em;font:500 .17em/1 var(--font);letter-spacing:0;color:#111}
+.entry-tagline{font:10px/1.5 var(--mono);letter-spacing:.05em;margin-top:24px;text-align:center;will-change:transform,opacity}
+.entry-meta,.entry-colophon{position:absolute;left:32px;right:32px;display:flex;justify-content:space-between;gap:20px;font:9px/1.5 var(--mono);color:#565652;z-index:1}.entry-meta{top:28px}.entry-colophon{bottom:28px}
+@media(max-width:600px){.entry-identity{top:48%;width:90vw}.entry-eye{width:160px;height:160px;margin-bottom:18px}.entry-cover .entry-logo{font-size:14vw}.entry-tagline{font-size:8px;letter-spacing:.01em;margin-top:18px}.entry-meta,.entry-colophon{left:20px;right:20px;font-size:7px;gap:16px}.entry-meta{top:22px}.entry-colophon{bottom:calc(22px + env(safe-area-inset-bottom,0px))}.entry-edition{text-align:right}}
+@media(max-height:500px) and (min-width:601px){.entry-eye{width:100px;height:100px;margin-bottom:0}.entry-cover .entry-logo{font-size:80px}.entry-tagline{margin-top:12px}}
+@media(prefers-reduced-motion:reduce){.entry-eye,.entry-glyph>span,.entry-identity{will-change:auto}}
