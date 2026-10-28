@@ -54,3 +54,11 @@ body[class] .directory-socials a:hover,body[class] .directory-settings button:ho
 .kinetic-row{font-size:clamp(12px,1.25vw,18px);line-height:1.3;font-weight:650}
 .kinetic-number{z-index:0;font-size:clamp(210px,29vw,380px);color:#b8b8b0;transform:scaleX(1.05) rotate(-3deg)}
 @media(max-width:600px){.process-kinetic{aspect-ratio:1.7}.kinetic-row{font-size:12px;line-height:1.25}.kinetic-number{font-size:clamp(160px,54vw,280px)}}
+
+/* Unique prose on every line; an oscillating drift avoids cloned marquee text. */
+.kinetic-type{inset:-35px -45px;justify-content:center;gap:0;transform:rotate(-1deg) skewX(-6deg) scale(1.025)}
+.kinetic-row{font-size:clamp(12px,1.18vw,16px);line-height:1.05;font-weight:700;letter-spacing:.025em;animation-name:kinetic-drift;animation-direction:alternate;animation-timing-function:ease-in-out}
+.kinetic-row:nth-child(2n){animation-direction:alternate-reverse}
+@keyframes kinetic-drift{from{transform:translateX(0)}to{transform:translateX(-180px)}}
+@media(max-width:600px){.kinetic-row{font-size:11px;line-height:1.08}.kinetic-type{inset:-20px -30px}}
+.kinetic-number{z-index:2;color:#111;opacity:.16;mix-blend-mode:multiply}

@@ -142,17 +142,15 @@ async function playEntrance(){
   gsap.set(cover.querySelectorAll('.entry-shutter'),{yPercent:0});
   gsap.set(identity,{opacity:1,y:0});
   entry=gsap.timeline({onComplete:done});
-  const scatterY=[-.12,.1,-.06,.15,-.11,.04,.11,-.08],scatterRotation=[-14,9,-7,12,-11,5,15,-9];
   const eyeBounds=eye.getBoundingClientRect();
   entry.fromTo('.entry-meta,.entry-colophon',{opacity:0},{opacity:1,duration:.3,ease:'none'},0)
-   .fromTo(eye,{opacity:0,scale:1.5,rotation:-18,clipPath:'inset(44% 0 44% 0)'},{opacity:1,scale:1,rotation:-6,clipPath:'inset(0% 0 0% 0)',duration:.55,ease:'power4.out'},.05)
-   .fromTo(glyphs,{opacity:0,x:i=>(i-3.5)*innerWidth*.022,y:i=>scatterY[i]*innerHeight,rotation:i=>scatterRotation[i],scaleX:i=>i%2?.75:1.2},{opacity:1,duration:.15,stagger:{each:.055,from:'random'},ease:'none'},.12)
-   .to(glyphs,{x:0,y:0,rotation:0,scaleX:1,duration:.65,stagger:.025,ease:'power4.inOut'},.58)
-   .fromTo(cover.querySelector('.entry-logo>sup'),{opacity:0},{opacity:1,duration:.2},1.0)
-   .fromTo('.entry-tagline',{opacity:0},{opacity:1,duration:.25},1.1)
-   .to(glyphs,{x:i=>(i-3.5)*innerWidth*.12,y:i=>i%2?innerHeight*.06:-innerHeight*.05,rotation:i=>i%2?7:-7,duration:1.1,stagger:.018,ease:'power4.inOut'},1.6)
-   .to(eye,{x:innerWidth*.5-eyeBounds.left-eyeBounds.width*.5,y:innerHeight*.5-eyeBounds.top-eyeBounds.height*.5,scale:.8,rotation:0,duration:.8,ease:'power4.inOut'},1.5)
-   .to(identity,{opacity:0,duration:.3},2.45)
+   .fromTo(eye,{opacity:0,scale:1.15,clipPath:'inset(48% 0 48% 0)'},{opacity:1,scale:1,clipPath:'inset(0% 0 0% 0)',duration:.6,ease:'power3.out'},.05)
+   .fromTo(glyphs,{opacity:0,x:i=>i<3?-45:45,y:i=>i<3?-28:28},{opacity:1,x:0,y:0,duration:.75,stagger:{each:.035,from:'edges'},ease:'power3.inOut'},.2)
+   .fromTo(cover.querySelector('.entry-logo>sup'),{opacity:0},{opacity:1,duration:.2},.8)
+   .fromTo('.entry-tagline',{opacity:0},{opacity:1,duration:.25},.9)
+   .to(glyphs,{x:i=>i<3?-innerWidth*.22:innerWidth*.28,opacity:0,duration:.85,stagger:{each:.025,from:'center'},ease:'power4.inOut'},1.5)
+   .to(eye,{x:innerWidth*.5-eyeBounds.left-eyeBounds.width*.5,y:innerHeight*.5-eyeBounds.top-eyeBounds.height*.5,scale:.75,duration:.8,ease:'power3.inOut'},1.4)
+   .to(identity,{opacity:0,duration:.25},2.25)
    .to('.entry-meta,.entry-colophon',{opacity:0,duration:.2},1.9)
    .to(cover,{'--cut-w':innerWidth<=700?'48vw':'24vw','--cut-h':innerWidth<=700?'28vh':'32vh',duration:.75,ease:'power3.inOut'},2.05)
    .to(cover,{'--cut-w':'100vw','--cut-h':'100vh',duration:1.15,ease:'power4.inOut'},2.75);
