@@ -1,5 +1,22 @@
+<br>
+
 <p align="center">
-  <img src="./docs/readme-cover.svg" width="100%" alt="whynicky - Frontend, but make it weird. Black eye mark on off-white paper.">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./public/images/eye-mark-white.png">
+    <img src="./docs/readme-mark.svg" width="210" height="154" alt="whynicky eye">
+  </picture>
+</p>
+
+<p align="center">
+  <strong>NOT EVERYTHING NEEDS<br>TO LOOK LIKE EVERYTHING ELSE.</strong>
+</p>
+
+<p align="center"><sub>A different point of view. By whynicky.</sub></p>
+
+<br>
+
+<p align="center">
+  <img src="./docs/readme-cover.svg" width="100%" alt="Frontend, but make it weird. Oversized black typography on off-white paper.">
 </p>
 
 <p align="center">
