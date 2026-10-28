@@ -13,16 +13,15 @@ export function homeMarkup(){return `<div class="home-score"><div class="home-ap
 </div></div>
 <section class="home-essay" data-chapter="1" aria-labelledby="person-heading">
 <div class="home-section-meta"><span>( 01 - THE PERSON )</span><span>ALIMZHAN GALYMZHAN / WHYNICKY</span></div>
-<div class="home-person-spread"><div class="home-person-art"><div class="home-portrait-disc"><img src="${assetUrl('images/github-avatar.jpg')}" alt="Alimzhan’s GitHub avatar" loading="lazy"></div></div><div class="home-person-copy"><h2 id="person-heading">WEB &<br>MOBILE<br><span>DEVELOPER.</span></h2><p>I co-founded Chatra and built its Flutter app. I also work on Söyle, a web product for family speech practice.</p><a class="home-text-link" href="#/about">About me</a></div></div>
+<div class="home-person-spread"><div class="home-person-art"><div class="home-portrait-disc"><img src="${assetUrl('images/github-avatar.jpg')}" alt="Alimzhan’s GitHub avatar" loading="lazy"></div></div><div class="home-person-copy"><h2 id="person-heading">WEB &<br>MOBILE<br><span>DEVELOPER.</span></h2><p>I build responsive interfaces with React, Next.js and Vue. My work includes reusable components, application state and interface animations.</p><a class="home-text-link" href="#/about">About me</a></div></div>
 <div class="home-person-notes"><span>BASED IN KAZAKHSTAN</span><p>Information Systems & Management.<br>Kozybayev University × University of Arizona.</p><a href="${assetUrl('documents/Alimzhan-Galymzhan-CV.pdf')}" target="_blank" rel="noopener">View résumé ↗</a></div>
 </section>
 <section class="home-method" data-chapter="2" aria-labelledby="method-heading">
 <div class="home-section-meta"><span>( 02 - THE PRACTICE )</span><a href="#/process">Inside the process</a></div>
-<div class="home-practice-heading"><h2 id="method-heading">WHAT<br>I <span>BUILD.</span></h2><p>Frontend implementation,<br>API integration<br>and testing.</p></div>
+<div class="home-practice-heading"><h2 id="method-heading">WHAT<br>I <span>BUILD.</span></h2><p>Responsive interfaces,<br>reusable components<br>and interaction.</p></div>
 <div class="home-practice-list">
 <article class="home-practice-row"><span class="practice-no">( 01 )</span><h3>INTERFACES</h3><p>Web & mobile.<br>Responsive layouts and application states.</p><span class="practice-tools">REACT / VUE / FLUTTER</span></article>
-<article class="home-practice-row"><span class="practice-no">( 02 )</span><h3>API & DATA</h3><p>Authentication, user roles,<br>notifications and API integration.</p><span class="practice-tools">REST API / FASTAPI / POSTGRESQL</span></article>
-<article class="home-practice-row"><span class="practice-no">( 03 )</span><h3>TESTING</h3><p>User flows, responsive layouts<br>and keyboard interaction.</p><span class="practice-tools">GIT / DEBUGGING / AUTOMATED TESTS</span></article>
+<article class="home-practice-row"><span class="practice-no">( 02 )</span><h3>TESTING</h3><p>User flows, responsive layouts<br>and keyboard interaction.</p><span class="practice-tools">GIT / DEBUGGING / AUTOMATED TESTS</span></article>
 </div></section>
 <section class="home-note" data-chapter="3" aria-labelledby="note-heading"><div class="home-section-meta"><span>( 03 - YOUR TURN )</span><span>PROJECT ENQUIRIES</span></div><div class="home-conversation"><h2 id="note-heading"><span>WHAT’S</span><span>ON YOUR</span><span>MIND?</span></h2></div><div class="home-note-bottom"><p>Send a project description,<br>existing designs and your preferred timeline.</p><a class="home-text-link" href="#/contact">Contact me</a></div></section></div>`;}
 export function mountHome({gsap,ScrollTrigger,reduced,onProgress}){
