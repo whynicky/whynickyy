@@ -13,6 +13,7 @@ import './studio-reading.css';
 import './entry-intro.css';
 import './home-contact-studio.css';
 import './credentials-paper.css';
+import './editorial-compositions.css';
 import {mountContactLetter} from './contact-letter.js';
 import {mountProcessBanner} from './process-banner.js';
 import {mountCredentialArchive} from './credential-archive.js';
