@@ -65,7 +65,7 @@ vec3 backdrop(vec2 uv){
  float value=.018+.66*light;
  value*=.23+.77*smoothstep(.04,.48,uv.y);
  value*=1.-.56*smoothstep(.5,1.,abs(uv.x-.5)*2.);
- return vec3(value);
+ return vec3(.98)-vec3(value*.10);
 }
 
 void main(){
@@ -99,15 +99,15 @@ void main(){
  float lum=portraitLuma(portrait.rgb);
  float neck=smoothstep(.235,.34,photo.y)*(1.-smoothstep(.735,.80,photo.y));
  float skin=(1.-smoothstep(.105,.15,abs(photo.x-.494)))*neck;
- // Side-lit blue skin carries the distorted material instead of painted stripes.
+ // Neutral paper tones retain the original lighting and displaced material.
  float sideLight=.20+.80*smoothstep(.018,.102,abs(photo.x-.5));
  float detail=portraitLuma(texture2D(uDetail,clamp(vec2(photo.x,1.-photo.y),0.,1.)).rgb);
  float lit=pow(max(mix(lum,detail,.88),0.),.72)*1.55;
  lit+=sideLight*.035;
- vec3 blue=vec3(.192,.357,1.);
+ vec3 paper=vec3(.98);
  vec3 body=vec3(.004+lum*.20);
- vec3 skinColor=blue*clamp(lit,0.,1.);
- skinColor=mix(skinColor,vec3(.005,.008,.018),.12*(1.-sideLight));
+ vec3 skinColor=paper*clamp(lit,0.,1.);
+ skinColor=mix(skinColor,vec3(.008),.12*(1.-sideLight));
  vec3 figure=mix(body,skinColor,skin);
  vec3 color=mix(backdrop(warped),figure,alpha);
  // Dither the complete composed scene into 0.08 tonal steps at 24 Hz.

@@ -11,6 +11,9 @@ import './mobile-work.css';
 import './about-studio.css';
 import './studio-reading.css';
 import './entry-intro.css';
+import './home-contact-studio.css';
+import './credentials-paper.css';
+import {mountContactLetter} from './contact-letter.js';
 import {mountProcessBanner} from './process-banner.js';
 import {mountCredentialArchive} from './credential-archive.js';
 import {replaceArrows} from './icons.js';
@@ -52,7 +55,7 @@ function draw(restore=false){
  main.innerHTML=route==='/'?homeMarkup():route==='/work'?workGalleryMarkup():route==='/about'?aboutMarkup():route==='/contact'?contactMarkup():route==='/process'?processMarkup():route==='/credentials'?credentialsMarkup():project?projectPage(project):`<section class="not-found"><h1>Wrong turn.</h1><a href="#/">Back to the beginning ↗</a></section>`;
  if(['/'].includes(route))main.insertAdjacentHTML('beforeend',footerMarkup());
  replaceArrows(main);
- document.title=`${project?project.name:route==='/'?'Frontend & Creative Developer':route.slice(1).replace(/^./,c=>c.toUpperCase())} — whynicky®`;
+ document.title=`${project?project.name:route==='/'?'Frontend & Creative Developer':route.slice(1).replace(/^./,c=>c.toUpperCase())} - whynicky®`;
  document.querySelector('.current-page').textContent=route==='/'?'Introduction':project?'Project':route.slice(1);
  document.querySelectorAll('.dock a,.menu-grid a,.inner-nav a,.header-directory a').forEach(a=>{a.hash===`#${route}`?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current');});
  lenis.scrollTo(0,{immediate:true,force:true});
@@ -72,9 +75,10 @@ function bindRoute(){
  const disposeEditorial=mountEditorial({gsap,ScrollTrigger,reduced,lenis});
  const disposeCredentials=mountCredentialArchive({lenis});
  const disposeBanner=mountProcessBanner({reduced});
+ const disposeLetter=mountContactLetter();
  const rows=[...document.querySelectorAll('[data-work]')];rows.forEach(row=>{const active=()=>{rows.forEach(r=>r.classList.toggle('active',r===row));document.querySelectorAll('[data-work-art]').forEach(a=>a.classList.toggle('active',a.dataset.workArt===row.dataset.work));};row.addEventListener('pointerenter',active);row.addEventListener('focus',active);});
  const cover=document.querySelector('.case-cover');if(cover&&!reduced)gsap.fromTo(cover,{rotate:2,y:30},{rotate:0,y:0,duration:1,ease:'power3.out'});
- disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();disposeBanner();};
+ disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();disposeBanner();disposeLetter();};
 }
 async function navigate(){
  if(transitioning)return;transitioning=true;positions.set(route,window.scrollY);closeMenu();sound.route();

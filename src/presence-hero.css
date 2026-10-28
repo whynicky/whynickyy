@@ -7,11 +7,11 @@
 .route-home.quiet:not(.no-canvas) .full-frame-fallback{display:none}
 .home-stage .opening,.route-home.quiet .home-stage .opening{background:none}
 .route-home.quiet .opening:before{display:none}
-.home-stage .full-frame-fallback{background:radial-gradient(ellipse at 50% 52%,#989898,#151515 80%)}
+.home-stage .full-frame-fallback{background:radial-gradient(ellipse at 50% 52%,#e4e4e1,#fafaf8 80%)}
 .home-stage .fallback-band{background:none!important;filter:none;overflow:hidden}
 .home-stage .fallback-band:after{display:none}
 .fallback-band img{position:absolute;left:50%;top:var(--portrait-top);height:var(--portrait-height);width:auto;max-width:none;transform:translateX(-50%);filter:brightness(.38)}
-.fallback-band .fallback-surface{filter:grayscale(1) sepia(1) saturate(12) hue-rotate(215deg) brightness(.8);clip-path:polygon(39% 24%,59% 24%,60% 49%,57% 64%,43% 64%,38% 49%);mask-image:linear-gradient(transparent 24%,#000 31%,#000 54%,transparent 64%)}
+.fallback-band .fallback-surface{filter:grayscale(1) brightness(1.1);clip-path:polygon(39% 24%,59% 24%,60% 49%,57% 64%,43% 64%,38% 49%);mask-image:linear-gradient(transparent 24%,#000 31%,#000 54%,transparent 64%)}
 .route-home.no-canvas .grain{display:block;opacity:.04}
 .route-home .presence-copy{top:77%;padding:10px 30px}
 .route-home .presence-copy h1{font-size:clamp(24px,2.15vw,36px);line-height:1.13}
@@ -28,3 +28,13 @@
  .route-home .presence-discover,.route-home.quiet .presence-discover{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
  .route-home .presence-caption{bottom:calc(32px + env(safe-area-inset-bottom,0px))}
 }
+
+/* Paper palette; the portrait's movement, timing and framing stay unchanged. */
+.route-home .home-stage{background:#fafaf8}
+.route-home .topline,.route-home .opening{color:#111}
+.route-home .presence-copy,.route-home .presence-alias{color:#fff;mix-blend-mode:difference}
+.route-home .presence-copy h1{text-shadow:none}
+.route-home .presence-copy i,.route-home .presence-copy:before,.route-home .presence-copy:after{background:#fff}
+.route-home .presence-cta{background:#111;color:#fafaf8}
+.route-home .presence-cta:hover{background:#fafaf8;color:#111}
+.route-home .footer-wordmark{background:#fafaf8;color:#111}
