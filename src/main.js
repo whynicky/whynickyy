@@ -11,6 +11,7 @@ import './mobile-work.css';
 import './about-studio.css';
 import './studio-reading.css';
 import './entry-intro.css';
+import {mountProcessBanner} from './process-banner.js';
 import {mountCredentialArchive} from './credential-archive.js';
 import {replaceArrows} from './icons.js';
 import {projectPage} from './case-page.js';
@@ -70,9 +71,10 @@ function bindRoute(){
  const disposeGallery=route==='/work'?mountWorkGallery({gsap,reduced,lenis}):()=>{};
  const disposeEditorial=mountEditorial({gsap,ScrollTrigger,reduced,lenis});
  const disposeCredentials=mountCredentialArchive({lenis});
+ const disposeBanner=mountProcessBanner({reduced});
  const rows=[...document.querySelectorAll('[data-work]')];rows.forEach(row=>{const active=()=>{rows.forEach(r=>r.classList.toggle('active',r===row));document.querySelectorAll('[data-work-art]').forEach(a=>a.classList.toggle('active',a.dataset.workArt===row.dataset.work));};row.addEventListener('pointerenter',active);row.addEventListener('focus',active);});
  const cover=document.querySelector('.case-cover');if(cover&&!reduced)gsap.fromTo(cover,{rotate:2,y:30},{rotate:0,y:0,duration:1,ease:'power3.out'});
- disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();};
+ disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();disposeBanner();};
 }
 async function navigate(){
  if(transitioning)return;transitioning=true;positions.set(route,window.scrollY);closeMenu();sound.route();
@@ -136,24 +138,28 @@ async function playEntrance(){
   const eye=cover.querySelector('.entry-eye'),identity=cover.querySelector('.entry-identity');
   const imageReady=eye.decode?.().catch(()=>{});
   await Promise.race([imageReady||Promise.resolve(),new Promise(resolve=>setTimeout(resolve,700))]);
+  gsap.set(cover,{'--cut-w':'0vw','--cut-h':'0vh'});
   gsap.set(cover.querySelectorAll('.entry-shutter'),{yPercent:0});
   gsap.set(identity,{opacity:1,y:0});
   entry=gsap.timeline({onComplete:done});
-  entry.fromTo('.entry-meta,.entry-colophon',{opacity:0},{opacity:1,duration:.45,ease:'power2.out'},0)
-   .fromTo(eye,{opacity:0,scale:.8,rotation:-7,clipPath:'inset(48% 0 48% 0)'},{opacity:1,scale:1,rotation:0,clipPath:'inset(0% 0 0% 0)',duration:.7,ease:'power3.out'},.08)
-   .fromTo(glyphs,{yPercent:115},{yPercent:0,duration:.65,stagger:.045,ease:'power4.out'},.25)
-   .fromTo(cover.querySelector('.entry-logo>sup'),{opacity:0},{opacity:1,duration:.3},.75)
-   .fromTo('.entry-tagline',{opacity:0,y:8},{opacity:1,y:0,duration:.45,ease:'power2.out'},.85)
-   .to(eye,{clipPath:'inset(48% 0 48% 0)',duration:.12,ease:'power2.in'},1.5)
-   .to(eye,{clipPath:'inset(0% 0 0% 0)',duration:.2,ease:'power3.out'},1.62)
-   .to(identity,{opacity:0,y:-22,duration:.4,ease:'power2.in'},1.95)
-   .to('.entry-meta,.entry-colophon',{opacity:0,duration:.25},1.95)
-   .to(cover.querySelector('.shutter-top'),{yPercent:-101,duration:.9,ease:'power4.inOut'},2.05)
-   .to(cover.querySelector('.shutter-bottom'),{yPercent:101,duration:.9,ease:'power4.inOut'},2.05);
+  const scatterY=[-.12,.1,-.06,.15,-.11,.04,.11,-.08],scatterRotation=[-14,9,-7,12,-11,5,15,-9];
+  const eyeBounds=eye.getBoundingClientRect();
+  entry.fromTo('.entry-meta,.entry-colophon',{opacity:0},{opacity:1,duration:.3,ease:'none'},0)
+   .fromTo(eye,{opacity:0,scale:1.5,rotation:-18,clipPath:'inset(44% 0 44% 0)'},{opacity:1,scale:1,rotation:-6,clipPath:'inset(0% 0 0% 0)',duration:.55,ease:'power4.out'},.05)
+   .fromTo(glyphs,{opacity:0,x:i=>(i-3.5)*innerWidth*.022,y:i=>scatterY[i]*innerHeight,rotation:i=>scatterRotation[i],scaleX:i=>i%2?.75:1.2},{opacity:1,duration:.15,stagger:{each:.055,from:'random'},ease:'none'},.12)
+   .to(glyphs,{x:0,y:0,rotation:0,scaleX:1,duration:.65,stagger:.025,ease:'power4.inOut'},.58)
+   .fromTo(cover.querySelector('.entry-logo>sup'),{opacity:0},{opacity:1,duration:.2},1.0)
+   .fromTo('.entry-tagline',{opacity:0},{opacity:1,duration:.25},1.1)
+   .to(glyphs,{x:i=>(i-3.5)*innerWidth*.12,y:i=>i%2?innerHeight*.06:-innerHeight*.05,rotation:i=>i%2?7:-7,duration:1.1,stagger:.018,ease:'power4.inOut'},1.6)
+   .to(eye,{x:innerWidth*.5-eyeBounds.left-eyeBounds.width*.5,y:innerHeight*.5-eyeBounds.top-eyeBounds.height*.5,scale:.8,rotation:0,duration:.8,ease:'power4.inOut'},1.5)
+   .to(identity,{opacity:0,duration:.3},2.45)
+   .to('.entry-meta,.entry-colophon',{opacity:0,duration:.2},1.9)
+   .to(cover,{'--cut-w':innerWidth<=700?'48vw':'24vw','--cut-h':innerWidth<=700?'28vh':'32vh',duration:.75,ease:'power3.inOut'},2.05)
+   .to(cover,{'--cut-w':'100vw','--cut-h':'100vh',duration:1.15,ease:'power4.inOut'},2.75);
   if(route==='/'){
-   entry.fromTo('.topline>*',{opacity:0,y:12},{opacity:1,y:0,duration:.55,stagger:.04,ease:'power3.out'},2.35);
-   entry.fromTo('.presence-line>span',{yPercent:110},{yPercent:0,duration:.7,stagger:.07,ease:'power3.out'},2.25);
-   entry.fromTo('.presence-alias,.presence-cta,.presence-discover,.presence-caption',{opacity:0},{opacity:1,duration:.5,stagger:.04,ease:'power2.out'},2.4);
+   entry.fromTo('.topline>*',{opacity:0,y:12},{opacity:1,y:0,duration:.55,stagger:.04,ease:'power3.out'},3.05);
+   entry.fromTo('.presence-line>span',{yPercent:110},{yPercent:0,duration:.7,stagger:.07,ease:'power3.out'},2.8);
+   entry.fromTo('.presence-alias,.presence-cta,.presence-discover,.presence-caption',{opacity:0},{opacity:1,duration:.5,stagger:.04,ease:'power2.out'},3.0);
   }
   // The critical cover is released only after CSS, assets and the first animation frame are prepared.
   window.__portfolioBootReady?.();
