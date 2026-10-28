@@ -4,14 +4,14 @@ export const projects = [
     "id": "chatra",
     "name": "Chatra",
     "tag": "Web & mobile · Education",
-    "headline": "One classroom. Connected.",
+    "headline": "A learning platform for schools.",
     "description": "A learning platform for students, teachers and administrators, connecting the daily work of a class across web and mobile.",
     "focus": "Nuxt",
     "features": [
       "Classes, assignments, messages, calendars and study tools in one role-aware workspace.",
       "Nuxt and Flutter clients share a FastAPI service, keeping authentication and learning workflows consistent."
     ],
-    "statement": "One classroom. Connected.",
+    "statement": "A learning platform for schools.",
     "images": [
       "/projects/chatra/screen-1.webp",
       "/projects/chatra/screen-2.webp"
@@ -39,14 +39,14 @@ export const projects = [
     "id": "soyle",
     "name": "Söyle",
     "tag": "Web · Family practice",
-    "headline": "Small steps. Shared progress.",
+    "headline": "Speech practice for children and parents.",
     "description": "A shared practice space for children and parents, with focused activities for the child and a separate view of goals and progress for the family.",
     "focus": "Next.js",
     "features": [
       "Short exercises, AAC communication, observations and history in role-separated flows.",
       "An inspectable, rule-based next-step planner with predefined rules instead of generative advice."
     ],
-    "statement": "Small steps. Shared progress.",
+    "statement": "Speech practice for children and parents.",
     "images": [
       "/projects/soyle/screen-1.webp",
       "/projects/soyle/screen-2.webp"
@@ -75,14 +75,14 @@ export const projects = [
     "id": "digital-urpaq",
     "name": "Digital Urpaq",
     "tag": "Web · Extracurricular education",
-    "headline": "Room to discover.",
+    "headline": "Programme discovery for students.",
     "description": "A competition-built platform helping students discover programmes, with a wider service direction for applications, schedules and staff workflows.",
     "focus": "Nuxt",
     "features": [
       "Public entry, authentication and programme catalogue state.",
       "A FastAPI service foundation for a role-aware education platform."
     ],
-    "statement": "Room to discover.",
+    "statement": "Programme discovery for students.",
     "images": [
       "/projects/digital-urpaq/screen-1.webp"
     ],
@@ -109,14 +109,14 @@ export const projects = [
     "id": "freelanceos",
     "name": "FreelanceOS",
     "tag": "Mobile · Interface prototype",
-    "headline": "A clearer picture of work.",
+    "headline": "A finance dashboard for freelancers.",
     "description": "A finance concept for freelancers that separates income from money available to spend, bringing the state of their work into one compact dashboard.",
     "focus": "Interface concept",
     "features": [
       "Cash flow: Tax reserves and expenses alongside project payments.",
       "At a glance: Financial summaries that connect the numbers."
     ],
-    "statement": "A clearer picture of work.",
+    "statement": "A finance dashboard for freelancers.",
     "images": [
       "/projects/freelanceos/screen-1.webp"
     ],
@@ -136,14 +136,14 @@ export const projects = [
     "id": "rugpull-risk",
     "name": "RugPull Risk",
     "tag": "Web · Token analysis",
-    "headline": "Read between the signals.",
+    "headline": "Token risk analysis in one workspace.",
     "description": "A token-scanning workspace that brings contract, on-chain, social and holder signals together, making scattered risk information easier to read.",
     "focus": "Nuxt 3",
     "features": [
       "A responsive Nuxt frontend organized around a token.",
       "Separate frontend and backend repositories for presenting and collecting signals."
     ],
-    "statement": "Read between the signals.",
+    "statement": "Token risk analysis in one workspace.",
     "images": [
       "/projects/rugpull-risk/screen-1.webp"
     ],
@@ -169,14 +169,14 @@ export const projects = [
     "id": "forge",
     "name": "FORGE",
     "tag": "Web · Product planning",
-    "headline": "From a question to a plan.",
+    "headline": "Business problems turned into task packs.",
     "description": "A working product that turns an unstructured business problem into a task pack a team can review and act on.",
     "focus": "Nuxt",
     "features": [
       "Explicit inputs, expected outcomes and acceptance criteria before handoff.",
       "Accounts, role-based access, persistent data and an activity dashboard."
     ],
-    "statement": "From a question to a plan.",
+    "statement": "Business problems turned into task packs.",
     "images": [
       "/projects/forge/screen-1.webp"
     ],
@@ -201,14 +201,14 @@ export const projects = [
     "id": "portfolio",
     "name": "Portfolio Website",
     "tag": "Web · Design & frontend",
-    "headline": "A place of my own.",
+    "headline": "A portfolio built with HTML, CSS and JavaScript.",
     "description": "A buildless, multi-page portfolio for presenting interfaces, explaining product decisions and connecting visitors to the work behind them.",
     "focus": "HTML",
     "features": [
       "Shared navigation, responsive layouts and theme support.",
       "Pixel identity, paper-inspired visuals and authentic product imagery."
     ],
-    "statement": "A place of my own.",
+    "statement": "A portfolio built with HTML, CSS and JavaScript.",
     "images": [
       "/projects/portfolio/screen-1.png"
     ],
@@ -232,14 +232,14 @@ export const projects = [
     "id": "chatra-api",
     "name": "Chatra API",
     "tag": "Backend · Shared service",
-    "headline": "One source. Many possibilities.",
+    "headline": "A shared API for web and mobile clients.",
     "description": "The FastAPI service connecting Chatra’s web and mobile clients to the same classroom data, rather than separate copies of the product.",
     "focus": "Python",
     "features": [
       "Access & workflows: Authentication and roles for classes, assignments, files, messaging and moderation.",
       "Data & contracts: PostgreSQL persistence and documented client-facing routes."
     ],
-    "statement": "One source. Many possibilities.",
+    "statement": "A shared API for web and mobile clients.",
     "images": [
       "/projects/chatra-api/screen-1.webp"
     ],
@@ -263,14 +263,14 @@ export const projects = [
     "id": "chatra-mobile",
     "name": "Chatra mobile",
     "tag": "Mobile · Flutter client",
-    "headline": "A classroom in your pocket.",
+    "headline": "Chatra’s classroom tools in a Flutter app.",
     "description": "Chatra’s authentication, classroom, messaging and learning workflows, adapted to a narrow, touch-first screen.",
     "focus": "Flutter",
     "features": [
       "Focused subject and class lists with persistent navigation.",
       "Provider for client state and Dio for data access, using the shared product service."
     ],
-    "statement": "A classroom in your pocket.",
+    "statement": "Chatra’s classroom tools in a Flutter app.",
     "images": [
       "/projects/chatra-mobile/screen-1.webp",
       "/projects/chatra-mobile/screen-2.webp"
@@ -296,14 +296,14 @@ export const projects = [
     "id": "learning",
     "name": "CS50P + Odin",
     "tag": "Learning · Python & web",
-    "headline": "Always a work in progress.",
+    "headline": "Python coursework and web-development exercises.",
     "description": "Structured Python coursework and a public archive of web-development exercises that form the foundations behind the larger product work.",
     "focus": "Python",
     "features": [
       "CS50P: Language fundamentals and programming practice.",
       "The Odin Project: HTML, CSS, Git, layout and interaction."
     ],
-    "statement": "Always a work in progress.",
+    "statement": "Python coursework and web-development exercises.",
     "images": [
       "/projects/learning/screen-1.webp"
     ],
