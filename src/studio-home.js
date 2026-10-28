@@ -7,24 +7,24 @@ export function homeMarkup(){return `<div class="home-score"><div class="home-ap
 <div class="presence-caption"><span>INDEPENDENT DEVELOPER</span><span>INTERFACES / INTERACTION / MOTION</span></div>
 <div class="presence-copy"><i aria-hidden="true"></i><h1><span class="presence-line"><span>Alimzhan Galymzhan.</span></span><span class="presence-line"><span>Code with purpose.</span></span><span class="presence-line"><span>Interfaces with character.</span></span></h1><i aria-hidden="true"></i></div>
 <p class="presence-alias">You can call me whynicky.</p>
-<a class="presence-cta" href="#/contact"><span>Get in touch</span><span>↗</span></a>
+<a class="presence-cta" href="#/contact"><span>Get in touch</span></a>
 <button class="presence-discover" data-chapter-go="1">Discover <span>↓</span></button>
 </section><div class="hero-shutter shutter-top" aria-hidden="true"></div><div class="hero-shutter shutter-bottom" aria-hidden="true"></div><div class="hero-afterimage" aria-hidden="true"><span>THERE’S</span><span>ANOTHER</span><span>SIDE.</span><img src="${assetUrl('images/eye-mark-white.png')}" alt=""></div>
 </div></div>
 <section class="home-essay" data-chapter="1" aria-labelledby="person-heading">
 <div class="home-section-meta"><span>( 01 - THE PERSON )</span><span>ALIMZHAN GALYMZHAN / WHYNICKY</span></div>
-<div class="home-person-spread"><div class="home-person-art"><div class="home-portrait-disc"><img src="${assetUrl('images/github-avatar.jpg')}" alt="Alimzhan’s GitHub avatar" loading="lazy"></div><span class="home-art-caption">CURIOUS<br>BY NATURE.</span><span class="home-art-cross" aria-hidden="true">↗</span></div><div class="home-person-copy"><h2 id="person-heading">A LITTLE<br>CURIOUS.<br>A LITTLE<br><span>UNUSUAL.</span></h2><p>I’m Alimzhan. I build web and mobile interfaces, and care just as much about how they feel as how they work.</p><a class="home-text-link" href="#/about">Meet the person <span>↗</span></a></div></div>
+<div class="home-person-spread"><div class="home-person-art"><div class="home-portrait-disc"><img src="${assetUrl('images/github-avatar.jpg')}" alt="Alimzhan’s GitHub avatar" loading="lazy"></div><span class="home-art-caption">CURIOUS<br>BY NATURE.</span></div><div class="home-person-copy"><h2 id="person-heading">A LITTLE<br>CURIOUS.<br>A LITTLE<br><span>UNUSUAL.</span></h2><p>I’m Alimzhan. I build web and mobile interfaces, and care just as much about how they feel as how they work.</p><a class="home-text-link" href="#/about">Meet the person </a></div></div>
 <div class="home-person-notes"><span>BASED IN KAZAKHSTAN</span><p>Design and development.<br>Two ways of asking the same question:<br>what could this become?</p><a href="${assetUrl('documents/Alimzhan-Galymzhan-CV.pdf')}" target="_blank" rel="noopener">Experience on paper ↗</a></div>
 </section>
 <section class="home-method" data-chapter="2" aria-labelledby="method-heading">
-<div class="home-section-meta"><span>( 02 - THE PRACTICE )</span><a href="#/process">Inside the process ↗</a></div>
+<div class="home-section-meta"><span>( 02 - THE PRACTICE )</span><a href="#/process">Inside the process</a></div>
 <div class="home-practice-heading"><h2 id="method-heading">THOUGHT<br>INTO <span>FORM.</span></h2><p>From the first question<br>to the final interaction.<br>Here’s where I get involved.</p></div>
 <div class="home-practice-list">
-<a href="#/process" class="home-practice-row"><span class="practice-no">( 01 )</span><h3>INTERFACES</h3><p>Web & mobile.<br>Responsive, considered, alive.</p><span class="practice-arrow" aria-hidden="true">↗</span><span class="practice-tools">REACT / VUE / FLUTTER</span></a>
-<a href="#/process" class="home-practice-row"><span class="practice-no">( 02 )</span><h3>CONNECTIONS</h3><p>Data, roles and flows.<br>The logic behind the surface.</p><span class="practice-arrow" aria-hidden="true">↗</span><span class="practice-tools">REST API / FASTAPI / POSTGRESQL</span></a>
-<a href="#/credentials" class="home-practice-row"><span class="practice-no">( 03 )</span><h3>EXPLORATION</h3><p>Learning through building.<br>New questions, better answers.</p><span class="practice-arrow" aria-hidden="true">↗</span><span class="practice-tools">EXPERIMENTS / HACKATHONS / STUDY</span></a>
+<article class="home-practice-row"><span class="practice-no">( 01 )</span><h3>INTERFACES</h3><p>Web & mobile.<br>Responsive, considered, alive.</p><span class="practice-tools">REACT / VUE / FLUTTER</span></article>
+<article class="home-practice-row"><span class="practice-no">( 02 )</span><h3>CONNECTIONS</h3><p>Data, roles and flows.<br>The logic behind the surface.</p><span class="practice-tools">REST API / FASTAPI / POSTGRESQL</span></article>
+<article class="home-practice-row"><span class="practice-no">( 03 )</span><h3>EXPLORATION</h3><p>Learning through building.<br>New questions, better answers.</p><span class="practice-tools">EXPERIMENTS / HACKATHONS / STUDY</span></article>
 </div></section>
-<section class="home-note" data-chapter="3" aria-labelledby="note-heading"><div class="home-section-meta"><span>( 03 - YOUR TURN )</span><span>AN IDEA IS ENOUGH TO START.</span></div><a class="home-conversation" href="#/contact"><h2 id="note-heading"><span>WHAT’S</span><span>ON YOUR</span><span>MIND?<i aria-hidden="true">↗</i></span></h2></a><div class="home-note-bottom"><p>A project. A question.<br>Something that doesn’t fit a brief yet.</p><a class="home-text-link" href="#/contact">Let’s talk <span>↗</span></a></div></section></div>`;}
+<section class="home-note" data-chapter="3" aria-labelledby="note-heading"><div class="home-section-meta"><span>( 03 - YOUR TURN )</span><span>AN IDEA IS ENOUGH TO START.</span></div><div class="home-conversation"><h2 id="note-heading"><span>WHAT’S</span><span>ON YOUR</span><span>MIND?</span></h2></div><div class="home-note-bottom"><p>A project. A question.<br>Something that doesn’t fit a brief yet.</p><a class="home-text-link" href="#/contact">Let’s talk </a></div></section></div>`;}
 export function mountHome({gsap,ScrollTrigger,reduced,onProgress}){
  const root=document.querySelector('.home-score'),sections=[...root.querySelectorAll('[data-chapter]')];
  const animations=[];

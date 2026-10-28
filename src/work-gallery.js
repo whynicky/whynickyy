@@ -7,7 +7,7 @@ const saved={mode:'vertical',position:0};
 
 export function workGalleryMarkup(){return `<section class="project-gallery" data-layout="${saved.mode}" aria-label="Selected work">
 <h1 class="gallery-heading">Selected work</h1>
-<div class="gallery-intro"><p>Independent digital work.<br>Web, mobile, and the details<br>that give an interface its character.</p><a href="#/contact">Have something in mind? ↗</a></div>
+<div class="gallery-intro"><p>Independent digital work.<br>Web, mobile, and the details<br>that give an interface its character.</p><a href="#/contact">Have something in mind?</a></div>
 <nav class="gallery-index" aria-label="Choose a project. Use arrow keys to cycle.">${projects.map((p,i)=>`<button data-select-project="${i}"><span>${p.name}</span></button>`).join('')}</nav>
 <div class="gallery-stage" tabindex="0" role="region" aria-label="Project gallery. Scroll, drag, swipe, or use arrow keys to explore.">
 ${projects.map((p,i)=>`<a class="gallery-card" href="#/work/${p.id}" data-gallery-card="${i}" aria-label="Open ${p.name}" draggable="false"><div class="gallery-image"><img src="${p.images[0]}" alt="${p.name} - project screenshot" draggable="false" decoding="async" ${i<2?'fetchpriority="high"':'loading="lazy"'}></div><div class="gallery-card-caption"><span>${p.name}</span><span aria-hidden="true">↗</span></div></a>`).join('')}

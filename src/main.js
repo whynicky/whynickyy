@@ -52,7 +52,7 @@ function draw(restore=false){
  const project=projects.find(p=>route===`/work/${p.id}`);
  document.body.className=`${sound.enabled?'sound-on ':''}${reduced?'quiet ':''}route-${route==='/'?'home':project?'case':route.slice(1)}`;
  document.body.dataset.chapter=0;
- main.innerHTML=route==='/'?homeMarkup():route==='/work'?workGalleryMarkup():route==='/about'?aboutMarkup():route==='/contact'?contactMarkup():route==='/process'?processMarkup():route==='/credentials'?credentialsMarkup():project?projectPage(project):`<section class="not-found"><h1>Wrong turn.</h1><a href="#/">Back to the beginning ↗</a></section>`;
+ main.innerHTML=route==='/'?homeMarkup():route==='/work'?workGalleryMarkup():route==='/about'?aboutMarkup():route==='/contact'?contactMarkup():route==='/process'?processMarkup():route==='/credentials'?credentialsMarkup():project?projectPage(project):`<section class="not-found"><h1>Wrong turn.</h1><a href="#/">Back to the beginning</a></section>`;
  if(['/'].includes(route))main.insertAdjacentHTML('beforeend',footerMarkup());
  replaceArrows(main);
  document.title=`${project?project.name:route==='/'?'Frontend & Creative Developer':route.slice(1).replace(/^./,c=>c.toUpperCase())} - whynicky®`;

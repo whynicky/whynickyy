@@ -35,3 +35,9 @@
 .topline .brand sup{font-family:Arial,sans-serif;font-size:.65em!important;line-height:1;top:-.08em;margin-left:.1em}
 .route-home .footer-wordmark sup{font-size:.2em;margin-top:.04em;margin-left:.06em}
 .entry-cover .entry-logo>sup{font-size:.26em;top:.35em}
+
+/* Posters carry the identity; small, explicit links carry navigation. */
+.home-practice-row{grid-template-columns:7% 1.45fr 1fr;cursor:default}
+.home-practice-row:hover h3{transform:none}
+@media(max-width:800px){.home-practice-row{grid-template-columns:5% 1.3fr 1fr}}
+@media(max-width:600px){.home-practice-row{grid-template-columns:25px 1fr}}
