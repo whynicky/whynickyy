@@ -22,7 +22,7 @@
 <p align="center">
   <a href="https://whynicky.github.io/whynickyy/"><strong>ENTER THE WEBSITE ↗</strong></a>
   &nbsp;&nbsp;/&nbsp;&nbsp;
-  <a href="./public/documents/Alimzhan-Galymzhan-CV.pdf">RÉSUMÉ ↗</a>
+  <a href="./public/documents/whynicky-CV.pdf">RÉSUMÉ ↗</a>
   &nbsp;&nbsp;/&nbsp;&nbsp;
   <a href="mailto:alimzhanart@icloud.com">SAY HELLO ↗</a>
 </p>
@@ -31,11 +31,11 @@
 
 ### 01 / THE IDEA
 
-A personal portfolio by **Alimzhan Galymzhan**, also known as **whynicky**. Web and mobile work, experiments, and the person behind them.
+A personal portfolio by **whynicky**. Web and mobile work, experiments, and the person behind them.
 
 Off-white paper. Black ink. Oversized type. A portrait that refuses to sit still.
 
-The visual language carries through the entire site: from the distorted WebGL introduction to the asymmetric reading pages and the original certificates. Built with HTML, CSS and JavaScript modules, without a component framework.
+The visual language carries through the entire site: from the distorted WebGL introduction to the asymmetric reading pages and the privacy-edited certificates. Built with HTML, CSS and JavaScript modules, without a component framework.
 
 [![The monochrome whynicky homepage](./docs/portfolio-preview.png)](https://whynicky.github.io/whynickyy/)
 
@@ -47,8 +47,8 @@ The visual language carries through the entire site: from the distorted WebGL in
 | [Work](https://whynicky.github.io/whynickyy/#/work) | A circular project gallery with vertical, horizontal and grid layouts. Individual case studies sit behind each project. |
 | [About](https://whynicky.github.io/whynickyy/#/about) | Biography, experience, education and an invitation to make things a little weird. |
 | [Process](https://whynicky.github.io/whynickyy/#/process) | Six stages of working together, a kinetic type composition and a few useful answers. |
-| [Credentials](https://whynicky.github.io/whynickyy/#/credentials) | Five original documents arranged as a paper collection. Open, inspect and move between them. |
-| [Contact](https://whynicky.github.io/whynickyy/#/contact) | A note to Alimzhan. The form prepares a draft in your email app for you to review and send. |
+| [Credentials](https://whynicky.github.io/whynickyy/#/credentials) | Four documents arranged as a paper collection. Open, inspect and move between them. |
+| [Contact](https://whynicky.github.io/whynickyy/#/contact) | A note to whynicky. The form prepares a draft in your email app for you to review and send. |
 
 ### 03 / UNDER THE SURFACE
 
@@ -99,7 +99,7 @@ src/
 public/
   images/                 Identity, portrait and fallbacks
   projects/               Project imagery
-  certificates/           Original documents
+  certificates/           Portfolio documents
   documents/              Résumé
   fonts/                  Local typefaces and licences
 ```
@@ -133,7 +133,7 @@ Open [127.0.0.1:4176/whynickyy/](http://127.0.0.1:4176/whynickyy/).
 - [Audio source and CC0 licence](./docs/AUDIO-LICENSE.md)
 - [Typeface licences](./public/fonts)
 
-The anonymous animated portrait is visual artwork, not a photograph of Alimzhan.
+The anonymous animated portrait is visual artwork, not a photograph of whynicky.
 
 </details>
 

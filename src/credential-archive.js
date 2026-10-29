@@ -5,7 +5,7 @@ export function mountCredentialArchive({lenis}){
  const dialog=root.querySelector('.archive-dialog');
  const cards=[...root.querySelectorAll('[data-archive-document]')];let selected=0,opener;
  const visible=()=>cards.filter(c=>!c.hidden).map(c=>Number(c.dataset.archiveDocument));
- const show=index=>{selected=index;const c=certificates[index];dialog.querySelector('.document-name').textContent=`${c.name} / ${c.date}`;const img=dialog.querySelector('.archive-dialog-image');img.src=assetUrl('certificates/'+c.file);img.alt=c.name+' - original certificate';dialog.querySelector('.document-original').href=img.src;};
+ const show=index=>{selected=index;const c=certificates[index];dialog.querySelector('.document-name').textContent=`${c.name} / ${c.date}`;const img=dialog.querySelector('.archive-dialog-image');img.src=assetUrl('certificates/'+c.file);img.alt=c.name+' - certificate';dialog.querySelector('.document-original').href=img.src;dialog.querySelector('.document-description').textContent=c.description;};
  const step=direction=>{const ids=visible();show(ids[(ids.indexOf(selected)+direction+ids.length)%ids.length]);};
  const click=e=>{
   const card=e.target.closest('[data-archive-document]');if(card){opener=card;show(Number(card.dataset.archiveDocument));dialog.showModal();lenis.stop();}

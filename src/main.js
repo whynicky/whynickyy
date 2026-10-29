@@ -15,9 +15,7 @@ import './home-contact-studio.css';
 import './credentials-paper.css';
 import './editorial-compositions.css';
 import {mountContactLetter} from './contact-letter.js';
-import {mountProcessBanner} from './process-banner.js';
 import {mountCredentialArchive} from './credential-archive.js';
-import {replaceArrows} from './icons.js';
 import {projectPage} from './case-page.js';
 import {footerMarkup} from './site-footer.js';
 import {mountSound} from './sound.js';
@@ -40,7 +38,6 @@ const lenis=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)
 lenis.on('scroll',ScrollTrigger.update);
 let route='/',homeController,scene,transitioning=false,pendingChapter=null,menuOpen=false,restoreFocus,disposeRoute=()=>{};
 const positions=new Map();
-replaceArrows(document.body);
 const entranceTemplate=document.querySelector('.entry-cover').outerHTML;
 const sound=mountSound();
 gsap.ticker.add(t=>{lenis.raf(t*1000);if(!document.hidden)scene?.render(gsap.ticker.deltaRatio()/60);});
@@ -55,9 +52,8 @@ function draw(restore=false){
  document.body.dataset.chapter=0;
  main.innerHTML=route==='/'?homeMarkup():route==='/work'?workGalleryMarkup():route==='/about'?aboutMarkup():route==='/contact'?contactMarkup():route==='/process'?processMarkup():route==='/credentials'?credentialsMarkup():project?projectPage(project):`<section class="not-found"><h1>Wrong turn.</h1><a href="#/">Back to the beginning</a></section>`;
  if(['/'].includes(route))main.insertAdjacentHTML('beforeend',footerMarkup());
- replaceArrows(main);
  document.title=`${project?project.name:route==='/'?'Frontend & Creative Developer':route.slice(1).replace(/^./,c=>c.toUpperCase())} - whynicky®`;
- document.querySelector('.current-page').textContent=route==='/'?'Introduction':project?'Project':route.slice(1);
+
  document.querySelectorAll('.dock a,.menu-grid a,.inner-nav a,.header-directory a').forEach(a=>{a.hash===`#${route}`?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current');});
  lenis.scrollTo(0,{immediate:true,force:true});
  if(route==='/'){
@@ -75,11 +71,10 @@ function bindRoute(){
  const disposeGallery=route==='/work'?mountWorkGallery({gsap,reduced,lenis}):()=>{};
  const disposeEditorial=mountEditorial({gsap,ScrollTrigger,reduced,lenis});
  const disposeCredentials=mountCredentialArchive({lenis});
- const disposeBanner=mountProcessBanner({reduced});
  const disposeLetter=mountContactLetter();
  const rows=[...document.querySelectorAll('[data-work]')];rows.forEach(row=>{const active=()=>{rows.forEach(r=>r.classList.toggle('active',r===row));document.querySelectorAll('[data-work-art]').forEach(a=>a.classList.toggle('active',a.dataset.workArt===row.dataset.work));};row.addEventListener('pointerenter',active);row.addEventListener('focus',active);});
  const cover=document.querySelector('.case-cover');if(cover&&!reduced)gsap.fromTo(cover,{rotate:2,y:30},{rotate:0,y:0,duration:1,ease:'power3.out'});
- disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();disposeBanner();disposeLetter();};
+ disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();disposeLetter();};
 }
 async function navigate(){
  if(transitioning)return;transitioning=true;positions.set(route,window.scrollY);closeMenu();sound.route();
@@ -126,15 +121,13 @@ document.addEventListener('keydown',e=>{
  }
 });
 document.querySelector('[data-motion]').setAttribute('aria-pressed',String(!reduced));document.querySelector('[data-motion]').textContent=`Motion ${reduced?'off':'on'}`;
-const clock=document.querySelector('.header-clock time');
-function updateClock(){clock.textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date());}
-updateClock();setInterval(updateClock,1000);
+
 draw();
 async function playEntrance(){
  let cover=document.querySelector('.entry-cover');if(!cover){document.body.insertAdjacentHTML('beforeend',entranceTemplate);cover=document.querySelector('.entry-cover');}
  const topline=document.querySelector('.topline'),dock=document.querySelector('.dock');
  let completed=false,entry,bailout;
- const done=()=>{if(completed)return;completed=true;window.__portfolioBootReady?.();document.body.classList.add('ready');cover.remove();main.inert=false;topline.inert=false;dock.inert=false;lenis.start();if(route==='/')gsap.set('.topline>*,.presence-line>span,.presence-alias,.presence-cta,.presence-discover,.presence-caption',{clearProps:'transform,opacity'});};
+ const done=()=>{if(completed)return;completed=true;window.__portfolioBootReady?.();document.body.classList.add('ready');cover.remove();main.inert=false;topline.inert=false;dock.inert=false;lenis.start();if(route==='/')gsap.set('.topline>*,.presence-line>span,.presence-cta,.presence-discover',{clearProps:'transform,opacity'});};
  main.inert=true;topline.inert=true;dock.inert=true;lenis.stop();document.body.classList.remove('ready');
  try{
   await Promise.race([Promise.all([document.fonts.ready,scene?.ready||Promise.resolve()]),new Promise(resolve=>setTimeout(resolve,2500))]);
@@ -148,21 +141,18 @@ async function playEntrance(){
   gsap.set(identity,{opacity:1,y:0});
   entry=gsap.timeline({onComplete:done});
   const eyeBounds=eye.getBoundingClientRect();
-  entry.fromTo('.entry-meta,.entry-colophon',{opacity:0},{opacity:1,duration:.3,ease:'none'},0)
-   .fromTo(eye,{opacity:0,scale:1.15,clipPath:'inset(48% 0 48% 0)'},{opacity:1,scale:1,clipPath:'inset(0% 0 0% 0)',duration:.6,ease:'power3.out'},.05)
+  entry.fromTo(eye,{opacity:0,scale:1.15,clipPath:'inset(48% 0 48% 0)'},{opacity:1,scale:1,clipPath:'inset(0% 0 0% 0)',duration:.6,ease:'power3.out'},.05)
    .fromTo(glyphs,{opacity:0,x:i=>i<3?-45:45,y:i=>i<3?-28:28},{opacity:1,x:0,y:0,duration:.75,stagger:{each:.035,from:'edges'},ease:'power3.inOut'},.2)
    .fromTo(cover.querySelector('.entry-logo>sup'),{opacity:0},{opacity:1,duration:.2},.8)
-   .fromTo('.entry-tagline',{opacity:0},{opacity:1,duration:.25},.9)
    .to(glyphs,{x:i=>i<3?-innerWidth*.22:innerWidth*.28,opacity:0,duration:.85,stagger:{each:.025,from:'center'},ease:'power4.inOut'},1.5)
    .to(eye,{x:innerWidth*.5-eyeBounds.left-eyeBounds.width*.5,y:innerHeight*.5-eyeBounds.top-eyeBounds.height*.5,scale:.75,duration:.8,ease:'power3.inOut'},1.4)
    .to(identity,{opacity:0,duration:.25},2.25)
-   .to('.entry-meta,.entry-colophon',{opacity:0,duration:.2},1.9)
    .to(cover,{'--cut-w':innerWidth<=700?'48vw':'24vw','--cut-h':innerWidth<=700?'28vh':'32vh',duration:.75,ease:'power3.inOut'},2.05)
    .to(cover,{'--cut-w':'100vw','--cut-h':'100vh',duration:1.15,ease:'power4.inOut'},2.75);
   if(route==='/'){
    entry.fromTo('.topline>*',{opacity:0,y:12},{opacity:1,y:0,duration:.55,stagger:.04,ease:'power3.out'},3.05);
    entry.fromTo('.presence-line>span',{yPercent:110},{yPercent:0,duration:.7,stagger:.07,ease:'power3.out'},2.8);
-   entry.fromTo('.presence-alias,.presence-cta,.presence-discover,.presence-caption',{opacity:0},{opacity:1,duration:.5,stagger:.04,ease:'power2.out'},3.0);
+   entry.fromTo('.presence-cta,.presence-discover',{opacity:0},{opacity:1,duration:.5,stagger:.04,ease:'power2.out'},3.0);
   }
   // The critical cover is released only after CSS, assets and the first animation frame are prepared.
   window.__portfolioBootReady?.();

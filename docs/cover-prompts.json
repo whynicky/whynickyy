@@ -1,0 +1,51 @@
+{
+  "tool": "Built-in image_gen",
+  "style": "Use case: photorealistic-natural. Generate ONE 3:2 landscape full-bleed photographic project cover. Reference is ONLY for photographic treatment: soft optical defocus, real film grain, low-key cinematic exposure, large light/shadow shapes and analog editorial mood. Do NOT repeat reference room, desk, furniture or scene. Assigned subject below must read clearly even as a thumbnail. Different palette as specified. Natural lens imperfections, simple asymmetric composition, blurred foreground and restrained saturation. Looks like a 35mm film still on location, never a 3D render, glossy advertising, illustration or AI design. No text, logos, UI, phones, screenshots, collages, floating surreal objects. ",
+  "jobs": [
+    {
+      "id": "chatra",
+      "scene": "Education and shared learning. Outdoor university amphitheatre, sweeping curved rows of weathered stone steps with a single closed navy schoolbook resting on a step, dappled late daylight. Architectural geometry and learning outdoors, no room. Muted slate blue, chalk limestone, deep navy shadows.",
+      "path": "/Users/whynicky/.codex/generated_images/01a18835-85a6-7403-b80e-22aa7ce858a8/exec-53c17327-8807-414a-81cb-c7ddaaeda3a4.png"
+    },
+    {
+      "id": "soyle",
+      "scene": "Speech and breath practice for families. Intimate photographic close-up of a small soap bubble wand held by a child's hand at edge of frame, a few imperfect translucent soap bubbles drifting across a sunlit garden. No face or body. Soft peach, dusty terracotta, warm cream and tobacco shadows, no green-dominant cast. Real thin soap film, fleeting communication, NOT fantasy bubbles or CGI spheres.",
+      "path": "/Users/whynicky/.codex/generated_images/01a18835-85a6-7403-b80e-22aa7ce858a8/exec-b47cdc05-ea04-4951-a4a1-1c893bb7f991.png"
+    },
+    {
+      "id": "digital-urpaq",
+      "scene": "Discovery of extracurricular activities. Real worn outdoor basketball court at dusk, a basketball resting across painted intersecting court lines, fence softly out of focus in foreground, diagonal pool of evening light. Dusty cobalt-blue court, faded ochre ball, cream lines, deep blue shadows. Cinematic high angle, candid sporting life, no people.",
+      "path": "/Users/whynicky/.codex/generated_images/01a18835-85a6-7403-b80e-22aa7ce858a8/exec-4f6cf50c-a7c8-4208-80cf-1f766c132b72.png"
+    },
+    {
+      "id": "freelanceos",
+      "scene": "Freelance income and managing reserves. Close cinematic photograph of a few real worn coins spilling from a partly opened dark burgundy leather coin purse onto a wrinkled coat on an outdoor stone ledge. Coins incidental, not stacked, no legible currency text. Wine-red, dusty rose dusk, muted pewter and deep espresso. Tactile quiet human financial story, no table or room, no product-ad staging.",
+      "path": "/Users/whynicky/.codex/generated_images/01a18835-85a6-7403-b80e-22aa7ce858a8/exec-77950298-ba20-47af-bddd-c13632df10ed.png"
+    },
+    {
+      "id": "rugpull-risk",
+      "scene": "Financial risk and hidden fragility. Extreme close photographic detail of an actual fraying load-bearing rope over the edge of a dark wet concrete quay, blurred black water far below. One area of visibly worn fibers, real physical tension and material detail, not exaggerated severing. Cold charcoal and desaturated steel blue, restrained rusty-orange rope fibers. No people, no room, no crypto icon.",
+      "path": "/Users/whynicky/.codex/generated_images/01a18835-85a6-7403-b80e-22aa7ce858a8/exec-f2d098a4-3e9a-4ae1-8e1d-266cb512ab11.png"
+    },
+    {
+      "id": "forge",
+      "scene": "Turning rough inputs into a finished plan. Close photographic frame of a blacksmith's heavy worn hammer resting against a roughly forged piece of dark metal on an anvil, workshop surroundings excluded by tight crop, a faint amber glow reflecting from outside frame. Rich burnt copper, sienna and charcoal. No dramatic sparks, no CGI fire, no table/room view. Tactile material transformation.",
+      "path": "/Users/whynicky/.codex/generated_images/01a18835-85a6-7403-b80e-22aa7ce858a8/exec-41c8734c-145f-4ed1-b95f-c485b006f86a.png"
+    },
+    {
+      "id": "portfolio",
+      "scene": "Visual composition and creative authorship. Close-up of folded ivory paper sheets with graphite drawing marks tucked against a rough outdoor stone wall; a breeze lifts one paper edge into sunlight, deep organic shadow behind. Marks abstract and nonlegible, no words. Warm ivory, muted sand, graphite and tobacco, naturally imperfect editorial photograph. No desk, no studio interior, no screen.",
+      "path": "/Users/whynicky/.codex/generated_images/01a18835-85a6-7403-b80e-22aa7ce858a8/exec-f6a81518-a1c9-48bf-82a2-f9fda219b928.png"
+    },
+    {
+      "id": "chatra-api",
+      "scene": "Backend infrastructure and connections. Photographic macro of real weathered bundled blue and grey cables neatly branching through a metal cable tray, tiny aged brass connectors, softly blurred foreground cable, deep perspective disappearing into darkness. Petrol blue, blue-grey, sparse muted brass highlights. Ordinary real hardware not sci-fi, no lights/LEDs/neon, no room wide view. Calm visual structure.",
+      "path": "/Users/whynicky/.codex/generated_images/01a18835-85a6-7403-b80e-22aa7ce858a8/exec-6fab75b9-dbc8-4a35-b970-45ad15f6f2cd.png"
+    },
+    {
+      "id": "learning",
+      "scene": "Learning foundations through practice. Tight cinematic close-up of the edge of a well-used open book held outdoors, pages fanning in a light breeze with a simple pencil caught near spine, crop excludes hands and readable text. Ochre late sun through thin paper, muted mustard, warm taupe, deep coffee shadows, distant landscape fully dissolved into blur. No desk or interior.",
+      "path": "/Users/whynicky/.codex/generated_images/01a18835-85a6-7403-b80e-22aa7ce858a8/exec-7027fc9a-336e-4ef3-befa-a7cdbaf05fe3.png"
+    }
+  ]
+}

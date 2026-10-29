@@ -34,39 +34,12 @@ body[class] .directory-socials a:hover,body[class] .directory-settings button:ho
 .dock-home img{display:block;width:30px;height:30px;object-fit:contain;filter:invert(1)}
 .dock-home:hover img,.dock-home[aria-current] img{filter:none}
 
-/* Kinetic type, with a solid typographic silhouette. */
-.process-kinetic{position:relative;aspect-ratio:2.25;isolation:isolate;overflow:hidden;background:#fafaf8;color:#080808;border-block:1px solid #1112}
-.kinetic-type{position:absolute;inset:-28px -40px;display:flex;flex-direction:column;justify-content:center;transform:rotate(-2deg) skewX(-8deg) scale(1.06)}
-.kinetic-row{display:flex;width:max-content;flex-shrink:0;font:750 italic clamp(18px,2.05vw,29px)/1.18 var(--font);letter-spacing:.015em;white-space:nowrap;animation:kinetic-flow var(--row-duration,38s) linear infinite;animation-play-state:paused;margin-left:var(--row-offset,0px)}
-.kinetic-row:nth-child(2n){animation-direction:reverse}.kinetic-row>span{flex-shrink:0}
-.process-kinetic[data-running=true] .kinetic-row{animation-play-state:running}
-.kinetic-number{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:400 clamp(300px,49vw,620px)/.8 'About Display',Impact,sans-serif;letter-spacing:-.065em;transform:scaleX(1.12) rotate(-4deg);z-index:1;pointer-events:none;padding-right:.06em}
-.kinetic-toggle{display:flex;gap:8px;align-items:center;font:10px/1.4 var(--mono);min-height:36px;padding:0 4px;white-space:nowrap}.kinetic-toggle>span{font:15px var(--font)}.kinetic-toggle[hidden]{display:none}
-@keyframes kinetic-flow{to{transform:translateX(-50%)}}
-@media(max-width:600px){.process-kinetic{aspect-ratio:1.25}.kinetic-row{font-size:18px;line-height:1.15}.kinetic-number{font-size:clamp(290px,86vw,470px)}.kinetic-toggle{font-size:9px}.process-visual figcaption{align-items:center}}
-.quiet .kinetic-row{animation:none!important}
-@media(prefers-reduced-motion:reduce){.kinetic-row{animation:none!important}}
-
-/* A quieter, more compact moving poster. */
+/* A warm photographic pause, cropped for desktop and mobile. */
 .process-visual{max-width:880px}
-.process-kinetic{aspect-ratio:2.8}
-.kinetic-type{z-index:1;inset:-20px -25px;transform:rotate(-1.5deg) skewX(-7deg) scale(1.04)}
-.kinetic-row{font-size:clamp(12px,1.25vw,18px);line-height:1.3;font-weight:650}
-.kinetic-number{z-index:0;font-size:clamp(210px,29vw,380px);color:#b8b8b0;transform:scaleX(1.05) rotate(-3deg)}
-@media(max-width:600px){.process-kinetic{aspect-ratio:1.7}.kinetic-row{font-size:12px;line-height:1.25}.kinetic-number{font-size:clamp(160px,54vw,280px)}}
+.process-photo{aspect-ratio:2.8;overflow:hidden;background:#332319}
+.process-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 52%}
+@media(max-width:600px){.process-photo{aspect-ratio:1.7}.process-photo img{object-position:50% 52%}}
 
-/* Unique prose on every line; an oscillating drift avoids cloned marquee text. */
-.kinetic-type{inset:-35px -45px;justify-content:center;gap:0;transform:rotate(-1deg) skewX(-6deg) scale(1.025)}
-.kinetic-row{font-size:clamp(12px,1.18vw,16px);line-height:1.05;font-weight:700;letter-spacing:.025em;animation-name:kinetic-drift;animation-direction:alternate;animation-timing-function:ease-in-out}
-.kinetic-row:nth-child(2n){animation-direction:alternate-reverse}
-@keyframes kinetic-drift{from{transform:translateX(0)}to{transform:translateX(-180px)}}
-@media(max-width:600px){.kinetic-row{font-size:11px;line-height:1.08}.kinetic-type{inset:-20px -30px}}
-.kinetic-number{z-index:2;color:#111;opacity:.16;mix-blend-mode:multiply}
-
-/* Keep the figure within the poster at every aspect ratio. */
-.process-kinetic{container-type:size}
-.kinetic-number{font-size:clamp(120px,20vw,260px);font-size:76cqh;opacity:.64;color:#080808;line-height:1;transform:rotate(-3deg);padding:0}
-.kinetic-row{animation-timing-function:linear}
 .dock{align-items:stretch}
 .dock .dock-links{height:100%;align-items:stretch}
 .dock .dock-links>a{height:100%;min-height:0}

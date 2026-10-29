@@ -10,12 +10,12 @@ export function workGalleryMarkup(){return `<section class="project-gallery" dat
 <div class="gallery-intro"><p>Web and mobile projects.<br>Open a project to see my role,<br>the stack and implementation.</p><a href="#/contact">Discuss a project</a></div>
 <nav class="gallery-index" aria-label="Choose a project. Use arrow keys to cycle.">${projects.map((p,i)=>`<button data-select-project="${i}"><span>${p.name}</span></button>`).join('')}</nav>
 <div class="gallery-stage" tabindex="0" role="region" aria-label="Project gallery. Scroll, drag, swipe, or use arrow keys to explore.">
-${projects.map((p,i)=>`<a class="gallery-card" href="#/work/${p.id}" data-gallery-card="${i}" aria-label="Open ${p.name}" draggable="false"><div class="gallery-image"><img src="${p.images[0]}" alt="${p.name} - project screenshot" draggable="false" decoding="async" ${i<2?'fetchpriority="high"':'loading="lazy"'}></div><div class="gallery-card-caption"><span>${p.name}</span><span aria-hidden="true">↗</span></div></a>`).join('')}
+${projects.map((p,i)=>`<a class="gallery-card" href="#/work/${p.id}" data-gallery-card="${i}" aria-label="Open ${p.name}" draggable="false"><div class="gallery-image"><img src="${p.cover || p.images[0]}" alt="${p.name} - ${p.cover ? 'project cover' : 'project screenshot'}" draggable="false" decoding="async" ${i<2?'fetchpriority="high"':'loading="lazy"'}></div><div class="gallery-card-caption"><span>${p.name}</span></div></a>`).join('')}
 </div>
 <div class="gallery-frame" aria-hidden="true"><i></i><i></i></div>
 <div class="gallery-info"><span class="gallery-category"></span><span class="gallery-focus"></span></div>
-<div class="gallery-footer"><div class="gallery-modes" role="group" aria-label="Gallery layout"><button data-gallery-mode="vertical">Vertical</button><button data-gallery-mode="horizontal">Horizontal</button><button data-gallery-mode="grid">Grid</button></div><span class="gallery-hint">SCROLL / DRAG</span></div>
-<p class="gallery-colophon">PERSONAL WORK / WHYNICKY®</p><p class="sr-only" aria-live="polite" data-gallery-status></p>
+<div class="gallery-footer"><div class="gallery-modes" role="group" aria-label="Gallery layout"><button data-gallery-mode="vertical">Vertical</button><button data-gallery-mode="horizontal">Horizontal</button><button data-gallery-mode="grid">Grid</button></div></div>
+<p class="sr-only" aria-live="polite" data-gallery-status></p>
 </section>`;}
 
 export function mountWorkGallery({gsap,reduced,lenis}){
@@ -27,7 +27,7 @@ export function mountWorkGallery({gsap,reduced,lenis}){
  let width=innerWidth,height=Math.max(innerHeight,480),dimensions=[],centers=[],span=1,indexHeight=0;
  let pointer=null,touchId=null,lastPoint=0,lastTime=0,velocity=0,travel=0;
  const mobile=()=>width<700;
- const fit=(i,maxW,maxH)=>{const w=Math.min(maxW,maxH*projects[i].aspect);return{width:w,height:w/projects[i].aspect};};
+ const fit=(i,maxW,maxH)=>{const aspect=projects[i].coverAspect || projects[i].aspect;const w=Math.min(maxW,maxH*aspect);return{width:w,height:w/aspect};};
  const centerY=()=>height*(mobile()?.47:.50);
  const centerX=()=>width*(mobile()?.65:.5);
  const frameWidth=()=>width*(mobile()?.55:.338);
@@ -52,9 +52,9 @@ export function mountWorkGallery({gsap,reduced,lenis}){
  }
  function coordinates(i){
   if(mode==='grid'){
-   if(mobile()){const dim=fit(i,width*.40,176);return{x:width*(i%2?.74:.26),y:165+Math.floor(i/2)*225,...dim,opacity:i===active?1:.64};}
+   if(mobile()){const dim=fit(i,width*.40,176);return{x:width*(i%2?.74:.26),y:165+Math.floor(i/2)*225,...dim,opacity:1};}
    const [column,row]=gridSlots[i],dim=fit(i,width*.115,height*.235);
-   return{x:width*(.065+column*.145),y:height*(.21+row*.29),...dim,opacity:i===active?1:.52};
+   return{x:width*(.065+column*.145),y:height*(.21+row*.29),...dim,opacity:1};
   }
   const distance=circular(centers[i]-distanceAt(position),span),d=circular(i-position,count);
   const edgeFade=Math.min(1,Math.max(0,(span*.5-Math.abs(distance))/(mode==='horizontal'?dimensions[i].width:dimensions[i].height)));

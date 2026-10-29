@@ -141,3 +141,19 @@
 }
 .contact-spread { row-gap: 0; }
 @media (max-width: 600px) { .contact-spread { row-gap: 50px; } }
+
+/* Reflow sections after removing decorative labels. */
+.home-person-notes { grid-template-columns: 1fr auto; }
+.contact-mast { display: flex; justify-content: center; }
+.process-opening h1 { grid-column: 2; }
+.process-board-label { display: block; }
+.process-side-note > p { grid-column: 2; }
+.stage-outcome { grid-template-columns: 1fr; }
+.about-invitation { margin-top: 40px; }
+@media (max-width: 600px) {
+  .home-person-notes { grid-template-columns: 1fr; }
+  .process-opening h1, .process-side-note > p { grid-column: 1; }
+}
+
+/* Keep the photographic palette visible across the project grid. */
+.project-gallery[data-layout=grid] .gallery-image img{filter:none}

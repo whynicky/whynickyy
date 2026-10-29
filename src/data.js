@@ -261,6 +261,8 @@ export const projects = [
   },
   {
     "id": "chatra-mobile",
+    "cover": "/projects/chatra-mobile/cover-reading-room.png",
+    "coverAspect": 1.5,
     "name": "Chatra mobile",
     "tag": "Mobile · Flutter client",
     "headline": "Chatra’s classroom tools in a Flutter app.",
@@ -326,5 +328,5 @@ export const projects = [
     ],
     "portrait": false
   }
-].map(project => ({...project, images: project.images.map(assetUrl)}));
+].map(project => ({...project, images: project.images.map(assetUrl), cover: project.cover ? assetUrl(project.cover) : null}));
 export const github="https://github.com/whynicky";
