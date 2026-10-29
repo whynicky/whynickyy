@@ -32,7 +32,7 @@ history.scrollRestoration='manual';
 const params=new URLSearchParams(location.search);
 let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches||params.get('motion')==='reduce';
 try{if(sessionStorage.getItem('quiet-motion')==='true')reduced=true;}catch{}
-const email='alimzhanart@icloud.com';
+const email='whynicky777@gmail.com';
 const main=document.querySelector('main'),menu=document.querySelector('#site-menu'),toggle=document.querySelector('.menu-toggle');
 const lenis=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:!reduced,anchors:false});
 lenis.on('scroll',ScrollTrigger.update);

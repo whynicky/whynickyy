@@ -24,7 +24,7 @@
   &nbsp;&nbsp;/&nbsp;&nbsp;
   <a href="./public/documents/whynicky-CV.pdf">RÉSUMÉ ↗</a>
   &nbsp;&nbsp;/&nbsp;&nbsp;
-  <a href="mailto:alimzhanart@icloud.com">SAY HELLO ↗</a>
+  <a href="mailto:whynicky777@gmail.com">SAY HELLO ↗</a>
 </p>
 
 ---
