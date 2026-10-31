@@ -68,7 +68,7 @@ function draw(restore=false){
  if(import.meta.env.DEV&&route==='/'&&params.has('at')){const at=Math.min(1,Math.max(0,Number(params.get('at'))||0));lenis.scrollTo(at*(document.querySelector('.home-score').offsetHeight-innerHeight),{immediate:true,force:true});}
 }
 function bindRoute(){
- const disposeGallery=route==='/work'?mountWorkGallery({gsap,reduced,lenis}):()=>{};
+ const disposeGallery=route==='/work'?mountWorkGallery({gsap,reduced,lenis,onScrollStep:sound.galleryStep}):()=>{};
  const disposeEditorial=mountEditorial({gsap,ScrollTrigger,reduced,lenis});
  const disposeCredentials=mountCredentialArchive({lenis});
  const disposeLetter=mountContactLetter();
@@ -77,7 +77,7 @@ function bindRoute(){
  disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();disposeLetter();};
 }
 async function navigate(){
- if(transitioning)return;transitioning=true;positions.set(route,window.scrollY);closeMenu();sound.route();
+ if(transitioning)return;transitioning=true;positions.set(route,window.scrollY);closeMenu();
  const curtain=document.querySelector('.page-turn'),panels=[...curtain.querySelectorAll('i')],turnTitle=curtain.querySelector('.turn-title');
  const requested=location.hash.slice(1)||'/';const restore=requested==='/work'&&route.startsWith('/work/');
  main.inert=true;lenis.stop();

@@ -1,4 +1,12 @@
-# Portfolio music
+# Portfolio sound
+
+Procedural button/link clicks, button-only hover cues, and a soft rounded tick when scrolling or dragging between projects are active (`src/sound.js`). There is no background music or route-transition cue. Sound starts disabled on each page load and can be enabled with the sound switch. The choice lasts for the current page session, including route changes. Hover cues are quieter than clicks, limited to buttons (not links), throttled, and skipped for touch input and disabled controls. Gallery ticks are tied to active-project changes, throttled, and silent during initial layout and grid view. Recordings documented below are retained as unused assets; none are loaded during playback.
+
+
+
+The MP3 below is retained as an unused legacy asset; it is no longer loaded by the site.
+
+## Legacy recording
 
 Verified and downloaded on 2026-10-26.
 
@@ -39,4 +47,8 @@ Link the title to the author's track page and the license name to the official d
 
 The recording has approximately 3.9 seconds of near-silence at its end (after 119.293 seconds). It is a complete recorded song, not a guaranteed seamless loop. Playback may restart near 119 seconds if a continuous background loop is wanted. Keep playback user-controlled and quiet by default.
 
-The recording is used as optional background music. Interface sounds are implemented separately.
+The recording is no longer used in playback.
+
+## Interface timbres
+
+Hover: a 75 ms filtered air sweep. Press: a 70 ms low pitched impact with a short attack layer. Gallery scrolling: a quiet 45 ms sine pulse falling from 520 to 310 Hz, with an 8 ms attack. These are synthesized locally without external recordings, using distinct sources and envelopes. Existing mute, hover targeting and rate limits remain in effect.

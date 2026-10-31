@@ -18,11 +18,12 @@ ${projects.map((p,i)=>`<a class="gallery-card" href="#/work/${p.id}" data-galler
 <p class="sr-only" aria-live="polite" data-gallery-status></p>
 </section>`;}
 
-export function mountWorkGallery({gsap,reduced,lenis}){
+export function mountWorkGallery({gsap,reduced,lenis,onScrollStep=()=>{}}){
  const root=document.querySelector('.project-gallery');if(!root)return()=>{};
  const cards=[...root.querySelectorAll('.gallery-card')],indices=[...root.querySelectorAll('[data-select-project]')],modes=[...root.querySelectorAll('[data-gallery-mode]')];
  const frame=root.querySelector('.gallery-frame'),stage=root.querySelector('.gallery-stage'),indexWindow=root.querySelector('.gallery-index'),dragSurface=root;
  const gridSlots=[[0,0],[2,0],[4,0],[5,1],[1,1],[3,1],[6,1],[0,2],[3,2],[6,2]];
+ let scrollSelection=false;
  let mode=saved.mode,position=saved.position,target=position,active=-1,disposed=false,layoutTween=false,layoutTimeline,settle,entryTimeline,entryDelay,entryObserver,entryPending=false;
  let width=innerWidth,height=Math.max(innerHeight,480),dimensions=[],centers=[],span=1,indexHeight=0;
  let pointer=null,touchId=null,lastPoint=0,lastTime=0,velocity=0,travel=0;
@@ -46,7 +47,8 @@ export function mountWorkGallery({gsap,reduced,lenis}){
  function distanceAt(value){const whole=Math.floor(value),i=wrap(whole),cycle=Math.floor(whole/count);return cycle*span+centers[i]+(value-whole)*((i===count-1?span:centers[i+1])-centers[i]);}
  function positionAt(distance){const cycle=Math.floor(distance/span),local=distance-cycle*span;let i=count-1;for(let j=0;j<count-1;j++)if(local<centers[j+1]){i=j;break;}return cycle*count+i+(local-centers[i])/((i===count-1?span:centers[i+1])-centers[i]);}
  function updateMeta(){
-  const next=wrap(Math.round(position));if(next===active)return false;active=next;
+  const next=wrap(Math.round(position));if(next===active)return false;const previous=active;active=next;
+  if(previous!==-1&&scrollSelection&&mode!=='grid'&&!layoutTween)onScrollStep();
   const p=projects[active];indices.forEach((b,i)=>{b.setAttribute('aria-pressed',String(i===active));b.tabIndex=i===active?0:-1;});
   root.querySelector('.gallery-category').textContent=p.tag;root.querySelector('.gallery-focus').textContent=p.focus;root.querySelector('[data-gallery-status]').textContent=`${p.name}. ${p.tag}.`;return true;
  }
@@ -72,9 +74,9 @@ export function mountWorkGallery({gsap,reduced,lenis}){
   root.style.setProperty('--active-image-bottom',`${centerY()+selected.height/2}px`);root.style.setProperty('--gallery-center-y',`${centerY()}px`);
   if(transition)layoutTimeline.to(frame,{...frameState,duration:.95,ease:'expo.inOut',overwrite:true},0);else if(reduced||instantFrame)gsap.set(frame,frameState);else if(changed)gsap.to(frame,{...frameState,duration:.42,ease:'power3.out',overwrite:true});
  }
- function choose(index){target=index;saved.position=wrap(target);if(!layoutTween&&(reduced||mode==='grid')){position=target;paint();}}
- function movePixels(delta){choose(positionAt(distanceAt(target)+delta));}
- function settleSoon(delay=260){clearTimeout(settle);settle=setTimeout(()=>choose(Math.round(target)),delay);}
+ function choose(index,fromScroll=false){scrollSelection=fromScroll;target=index;saved.position=wrap(target);if(!layoutTween&&(reduced||mode==='grid')){position=target;paint();}}
+ function movePixels(delta){choose(positionAt(distanceAt(target)+delta),true);}
+ function settleSoon(delay=260){clearTimeout(settle);settle=setTimeout(()=>choose(Math.round(target),scrollSelection),delay);}
  const entryUI=[indexWindow,root.querySelector('.gallery-info'),root.querySelector('.gallery-intro'),root.querySelector('.gallery-footer')];
  function finishEntry(){
   entryPending=false;entryTimeline=null;layoutTween=false;root.classList.remove('is-entering');root.removeAttribute('aria-busy');
@@ -98,13 +100,13 @@ export function mountWorkGallery({gsap,reduced,lenis}){
   else startEntry(.27);
  }
  function setMode(next){
-  cancelEntry();if(next===mode)return;clearTimeout(settle);layoutTimeline?.kill();mode=next;saved.mode=next;target=position=wrap(Math.round(position));saved.position=position;root.dataset.layout=mode;lenis?.scrollTo(0,{immediate:true,force:true});measure();
+  cancelEntry();if(next===mode)return;scrollSelection=false;clearTimeout(settle);layoutTimeline?.kill();mode=next;saved.mode=next;target=position=wrap(Math.round(position));saved.position=position;root.dataset.layout=mode;lenis?.scrollTo(0,{immediate:true,force:true});measure();
   modes.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.galleryMode===mode)));
   if(reduced){layoutTween=false;paint(false,true);return;}
   layoutTween=true;root.classList.add('is-rearranging');layoutTimeline=gsap.timeline({onComplete:()=>{layoutTween=false;root.classList.remove('is-rearranging');if(mode==='grid')position=target;paint();}});paint(true);
  }
  const onClick=e=>{cancelEntry();const select=e.target.closest('[data-select-project]'),change=e.target.closest('[data-gallery-mode]'),step=e.target.closest('[data-gallery-step]'),card=e.target.closest('[data-gallery-card]');if(select)choose(target+circular(Number(select.dataset.selectProject)-target,count));if(change)setMode(change.dataset.galleryMode);if(step)choose(Math.round(target)+Number(step.dataset.galleryStep));if(card)choose(target+circular(Number(card.dataset.galleryCard)-target,count));};
- const onWheel=e=>{if(document.body.classList.contains('menu-open')||mode==='grid')return;cancelEntry();e.preventDefault();const raw=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;if(e.deltaMode===1)choose(Math.round(target)+Math.sign(raw));else movePixels(raw*(e.deltaMode===2?height:1)*.88);settleSoon();};
+ const onWheel=e=>{if(document.body.classList.contains('menu-open')||mode==='grid')return;cancelEntry();e.preventDefault();const raw=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;if(e.deltaMode===1)choose(Math.round(target)+Math.sign(raw),true);else movePixels(raw*(e.deltaMode===2?height:1)*.88);settleSoon();};
  const onKey=e=>{if(document.body.classList.contains('menu-open'))return;const map={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1};if(map[e.key]){cancelEntry();e.preventDefault();choose(Math.round(target)+map[e.key]);const next=wrap(Math.round(target));if(e.target.closest('[data-select-project]'))indices[next].focus({preventScroll:true});else if(e.target===stage||e.target.closest('[data-gallery-card]'))cards[next].focus({preventScroll:true});}};
  const selectCard=card=>{if(card)choose(target+circular(Number(card.dataset.galleryCard)-target,count));};
  const onFocus=e=>{if(pointer===null)selectCard(e.target.closest('[data-gallery-card]'));};

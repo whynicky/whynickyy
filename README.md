@@ -56,7 +56,7 @@ The visual language carries through the entire site: from the distorted WebGL in
 
 The portrait uses procedural displacement, monochrome lighting and tonal grain. Scroll motion is separate from the portrait animation. Type, photographs and small editorial annotations carry the rest of the interface.
 
-Keyboard controls, visible focus and labelled fields are part of the experience. Document viewers support arrow keys and `Escape`. Reduced-motion preferences and the Directory motion switch are respected; a static portrait appears when WebGL is unavailable. Sound starts only after the visitor enables it.
+Keyboard controls, visible focus and labelled fields are part of the experience. Document viewers support arrow keys and `Escape`. Reduced-motion preferences and the Directory motion switch are respected; a static portrait appears when WebGL is unavailable. Quiet interface sounds start disabled on each page load. Visitors can enable them with the sound switch.
 
 ### 04 / MAKE IT RUN
 
@@ -130,7 +130,7 @@ Open [127.0.0.1:4176/whynickyy/](http://127.0.0.1:4176/whynickyy/).
 <br>
 
 - [Portrait artwork and implementation notes](./docs/HERO-ASSET.md)
-- [Audio source and CC0 licence](./docs/AUDIO-LICENSE.md)
+- [Sound design and legacy audio licence](./docs/AUDIO-LICENSE.md)
 - [Typeface licences](./public/fonts)
 
 The anonymous animated portrait is visual artwork, not a photograph of whynicky.
