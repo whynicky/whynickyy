@@ -1,4 +1,7 @@
-import {projects} from './data.js';
+import {projects as existingProjects} from './data.js';
+import {aiMentor} from './ai-mentor.js';
+
+const projects=[...existingProjects,aiMentor];
 
 const count=projects.length;
 const wrap=n=>((n%count)+count)%count;
@@ -22,7 +25,7 @@ export function mountWorkGallery({gsap,reduced,lenis,onScrollStep=()=>{}}){
  const root=document.querySelector('.project-gallery');if(!root)return()=>{};
  const cards=[...root.querySelectorAll('.gallery-card')],indices=[...root.querySelectorAll('[data-select-project]')],modes=[...root.querySelectorAll('[data-gallery-mode]')];
  const frame=root.querySelector('.gallery-frame'),stage=root.querySelector('.gallery-stage'),indexWindow=root.querySelector('.gallery-index'),dragSurface=root;
- const gridSlots=[[0,0],[2,0],[4,0],[5,1],[1,1],[3,1],[6,1],[0,2],[3,2],[6,2]];
+ const gridSlots=[[0,0],[2,0],[4,0],[5,1],[1,1],[3,1],[6,1],[0,2],[3,2],[6,2],[1,2]];
  let scrollSelection=false;
  let mode=saved.mode,position=saved.position,target=position,active=-1,disposed=false,layoutTween=false,layoutTimeline,settle,entryTimeline,entryDelay,entryObserver,entryPending=false;
  let width=innerWidth,height=Math.max(innerHeight,480),dimensions=[],centers=[],span=1,indexHeight=0;

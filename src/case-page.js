@@ -7,12 +7,12 @@ const sourceLabel=(url,p)=>{
  return url.toLowerCase().includes('backend')?'Backend source':'Frontend source';
 };
 
-export function projectPage(p){
+export function projectPage(p, hasGallery=false){
  const index=projects.indexOf(p),next=projects[(index+1)%projects.length];
  const layout=p.portrait?'mobile':['chatra-api','learning'].includes(p.id)?'system':'screen';
  const links=p.links.map(url=>`<a href="${url}" target="_blank" rel="noopener noreferrer">${sourceLabel(url,p)} </a>`).join('');
  return `<article class="case-page case-${p.id} case-layout-${layout} project-story">
- <div class="case-top"><a href="#/work" data-back> Back to work</a><span>${p.tag}</span></div>
+ <div class="case-top"><a href="${hasGallery?`#/work/${p.id}`:'#/work'}" data-back>${hasGallery?'Back to screenshots':'Back to work'}</a><span>${p.tag}</span></div>
  <header class="case-opening">
   <div class="case-title-block"><span class="case-kicker">${p.focus} / ${p.tag.split(' · ')[0]}</span><h1>${p.name}</h1><p class="case-deck">${p.headline}</p></div>
   <figure class="case-cover ${p.portrait?'is-portrait':''}"><img src="${p.images[0]}" alt="${p.name} - project screenshot" fetchpriority="high"><figcaption>${p.name} <span>Screenshot / ${p.focus}</span></figcaption></figure>

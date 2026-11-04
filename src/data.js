@@ -37,6 +37,8 @@ export const projects = [
   },
   {
     "id": "soyle",
+    "cover": "/projects/soyle/gallery/landing.webp",
+    "coverAspect": 1440 / 940,
     "name": "Söyle",
     "tag": "Web · Family practice",
     "headline": "Speech practice for children and parents.",

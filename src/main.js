@@ -17,6 +17,8 @@ import './editorial-compositions.css';
 import {mountContactLetter} from './contact-letter.js';
 import {mountCredentialArchive} from './credential-archive.js';
 import {projectPage} from './case-page.js';
+import {projectScreens} from './project-screens.js';
+import {aiMentor,screenshotGalleryPage,mountScreenshotGallery} from './ai-mentor.js';
 import {footerMarkup} from './site-footer.js';
 import {mountSound} from './sound.js';
 import gsap from 'gsap';
@@ -47,10 +49,11 @@ function openMenu(){menuOpen=true;restoreFocus=document.activeElement;document.b
 function draw(restore=false){
  disposeRoute();scene?.destroy();scene=null;homeController?.destroy();homeController=null;ScrollTrigger.getAll().forEach(t=>t.kill());
  route=location.hash.slice(1)||'/';if(route==='/practice'){history.replaceState(null,'','#/about');route='/about';}
- const project=projects.find(p=>route===`/work/${p.id}`);
+ const project=[...projects,aiMentor].find(p=>route===`/work/${p.id}` || (projectScreens[p.id] && route===`/work/${p.id}/details`));
+ const showGallery=project && (project===aiMentor || projectScreens[project.id]) && !route.endsWith('/details');
  document.body.className=`${sound.enabled?'sound-on ':''}${reduced?'quiet ':''}route-${route==='/'?'home':project?'case':route.slice(1)}`;
  document.body.dataset.chapter=0;
- main.innerHTML=route==='/'?homeMarkup():route==='/work'?workGalleryMarkup():route==='/about'?aboutMarkup():route==='/contact'?contactMarkup():route==='/process'?processMarkup():route==='/credentials'?credentialsMarkup():project?projectPage(project):`<section class="not-found"><h1>Wrong turn.</h1><a href="#/">Back to the beginning</a></section>`;
+ main.innerHTML=route==='/'?homeMarkup():route==='/work'?workGalleryMarkup():route==='/about'?aboutMarkup():route==='/contact'?contactMarkup():route==='/process'?processMarkup():route==='/credentials'?credentialsMarkup():showGallery?screenshotGalleryPage(project,projectScreens[project.id]):project?projectPage(project,Boolean(projectScreens[project.id])):`<section class="not-found"><h1>Wrong turn.</h1><a href="#/">Back to the beginning</a></section>`;
  if(['/'].includes(route))main.insertAdjacentHTML('beforeend',footerMarkup());
  document.title=`${project?project.name:route==='/'?'Frontend & Creative Developer':route.slice(1).replace(/^./,c=>c.toUpperCase())} - whynicky®`;
 
@@ -72,9 +75,10 @@ function bindRoute(){
  const disposeEditorial=mountEditorial({gsap,ScrollTrigger,reduced,lenis});
  const disposeCredentials=mountCredentialArchive({lenis});
  const disposeLetter=mountContactLetter();
+ const disposeMentor=mountScreenshotGallery({gsap,reduced});
  const rows=[...document.querySelectorAll('[data-work]')];rows.forEach(row=>{const active=()=>{rows.forEach(r=>r.classList.toggle('active',r===row));document.querySelectorAll('[data-work-art]').forEach(a=>a.classList.toggle('active',a.dataset.workArt===row.dataset.work));};row.addEventListener('pointerenter',active);row.addEventListener('focus',active);});
  const cover=document.querySelector('.case-cover');if(cover&&!reduced)gsap.fromTo(cover,{rotate:2,y:30},{rotate:0,y:0,duration:1,ease:'power3.out'});
- disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();disposeLetter();};
+ disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();disposeLetter();disposeMentor();};
 }
 async function navigate(){
  if(transitioning)return;transitioning=true;positions.set(route,window.scrollY);closeMenu();

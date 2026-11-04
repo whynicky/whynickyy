@@ -1,0 +1,32 @@
+/* The reference's fixed half-width gallery, without image surrounds or captions. */
+body:has(.mentor-case){background:#fff;color:#111;overscroll-behavior:none}
+body:has(.mentor-case)>.topline,body:has(.mentor-case)>.dock,body:has(.mentor-case)>.grain{display:none}
+.mentor-case{position:relative;height:100svh;overflow:hidden;background:#fff;color:#111;--mentor-unit:.694444vw;font:400 .763889vw/1.2 var(--font);letter-spacing:-.01em}
+.mentor-header{position:absolute;top:10px;left:10px;right:10px;z-index:3;display:flex;align-items:flex-start;justify-content:space-between;mix-blend-mode:difference;color:#fff}
+.mentor-header>a{font-size:14px;letter-spacing:-.05em}
+.mentor-header nav{display:flex;gap:4px}
+.mentor-header nav a:last-child{margin-left:18vw}
+.mentor-header nav a:first-child:after{content:','}
+.mentor-header a{padding:0;min-height:24px;display:inline-flex;align-items:flex-start}
+.mentor-info{position:absolute;left:var(--mentor-unit);top:50%;transform:translateY(-50%);display:flex;align-items:flex-start;width:calc(50% - 10px);pointer-events:none}
+.mentor-info h1{font:inherit;width:calc((100vw - var(--mentor-unit)*13)/6 + var(--mentor-unit));margin:0}
+.mentor-info p{font:inherit;margin:0;padding-left:var(--mentor-unit)}
+.mentor-back{position:absolute;bottom:10px;left:10px;z-index:3;color:#888;text-decoration:underline;text-underline-offset:3px;min-height:24px;display:flex;align-items:flex-end}
+.mentor-gallery{position:absolute;right:0;top:0;width:50%;height:100svh;overflow:hidden;touch-action:none;cursor:grab;outline-offset:-4px}
+.mentor-gallery.is-dragging{cursor:grabbing}
+.mentor-frame{position:absolute;left:0;top:0;width:100%;margin:0;transform-origin:0 0;will-change:transform;visibility:hidden;user-select:none}
+.mentor-frame img{display:block;width:100%;height:auto;filter:none;pointer-events:none}
+.mentor-case a:focus-visible,.mentor-gallery:focus-visible{outline:2px solid #315bff;outline-offset:3px}
+@media(max-width:700px){
+ .mentor-case{--mentor-unit:8px;font-size:10px}
+ .mentor-header nav a:last-child{margin-left:24px}
+ .mentor-info h1{width:45%;flex-shrink:0;white-space:nowrap}
+ .mentor-info p{padding-left:4px;white-space:nowrap}
+ .mentor-back{min-height:44px}
+}
+
+.mentor-credit a{display:inline-block;pointer-events:auto;margin:.6em 0 0 var(--mentor-unit);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:700px){
+ .mentor-credit:has(a) p{white-space:normal}
+ .mentor-credit a{margin-left:4px;padding-block:5px}
+}
