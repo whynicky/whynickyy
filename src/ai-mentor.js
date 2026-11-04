@@ -14,7 +14,7 @@ const screens = [
  ['login', 'Welcome back', 2940, 1852],
  ['register', 'The start of a learning journey', 2940, 1852],
  ['faq', 'Questions & next steps', 2940, 1846],
-].map(([id, title, width, height]) => ({id, title, width, height, src:assetUrl(`/projects/ai-mentor/${id}.png`)}));
+].map(([id, title, width, height]) => ({id, title, width, height, src:assetUrl(`/projects/ai-mentor/${id}.webp`), smallSrc:assetUrl(`/projects/ai-mentor/${id}-small.webp`)}));
 
 export const aiMentor = {
  id:'ai-mentor', name:'AI Mentor', tag:'Education · Interface design', focus:'Design only',
@@ -34,7 +34,7 @@ export function screenshotGalleryPage(project=aiMentor, galleryScreens=screens){
   <div class="mentor-info"><h1 id="mentor-title">${project.name}</h1><div class="mentor-credit"><p>${role}</p>${details?`<a href="#/work/${project.id}/details">Project details</a>`: ''}</div></div>
   <a class="mentor-back" href="#/work">Back</a>
   <section class="mentor-gallery" tabindex="0" aria-label="${project.name} screenshots. Scroll or use arrow keys to explore.">
-   ${galleryScreens.map((screen,index)=>`<figure class="mentor-frame"><img src="${screen.src}" alt="${project.name} — ${screen.title}" width="${screen.width}" height="${screen.height}" draggable="false" ${index<2?'fetchpriority="high"':'loading="lazy"'} decoding="async"></figure>`).join('')}
+   ${galleryScreens.map(screen=>`<figure class="mentor-frame"><img data-src="${screen.src}" ${screen.smallSrc?`data-srcset="${screen.smallSrc} 640w, ${screen.src} 1600w" sizes="50vw"`:''} alt="${project.name} — ${screen.title}" width="${screen.width}" height="${screen.height}" draggable="false" decoding="async"></figure>`).join('')}
   </section>
  </article>`;
 }
@@ -61,8 +61,13 @@ export function mountScreenshotGallery({gsap,reduced}){
     visible.add(index);
     frames[index].style.visibility='visible';
     frames[index].style.transform=`translate3d(${width*(1-scale)+entrance[index].x}px,${top}px,0) scale(${scale})`;
-    // Images recycled into view must not wait for an offscreen lazy-load boundary.
-    frames[index].querySelector('img').loading='eager';
+    // All frames share the same CSS origin, so native lazy loading fetches the entire stack.
+    const image=frames[index].firstElementChild;
+    if(!image.hasAttribute('src')){
+     if(top+renderedHeight>0 && top<height)image.fetchPriority='high';
+     if(image.dataset.srcset)image.srcset=image.dataset.srcset;
+     image.src=image.dataset.src;
+    }
    }
    top+=renderedHeight;
    if(top>height+maxHeight)break;
