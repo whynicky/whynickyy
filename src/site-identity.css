@@ -8,6 +8,11 @@
 .process-mast .site-eye,.about-nav .site-eye,.contact-mast .site-eye,.credentials-nav .site-eye{width:96px;height:64px}
 @media(max-width:700px){.site-eye,.topline .site-eye,.process-mast .site-eye,.about-nav .site-eye,.contact-mast .site-eye,.credentials-nav .site-eye{width:80px;height:56px}}
 
+@media(min-width:701px){
+ .topline .site-eye,.mentor-header .site-eye,.process-mast .site-eye,.about-nav .site-eye,.contact-mast .site-eye,.credentials-nav .site-eye{width:144px;height:96px}
+ .screenshot-viewer-brand,.screenshot-viewer-brand img{width:144px;height:96px}
+}
+
 /* Two curved surfaces close over the old page and uncover the new one. */
 .page-turn.page-blink{display:block;position:fixed;inset:0;z-index:130;overflow:hidden;visibility:hidden;pointer-events:none;background:transparent;clip-path:none;perspective:none;isolation:isolate}
 .page-blink.is-active{pointer-events:auto}
