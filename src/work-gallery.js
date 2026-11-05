@@ -1,7 +1,11 @@
 import {projects as existingProjects} from './data.js';
 import {aiMentor} from './ai-mentor.js';
+import {projectScreens} from './project-screens.js';
 
-const projects=[...existingProjects,aiMentor];
+const projects=[...existingProjects,aiMentor].map(project=>{
+ const cover=projectScreens[project.id]?.find(screen=>screen.src===project.cover);
+ return cover?{...project,coverSmall:cover.smallSrc,coverWidth:cover.width}:project;
+});
 
 const count=projects.length;
 const wrap=n=>((n%count)+count)%count;
@@ -13,7 +17,7 @@ export function workGalleryMarkup(){return `<section class="project-gallery" dat
 <div class="gallery-intro"><p>Web and mobile projects.<br>Open a project to see my role,<br>the stack and implementation.</p><a href="#/contact">Discuss a project</a></div>
 <nav class="gallery-index" aria-label="Choose a project. Use arrow keys to cycle.">${projects.map((p,i)=>`<button data-select-project="${i}"><span>${p.name}</span></button>`).join('')}</nav>
 <div class="gallery-stage" tabindex="0" role="region" aria-label="Project gallery. Scroll, drag, swipe, or use arrow keys to explore.">
-${projects.map((p,i)=>`<a class="gallery-card" href="#/work/${p.id}" data-gallery-card="${i}" aria-label="Open ${p.name}" draggable="false"><div class="gallery-image"><img src="${p.cover || p.images[0]}" alt="${p.name} - ${p.cover ? 'project cover' : 'project screenshot'}" draggable="false" decoding="async" ${i<2?'fetchpriority="high"':'loading="lazy"'}></div><div class="gallery-card-caption"><span>${p.name}</span></div></a>`).join('')}
+${projects.map((p,i)=>`<a class="gallery-card" href="#/work/${p.id}" data-gallery-card="${i}" aria-label="Open ${p.name}" draggable="false"><div class="gallery-image"><img src="${p.cover || p.images[0]}" ${p.coverSmall?`srcset="${p.coverSmall} 640w, ${p.cover} ${p.coverWidth}w" sizes="(max-width:700px) 40vw, 14vw"`:''} alt="${p.name} - ${p.cover ? 'project cover' : 'project screenshot'}" draggable="false" decoding="async" ${i<2?'fetchpriority="high"':'loading="lazy"'}></div><div class="gallery-card-caption"><span>${p.name}</span></div></a>`).join('')}
 </div>
 <div class="gallery-frame" aria-hidden="true"><i></i><i></i></div>
 <div class="gallery-info"><span class="gallery-category"></span><span class="gallery-focus"></span></div>

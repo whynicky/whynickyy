@@ -2,6 +2,8 @@ import {assetUrl} from './asset-url.js';
 export const projects = [
   {
     "id": "chatra",
+    "cover": "/projects/chatra/gallery/landing.webp",
+    "coverAspect": 1440 / 940,
     "name": "Chatra",
     "tag": "Web & mobile · Education",
     "headline": "A learning platform for schools.",
@@ -169,6 +171,8 @@ export const projects = [
   },
   {
     "id": "forge",
+    "cover": "/projects/forge/gallery/landing.webp",
+    "coverAspect": 1440 / 940,
     "name": "FORGE",
     "tag": "Web · Product planning",
     "headline": "Business problems turned into task packs.",
@@ -200,8 +204,47 @@ export const projects = [
     "portrait": false
   },
   {
+    "id": "portfolio-v2",
+    "name": "Portfolio v2",
+    "cover": "/projects/portfolio-v2/gallery/landing.webp",
+    "coverAspect": 1.5319148936170213,
+    "tag": "Web · Design & creative development",
+    "headline": "A portfolio built around motion and project imagery.",
+    "description": "A personal portfolio bringing frontend work, project galleries, experience and credentials into one responsive website.",
+    "focus": "JavaScript & WebGL",
+    "features": [
+      "A WebGL portrait, animated page transitions and three layouts for browsing projects.",
+      "Project galleries support scrolling, touch gestures and keyboard navigation, with responsive images loaded as they approach the viewport.",
+      "Dedicated pages for experience, process, credentials and contact."
+    ],
+    "statement": "A portfolio built around motion and project imagery.",
+    "images": [
+      "/projects/portfolio-v2/gallery/landing.webp"
+    ],
+    "aspect": 1.5319148936170213,
+    "imageAspects": [
+      1.5319148936170213
+    ],
+    "notes": [],
+    "stack": [
+      "JavaScript",
+      "Vite",
+      "Three.js",
+      "GSAP",
+      "Lenis"
+    ],
+    "contribution": "My contribution: Visual design, frontend development, animation and responsive implementation.",
+    "links": [
+      "https://whynicky.github.io/whynickyy/",
+      "https://github.com/whynicky/whynickyy"
+    ],
+    "portrait": false
+  },
+  {
     "id": "portfolio",
-    "name": "Portfolio Website",
+    "cover": "/projects/portfolio/gallery/landing.webp",
+    "coverAspect": 1440 / 940,
+    "name": "Portfolio v1",
     "tag": "Web · Design & frontend",
     "headline": "A portfolio built with HTML, CSS and JavaScript.",
     "description": "A buildless, multi-page portfolio for presenting interfaces, explaining product decisions and connecting visitors to the work behind them.",
@@ -212,11 +255,11 @@ export const projects = [
     ],
     "statement": "A portfolio built with HTML, CSS and JavaScript.",
     "images": [
-      "/projects/portfolio/screen-1.png"
+      "/projects/portfolio/gallery/landing.webp"
     ],
-    "aspect": 1.7777777777777777,
+    "aspect": 1440 / 940,
     "imageAspects": [
-      1.7777777777777777
+      1440 / 940
     ],
     "notes": [],
     "stack": [
@@ -231,40 +274,9 @@ export const projects = [
     "portrait": false
   },
   {
-    "id": "chatra-api",
-    "name": "Chatra API",
-    "tag": "Backend · Shared service",
-    "headline": "A shared API for web and mobile clients.",
-    "description": "The FastAPI service connecting Chatra’s web and mobile clients to the same classroom data, rather than separate copies of the product.",
-    "focus": "Python",
-    "features": [
-      "Access & workflows: Authentication and roles for classes, assignments, files, messaging and moderation.",
-      "Data & contracts: PostgreSQL persistence and documented client-facing routes."
-    ],
-    "statement": "A shared API for web and mobile clients.",
-    "images": [
-      "/projects/chatra-api/screen-1.webp"
-    ],
-    "aspect": 1.6012084592145015,
-    "imageAspects": [
-      1.6012084592145015
-    ],
-    "notes": [],
-    "stack": [
-      "Python",
-      "FastAPI",
-      "PostgreSQL"
-    ],
-    "contribution": "Work shown: The service layer and API documentation behind the classroom system.",
-    "links": [
-      "https://github.com/whynicky/Chatra-Backend-New"
-    ],
-    "portrait": false
-  },
-  {
     "id": "chatra-mobile",
-    "cover": "/projects/chatra-mobile/cover-reading-room.png",
-    "coverAspect": 1.5,
+    "cover": "/projects/chatra-mobile/screen-1.webp",
+    "coverAspect": 600 / 1300,
     "name": "Chatra mobile",
     "tag": "Mobile · Flutter client",
     "headline": "Chatra’s classroom tools in a Flutter app.",
@@ -295,40 +307,6 @@ export const projects = [
       "https://github.com/whynicky/Chatra-app-IOS"
     ],
     "portrait": true
-  },
-  {
-    "id": "learning",
-    "name": "CS50P + Odin",
-    "tag": "Learning · Python & web",
-    "headline": "Python coursework and web-development exercises.",
-    "description": "Structured Python coursework and a public archive of web-development exercises that form the foundations behind the larger product work.",
-    "focus": "Python",
-    "features": [
-      "CS50P: Language fundamentals and programming practice.",
-      "The Odin Project: HTML, CSS, Git, layout and interaction."
-    ],
-    "statement": "Python coursework and web-development exercises.",
-    "images": [
-      "/projects/learning/screen-1.webp"
-    ],
-    "aspect": 1.5376569037656904,
-    "imageAspects": [
-      1.5376569037656904
-    ],
-    "notes": [
-      "Learning projects, not client products."
-    ],
-    "stack": [
-      "Python",
-      "HTML",
-      "CSS",
-      "Git"
-    ],
-    "contribution": "Work shown: Learning exercises that build understanding of the language and make small interface pieces work reliably.",
-    "links": [
-      "https://github.com/whynicky/Odin-course"
-    ],
-    "portrait": false
   }
 ].map(project => ({...project, images: project.images.map(assetUrl), cover: project.cover ? assetUrl(project.cover) : null}));
 export const github="https://github.com/whynicky";

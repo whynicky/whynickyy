@@ -14,7 +14,7 @@ const screens = [
  ['login', 'Welcome back', 2940, 1852],
  ['register', 'The start of a learning journey', 2940, 1852],
  ['faq', 'Questions & next steps', 2940, 1846],
-].map(([id, title, width, height]) => ({id, title, width, height, src:assetUrl(`/projects/ai-mentor/${id}.webp`), smallSrc:assetUrl(`/projects/ai-mentor/${id}-small.webp`)}));
+].map(([id, title, width, height]) => ({id, title, width, height, srcWidth:1600, src:assetUrl(`/projects/ai-mentor/${id}.webp`), smallSrc:assetUrl(`/projects/ai-mentor/${id}-small.webp`)}));
 
 export const aiMentor = {
  id:'ai-mentor', name:'AI Mentor', tag:'Education · Interface design', focus:'Design only',
@@ -22,19 +22,19 @@ export const aiMentor = {
  description:'Interface design for a sign-language learning platform.',
  contribution:'My role was design only: UI/UX and visual design. Development and AI implementation were outside my scope.',
  images:screens.map(screen=>screen.src), imageAspects:screens.map(screen=>screen.width/screen.height),
- cover:screens[0].src, coverAspect:2940/1848, aspect:2940/1848,
+ cover:screens[0].src, coverSmall:screens[0].smallSrc, coverWidth:1600, coverAspect:2940/1848, aspect:2940/1848,
  features:[], notes:[], stack:[], links:[], portrait:false,
 };
 
 export function screenshotGalleryPage(project=aiMentor, galleryScreens=screens){
  const details=project!==aiMentor;
- const role={soyle:'Product design & development',chatra:'Frontend & product UI'}[project.id] || project.focus;
+ const role={soyle:'Product design & development',chatra:'Frontend & product UI',forge:'Nuxt & FastAPI',portfolio:'Design & frontend','portfolio-v2':'Design & development'}[project.id] || project.focus;
  return `<article class="mentor-case" aria-labelledby="mentor-title">
   <header class="mentor-header"><a href="#/" aria-label="whynicky home">whynicky®</a><nav aria-label="Project navigation"><a href="#/work">Work</a><a href="#/about">About</a><a href="#/contact">Contact</a></nav></header>
   <div class="mentor-info"><h1 id="mentor-title">${project.name}</h1><div class="mentor-credit"><p>${role}</p>${details?`<a href="#/work/${project.id}/details">Project details</a>`: ''}</div></div>
   <a class="mentor-back" href="#/work">Back</a>
   <section class="mentor-gallery" tabindex="0" aria-label="${project.name} screenshots. Scroll or use arrow keys to explore.">
-   ${galleryScreens.map(screen=>`<figure class="mentor-frame"><img data-src="${screen.src}" ${screen.smallSrc?`data-srcset="${screen.smallSrc} 640w, ${screen.src} 1600w" sizes="50vw"`:''} alt="${project.name} — ${screen.title}" width="${screen.width}" height="${screen.height}" draggable="false" decoding="async"></figure>`).join('')}
+   ${galleryScreens.map(screen=>`<figure class="mentor-frame"><img data-src="${screen.src}" ${screen.smallSrc?`data-srcset="${screen.smallSrc} 640w, ${screen.src} ${screen.srcWidth || screen.width}w" sizes="50vw"`:''} alt="${project.name} — ${screen.title}" width="${screen.width}" height="${screen.height}" draggable="false" decoding="async"></figure>`).join('')}
   </section>
  </article>`;
 }
@@ -42,7 +42,7 @@ export function screenshotGalleryPage(project=aiMentor, galleryScreens=screens){
 export function mountScreenshotGallery({gsap,reduced}){
  const root=document.querySelector('.mentor-case');if(!root)return()=>{};
  const gallery=root.querySelector('.mentor-gallery'),frames=[...root.querySelectorAll('.mentor-frame')];
- let width=0,height=0,heights=[],maxHeight=0,cycle=0,current=0,target=0,initialized=false;
+ let width=0,height=0,widths=[],heights=[],maxHeight=0,cycle=0,current=0,target=0,initialized=false;
  let disposed=false,drag=null,observer=null,entry=null,delay=null;
  const entrance=frames.map(()=>({x:0}));
  const visible=new Set();
@@ -60,7 +60,7 @@ export function mountScreenshotGallery({gsap,reduced}){
    if(!visible.has(index)&&top+renderedHeight>-renderedHeight&&top<height+renderedHeight){
     visible.add(index);
     frames[index].style.visibility='visible';
-    frames[index].style.transform=`translate3d(${width*(1-scale)+entrance[index].x}px,${top}px,0) scale(${scale})`;
+    frames[index].style.transform=`translate3d(${width-widths[index]*scale+entrance[index].x}px,${top}px,0) scale(${scale})`;
     // All frames share the same CSS origin, so native lazy loading fetches the entire stack.
     const image=frames[index].firstElementChild;
     if(!image.hasAttribute('src')){
@@ -77,9 +77,19 @@ export function mountScreenshotGallery({gsap,reduced}){
  function measure(){
   const oldWidth=width;
   width=gallery.clientWidth;height=gallery.clientHeight;
-  heights=frames.map(frame=>{
+  widths=frames.map(frame=>{
    const image=frame.firstElementChild;
-   return width*Number(image.getAttribute('height'))/Number(image.getAttribute('width'));
+   const imageWidth=Number(image.getAttribute('width'));
+   const aspect=Number(image.getAttribute('height'))/imageWidth;
+   // Fit portrait screens within the viewport and avoid enlarging mobile captures.
+   const frameWidth=aspect>1?Math.min(width,imageWidth,height*.7/aspect):width;
+   frame.style.width=`${frameWidth}px`;
+   image.sizes=`${frameWidth}px`;
+   return frameWidth;
+  });
+  heights=frames.map((frame,index)=>{
+   const image=frame.firstElementChild;
+   return widths[index]*Number(image.getAttribute('height'))/Number(image.getAttribute('width'));
   });
   maxHeight=Math.max(...heights);
   cycle=heights.reduce((sum,h)=>sum+h,0)*.85;
