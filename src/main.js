@@ -18,6 +18,10 @@ import {mountContactLetter} from './contact-letter.js';
 import {mountCredentialArchive} from './credential-archive.js';
 import {projectPage} from './case-page.js';
 import {projectScreens} from './project-screens.js';
+import {mountScreenshotViewer} from './screenshot-viewer.js';
+import './screenshot-viewer.css';
+import './site-identity.css';
+import {createPageTransition} from './page-transition.js';
 import {aiMentor,screenshotGalleryPage,mountScreenshotGallery} from './ai-mentor.js';
 import {footerMarkup} from './site-footer.js';
 import {mountSound} from './sound.js';
@@ -30,6 +34,7 @@ import {PrintScene} from './studio-scene.js';
 import {workGalleryMarkup,mountWorkGallery} from './work-gallery.js';
 import {aboutMarkup,contactMarkup,processMarkup,credentialsMarkup,mountEditorial} from './editorial-pages.js';
 gsap.registerPlugin(ScrollTrigger);
+const pageTransition=createPageTransition(gsap);
 history.scrollRestoration='manual';
 const params=new URLSearchParams(location.search);
 let reduced=matchMedia('(prefers-reduced-motion: reduce)').matches||params.get('motion')==='reduce';
@@ -76,34 +81,32 @@ function bindRoute(){
  const disposeCredentials=mountCredentialArchive({lenis});
  const disposeLetter=mountContactLetter();
  const disposeMentor=mountScreenshotGallery({gsap,reduced});
+ const disposeScreenshotViewer=mountScreenshotViewer({gsap,reduced,lenis});
  const rows=[...document.querySelectorAll('[data-work]')];rows.forEach(row=>{const active=()=>{rows.forEach(r=>r.classList.toggle('active',r===row));document.querySelectorAll('[data-work-art]').forEach(a=>a.classList.toggle('active',a.dataset.workArt===row.dataset.work));};row.addEventListener('pointerenter',active);row.addEventListener('focus',active);});
  const cover=document.querySelector('.case-cover');if(cover&&!reduced)gsap.fromTo(cover,{rotate:2,y:30},{rotate:0,y:0,duration:1,ease:'power3.out'});
- disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();disposeLetter();disposeMentor();};
+ disposeRoute=()=>{disposeGallery();disposeEditorial();disposeCredentials();disposeLetter();disposeScreenshotViewer();disposeMentor();};
 }
 async function navigate(){
- if(transitioning)return;transitioning=true;positions.set(route,window.scrollY);closeMenu();
- const curtain=document.querySelector('.page-turn'),panels=[...curtain.querySelectorAll('i')],turnTitle=curtain.querySelector('.turn-title');
- const requested=location.hash.slice(1)||'/';const restore=requested==='/work'&&route.startsWith('/work/');
+ if(transitioning)return;
+ transitioning=true;positions.set(route,window.scrollY);closeMenu();
+ const motionReduced=reduced;
+ // Native dialogs sit above the transition layer, so release them first.
+ document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());
  main.inert=true;lenis.stop();
- if(!reduced){
-  const sheetColor=requested==='/'?'#08090b':requested==='/work'?'#f5f6f8':'#dcdedc';
-  gsap.set(curtain,{visibility:'visible',opacity:1,backgroundColor:sheetColor,clipPath:'polygon(0 100%,100% 100%,100% 100%,0 100%)'});
-  await gsap.to(curtain,{clipPath:'polygon(0 -24%,100% 0%,100% 100%,0 100%)',duration:.72,ease:'power4.inOut'});
- }
- draw(restore);main.focus({preventScroll:true});
- if(!reduced){
-  if(route==='/')await scene?.ready;
-  const reveal=gsap.timeline();
-  reveal.to(curtain,{opacity:0,duration:.28,ease:'power2.out'});
-  if(route==='/'){
-   reveal.fromTo('.presence-line>span',{yPercent:115},{yPercent:0,duration:.85,stagger:.08,ease:'power4.out'},.12);
-   reveal.fromTo('.topline>*',{y:15,opacity:0},{y:0,opacity:1,duration:.6,stagger:.045,ease:'power3.out'},.15);
+ try{
+  await pageTransition.close(motionReduced);
+  const requested=location.hash.slice(1)||'/';
+  const restore=requested==='/work'&&route.startsWith('/work/');
+  draw(restore);main.focus({preventScroll:true});lenis.stop();
+  if(route==='/'&&!motionReduced){
+   await Promise.race([scene?.ready||Promise.resolve(),new Promise(resolve=>setTimeout(resolve,800))]);
   }
-  await reveal;gsap.set(curtain,{visibility:'hidden'});
+  await pageTransition.open(motionReduced);
+ }finally{
+  pageTransition.reset();main.inert=false;lenis.start();transitioning=false;
  }
- main.inert=false;lenis.start();
  if(route==='/'&&pendingChapter!==null){homeController?.go(pendingChapter,lenis);pendingChapter=null;}
- transitioning=false;if((location.hash.slice(1)||'/')!==route)navigate();
+ if((location.hash.slice(1)||'/')!==route)navigate();
 }
 window.addEventListener('hashchange',navigate);
 document.addEventListener('click',e=>{

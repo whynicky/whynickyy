@@ -1,3 +1,4 @@
+import {eyeMark} from './brand.js';
 import {assetUrl} from './asset-url.js';
 import './ai-mentor.css';
 
@@ -30,11 +31,11 @@ export function screenshotGalleryPage(project=aiMentor, galleryScreens=screens){
  const details=project!==aiMentor;
  const role={soyle:'Product design & development',chatra:'Frontend & product UI',forge:'Nuxt & FastAPI',portfolio:'Design & frontend','portfolio-v2':'Design & development'}[project.id] || project.focus;
  return `<article class="mentor-case" aria-labelledby="mentor-title">
-  <header class="mentor-header"><a href="#/" aria-label="whynicky home">whynicky®</a><nav aria-label="Project navigation"><a href="#/work">Work</a><a href="#/about">About</a><a href="#/contact">Contact</a></nav></header>
+  <header class="mentor-header"><a href="#/" aria-label="whynicky home">${eyeMark}</a><nav aria-label="Project navigation"><a href="#/work">Work</a><a href="#/about">About</a><a href="#/contact">Contact</a></nav></header>
   <div class="mentor-info"><h1 id="mentor-title">${project.name}</h1><div class="mentor-credit"><p>${role}</p>${details?`<a href="#/work/${project.id}/details">Project details</a>`: ''}</div></div>
   <a class="mentor-back" href="#/work">Back</a>
   <section class="mentor-gallery" tabindex="0" aria-label="${project.name} screenshots. Scroll or use arrow keys to explore.">
-   ${galleryScreens.map(screen=>`<figure class="mentor-frame"><img data-src="${screen.src}" ${screen.smallSrc?`data-srcset="${screen.smallSrc} 640w, ${screen.src} ${screen.srcWidth || screen.width}w" sizes="50vw"`:''} alt="${project.name} — ${screen.title}" width="${screen.width}" height="${screen.height}" draggable="false" decoding="async"></figure>`).join('')}
+   ${galleryScreens.map(screen=>`<figure class="mentor-frame"><img data-src="${screen.src}" ${screen.smallSrc?`data-srcset="${screen.smallSrc} 640w, ${screen.src} ${screen.srcWidth || screen.width}w" sizes="50vw"`:''} alt="${project.name} - ${screen.title}" width="${screen.width}" height="${screen.height}" draggable="false" decoding="async"></figure>`).join('')}
   </section>
  </article>`;
 }
@@ -43,7 +44,7 @@ export function mountScreenshotGallery({gsap,reduced}){
  const root=document.querySelector('.mentor-case');if(!root)return()=>{};
  const gallery=root.querySelector('.mentor-gallery'),frames=[...root.querySelectorAll('.mentor-frame')];
  let width=0,height=0,widths=[],heights=[],maxHeight=0,cycle=0,current=0,target=0,initialized=false;
- let disposed=false,drag=null,observer=null,entry=null,delay=null;
+ let disposed=false,drag=null,observer=null,entry=null,delay=null,suppressClick=false;
  const entrance=frames.map(()=>({x:0}));
  const visible=new Set();
  const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
@@ -118,44 +119,53 @@ export function mountScreenshotGallery({gsap,reduced}){
  }
  const move=delta=>{target+=delta;if(reduced){current=target;paint();}};
  const wheel=e=>{
-  if(document.body.classList.contains('menu-open')||e.ctrlKey||e.target.closest('a'))return;
+  if(document.body.classList.contains('menu-open')||root.querySelector('dialog[open]')||e.ctrlKey||e.target.closest('a'))return;
   e.preventDefault();e.stopPropagation();
   move(e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?height:1));
  };
  const key=e=>{
-  if(e.target.closest('a'))return;
+  if(e.target.closest('a,button,dialog')||(['Enter',' '].includes(e.key)&&e.target.closest('[role=button]')))return;
   const steps={ArrowDown:100,ArrowUp:-100,PageDown:height*.8,PageUp:-height*.8,' ':height*.8};
   if(e.key in steps){e.preventDefault();move(steps[e.key]*(e.key===' '&&e.shiftKey?-1:1));}
   if(e.key==='Home'){e.preventDefault();target=-(height-heights[0])/2;if(reduced){current=target;paint();}}
  };
  const down=e=>{
   if(e.button!==0||e.target.closest('a')||drag)return;
-  drag={id:e.pointerId,y:e.clientY,time:performance.now(),velocity:0,touch:e.pointerType==='touch'};
-  gallery.setPointerCapture(e.pointerId);gallery.classList.add('is-dragging');
+  target=current;suppressClick=false;
+  drag={id:e.pointerId,x:e.clientX,y:e.clientY,travel:0,time:performance.now(),velocity:0,touch:e.pointerType==='touch'};
  };
  const pointerMove=e=>{
   if(!drag||drag.id!==e.pointerId)return;
   const now=performance.now(),delta=drag.y-e.clientY;
-  drag.velocity=drag.velocity*.5+delta/Math.max(8,now-drag.time)*.5;
-  move(delta);drag.y=e.clientY;drag.time=now;
+  drag.travel+=Math.hypot(delta,drag.x-e.clientX);
+  if(drag.travel>6){
+   suppressClick=true;
+   if(!gallery.hasPointerCapture(e.pointerId))gallery.setPointerCapture(e.pointerId);
+   gallery.classList.add('is-dragging');
+   drag.velocity=drag.velocity*.5+delta/Math.max(8,now-drag.time)*.5;
+   move(delta);
+  }
+  drag.x=e.clientX;drag.y=e.clientY;drag.time=now;
  };
  const up=e=>{
+  if(e.type==='lostpointercapture'&&e.target!==gallery)return;
   if(!drag||drag.id!==e.pointerId)return;
   const gesture=drag;drag=null;
   if(gallery.hasPointerCapture(e.pointerId))gallery.releasePointerCapture(e.pointerId);
   gallery.classList.remove('is-dragging');
-  if(e.type==='pointerup'&&gesture.touch&&!reduced&&performance.now()-gesture.time<100)move(clamp(gesture.velocity*160,-height*.7,height*.7));
+  if(e.type==='pointerup'&&gesture.travel>6&&gesture.touch&&!reduced&&performance.now()-gesture.time<100)move(clamp(gesture.velocity*160,-height*.7,height*.7));
  };
  const tick=()=>{
-  if(disposed)return;
+  if(disposed||root.querySelector('dialog[open]'))return;
   const difference=target-current;
   if(Math.abs(difference)<.01)return;
   current=Math.abs(difference)<.5?target:current+difference*(1-Math.pow(.91,gsap.ticker.deltaRatio()));
   paint();
  };
+ const preventDragClick=e=>{if(suppressClick){e.preventDefault();e.stopPropagation();}};
  const resize=()=>{entry?.kill();entrance.forEach(item=>item.x=0);measure();};
  measure();queueReveal();gsap.ticker.add(tick);
  root.addEventListener('wheel',wheel,{passive:false,capture:true});root.addEventListener('keydown',key);
- gallery.addEventListener('pointerdown',down);gallery.addEventListener('pointermove',pointerMove);gallery.addEventListener('pointerup',up);gallery.addEventListener('pointercancel',up);gallery.addEventListener('lostpointercapture',up);window.addEventListener('resize',resize);
- return()=>{disposed=true;observer?.disconnect();delay?.kill();entry?.kill();gsap.ticker.remove(tick);root.removeEventListener('wheel',wheel,true);root.removeEventListener('keydown',key);gallery.removeEventListener('pointerdown',down);gallery.removeEventListener('pointermove',pointerMove);gallery.removeEventListener('pointerup',up);gallery.removeEventListener('pointercancel',up);gallery.removeEventListener('lostpointercapture',up);window.removeEventListener('resize',resize);};
+ gallery.addEventListener('click',preventDragClick,true);gallery.addEventListener('pointerdown',down);gallery.addEventListener('pointermove',pointerMove);gallery.addEventListener('pointerup',up);gallery.addEventListener('pointercancel',up);gallery.addEventListener('lostpointercapture',up);window.addEventListener('resize',resize);
+ return()=>{disposed=true;observer?.disconnect();delay?.kill();entry?.kill();gsap.ticker.remove(tick);root.removeEventListener('wheel',wheel,true);root.removeEventListener('keydown',key);gallery.removeEventListener('click',preventDragClick,true);gallery.removeEventListener('pointerdown',down);gallery.removeEventListener('pointermove',pointerMove);gallery.removeEventListener('pointerup',up);gallery.removeEventListener('pointercancel',up);gallery.removeEventListener('lostpointercapture',up);window.removeEventListener('resize',resize);};
 }

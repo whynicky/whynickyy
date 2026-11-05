@@ -31,7 +31,7 @@ The CC0 deed permits copying, modification, distribution and performance, includ
 
 Optional courtesy credit for the site's credits or sound control:
 
-> Music: “Chill lofi inspired” by omfgdude — CC0 1.0, via OpenGameArt.
+> Music: “Chill lofi inspired” by omfgdude - CC0 1.0, via OpenGameArt.
 
 Link the title to the author's track page and the license name to the official deed.
 

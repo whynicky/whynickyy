@@ -1,3 +1,4 @@
+import {eyeMark} from './brand.js';
 import {assetUrl} from './asset-url.js';
 export const certificates=[
  {name:'CyberShield',kind:'Competition',date:'29 April 2026',file:'cybershield.jpg',description:'Participation certificate for CyberShield 2026.'},
@@ -6,7 +7,7 @@ export const certificates=[
  {name:'HackAlem AI',kind:'Hackathon participation',date:'14 October 2026',file:'hackalem.jpg',description:'Participation certificate for the Agentic AI Hackathon on 14 October 2026.'}
 ];
 const words=text=>text.split(' ').map(w=>`<span class="reveal-word">${w}</span>`).join(' ');
-const mast=(label,section,name)=>`<div class="editorial-masthead"><a href="#/" class="editorial-signature">${label}<br><span>whynicky®</span></a><span>◢ ${section}</span><span>◣ ${name}</span></div>`;
+const mast=(label,section,name)=>`<div class="editorial-masthead"><a href="#/" class="editorial-signature" aria-label="whynicky home">${eyeMark}</a><span>◢ ${section}</span><span>◣ ${name}</span></div>`;
 const experience=(period,title,subtitle,description,style)=>`<article class="experience-entry experience-${style}" data-reveal><div class="experience-date"><i aria-hidden="true"></i>${period}</div><h3>${title}</h3><div class="experience-detail"><h4>${subtitle}</h4><p>${description}</p></div></article>`;
 const certificateMarkup=()=>`<section class="certificate-section" id="certificates"><div class="editorial-section-label"><span>Certificates & recognition</span><span>Four milestones</span></div><h2 class="editorial-section-title" data-reveal>Proof of progress.</h2>
 <div class="certificate-archive"><nav class="certificate-index" aria-label="Choose a certificate">${certificates.map((c,i)=>`<button data-certificate="${i}" aria-pressed="${i===0}"><small>0${i+1}</small><span>${c.name}<em>${c.kind}</em></span></button>`).join('')}</nav>
@@ -15,7 +16,7 @@ const certificateMarkup=()=>`<section class="certificate-section" id="certificat
 <dialog class="document-dialog" aria-label="Certificate viewer"><div class="document-toolbar"><span class="document-name">CyberShield</span><button data-document-close aria-label="Close certificate">Close ×</button></div><img src="${assetUrl('certificates/cybershield.jpg')}" alt="CyberShield certificate"><div class="document-toolbar"><button data-document-step="-1" aria-label="Previous document"> Previous</button><a class="document-original" href="${assetUrl('certificates/cybershield.jpg')}" target="_blank" rel="noopener">Open document </a><button data-document-step="1" aria-label="Next document">Next </button></div></dialog>
 `;
 export function aboutMarkup(){return `<article class="editorial-page about-studio">
-<nav class="about-nav" aria-label="About navigation"><div><a href="#/about" aria-current="page">about</a><a href="#/contact">contact</a></div><a href="#/" class="about-wordmark" aria-label="whynicky home">whynicky®</a><div><a href="#/work">selected work</a><a href="https://github.com/whynicky" target="_blank" rel="noopener">github </a></div></nav>
+<nav class="about-nav" aria-label="About navigation"><div><a href="#/about" aria-current="page">about</a><a href="#/contact">contact</a></div><a href="#/" class="about-wordmark" aria-label="whynicky home">${eyeMark}</a><div><a href="#/work">selected work</a><a href="https://github.com/whynicky" target="_blank" rel="noopener">github </a></div></nav>
 <div class="about-composition">
 <aside class="about-side" aria-label="At a glance">
 <div class="about-orbit" aria-hidden="true"><span class="about-disc disc-name"><img src="${assetUrl('images/github-avatar.jpg')}" alt="" width="86" height="86"></span><span class="about-disc disc-design"><img src="${assetUrl('images/eye-mark-white.png')}" alt="" width="86" height="86"></span></div>
@@ -40,7 +41,7 @@ ${experience('Independent','Söyle','Family speech practice · Web product','Chi
 <footer class="about-invitation"><div class="about-colophon"><span>© ${new Date().getFullYear()} whynicky</span><a href="#/contact">Get in touch</a><a href="#/process">How I work</a></div></footer>
 </article>`;}
 export function contactMarkup(){return `<article class="editorial-page contact-studio">
-<div class="contact-mast"><a href="#/" aria-label="whynicky home">whynicky®</a></div>
+<div class="contact-mast"><a href="#/" aria-label="whynicky home">${eyeMark}</a></div>
 <div class="contact-spread"><header class="contact-poster"><h1>SOMETHING<br>ON YOUR<br><span>MIND?</span></h1><div class="contact-eye"><img src="${assetUrl('images/eye-mark-white.png')}" alt="" width="220" height="140"></div><p>Send your project requirements,<br>existing designs or a question.</p></header>
 <section class="contact-letter" aria-labelledby="letter-heading"><div class="contact-letter-heading"><h2 id="letter-heading">A NOTE TO whynicky</h2></div>
 <form class="contact-form"><div class="contact-field"><label for="contact-name">Your name</label><input id="contact-name" name="name" autocomplete="name" placeholder="Your name" required maxlength="100"></div><div class="contact-field"><label for="contact-email">Email address</label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="180"></div><div class="contact-field"><label for="contact-message">Project or question</label><textarea id="contact-message" name="message" placeholder="What do you need built or changed?" required rows="4" maxlength="5000"></textarea></div><div class="contact-form-end"><p>This opens a draft in your email app.<br>You can review it before sending.</p><button type="submit">Open email draft </button></div><p class="contact-status" role="status" aria-live="polite"></p></form>
@@ -151,14 +152,15 @@ const processQuestions=[
 ];
 const studioFoot=()=>`<footer class="studio-reading-foot"><span>© ${new Date().getFullYear()} whynicky</span><a href="#/contact">Contact me</a></footer>`;
 export function processMarkup(){return `<article class="editorial-page process-studio">
+<nav class="process-mast" aria-label="Process navigation"><a href="#/" aria-label="whynicky home">${eyeMark}</a><a href="#/work">Work</a></nav>
 <header class="process-opening"><h1>From brief<br>to handover.</h1><p>Requirements, planning, design,<br>implementation, testing and delivery.</p></header>
-<figure class="process-visual"><h2 class="process-visual-title"><span>FROM</span><span>AN IDEA</span><span>TO</span><span>SOMETHING</span><span>REAL.</span></h2><div class="process-photo"><img src="${assetUrl('images/process-amber-blur.webp')}" alt="Abstract amber light with soft, blurred lines and deep shadows" width="1800" height="2700" decoding="async"></div><figcaption><a href="https://unsplash.com/photos/abstract-orange-and-brown-light-blur-BRjxBeI3F-g" target="_blank" rel="noopener">PHOTO — GERONIMO GIQUEAUX </a></figcaption></figure>
+<figure class="process-visual"><h2 class="process-visual-title"><span>FROM</span><span>AN IDEA</span><span>TO</span><span>SOMETHING</span><span>REAL.</span></h2><div class="process-photo"><img src="${assetUrl('images/process-amber-blur.webp')}" alt="Abstract amber light with soft, blurred lines and deep shadows" width="1800" height="2700" decoding="async"></div><figcaption><a href="https://unsplash.com/photos/abstract-orange-and-brown-light-blur-BRjxBeI3F-g" target="_blank" rel="noopener">PHOTO - GERONIMO GIQUEAUX </a></figcaption></figure>
 <section class="process-board" aria-labelledby="process-board-title"><div class="process-board-label"><h2 id="process-board-title">PROCESS</h2></div><div class="process-stage-grid">${[0,3].map(start=>`<div>${processSteps.slice(start,start+3).map(([title,line,body,result],j)=>`<details class="process-stage"><summary><h3>${title}</h3><span class="stage-plus" aria-hidden="true">+</span></summary><div class="stage-body"><p class="stage-lead">${line}</p><p>${body}</p><div class="stage-outcome"><p>${result}</p></div></div></details>`).join('')}</div>`).join('')}</div></section>
 <section class="process-side-note"><p>I share working builds for review and agree changes before moving to the next stage.</p><a href="#/work">View projects</a></section>
 <section class="studio-questions"><div><h2>Before<br>we start.</h2></div><div>${processQuestions.map(([q,a])=>`<details><summary>${q}<span aria-hidden="true">+</span></summary><p>${a}</p></details>`).join('')}</div></section>
 ${studioFoot()}</article>`;}
 export function credentialsMarkup(){return `<article class="editorial-page credentials-studio credentials-desk">
-<nav class="credentials-nav" aria-label="Credentials navigation"><a href="#/" aria-label="whynicky home">whynicky®</a><a href="#/work">Work</a><a href="#/contact">Get in touch </a></nav>
+<nav class="credentials-nav" aria-label="Credentials navigation"><a href="#/" aria-label="whynicky home">${eyeMark}</a><a href="#/work">Work</a><a href="#/contact">Get in touch </a></nav>
 <header class="credentials-introduction"><section><h1>Credentials</h1><p>A selection of certificates from hackathons, courses and academic events.</p></section><section><h2>Education</h2><p>Two diplomas:<br>Kazakh & American.</p></section><section><h2>Participation</h2><ul><li>CyberShield 2026</li><li>HackAlem AI 2026</li><li>Academic conference 2026</li></ul></section></header>
 <div class="credentials-composition">
 ${certificates.map((c,i)=>`<button class="credential-leaf-sheet" data-archive-document="${i}" aria-label="Open ${c.name} certificate"><span class="credential-leaf-caption"><strong>${c.name}</strong></span><span class="credential-leaf-paper"><img src="${assetUrl('certificates/'+c.file)}" alt="${c.name} certificate" loading="${i<2?'eager':'lazy'}" decoding="async"></span></button>`).join('')}
