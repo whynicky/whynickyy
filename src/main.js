@@ -140,26 +140,26 @@ async function playEntrance(){
   await Promise.race([Promise.all([document.fonts.ready,scene?.ready||Promise.resolve()]),new Promise(resolve=>setTimeout(resolve,2500))]);
   if(reduced){done();return;}
   const glyphs=[...cover.querySelectorAll('.entry-glyph>span')];
-  const eye=cover.querySelector('.entry-eye'),identity=cover.querySelector('.entry-identity');
-  const imageReady=eye.decode?.().catch(()=>{});
-  await Promise.race([imageReady||Promise.resolve(),new Promise(resolve=>setTimeout(resolve,700))]);
-  gsap.set(cover,{'--cut-w':'0vw','--cut-h':'0vh'});
-  gsap.set(cover.querySelectorAll('.entry-shutter'),{yPercent:0});
-  gsap.set(identity,{opacity:1,y:0});
+  const eye=cover.querySelector('.entry-eye'),wordmark=cover.querySelector('.entry-logo');
+  const top=cover.querySelector('.entry-lid-top'),bottom=cover.querySelector('.entry-lid-bottom');
+  await Promise.race([eye.decode?.().catch(()=>{})||Promise.resolve(),new Promise(resolve=>setTimeout(resolve,700))]);
+  gsap.set(top,{y:0,yPercent:32});gsap.set(bottom,{y:0,yPercent:-32});
+  gsap.set(eye,{opacity:0,scaleX:.9,scaleY:.06});
+  gsap.set(glyphs,{yPercent:110});
+  gsap.set(wordmark.querySelector('sup'),{opacity:0});
   entry=gsap.timeline({onComplete:done});
-  const eyeBounds=eye.getBoundingClientRect();
-  entry.fromTo(eye,{opacity:0,scale:1.15,clipPath:'inset(48% 0 48% 0)'},{opacity:1,scale:1,clipPath:'inset(0% 0 0% 0)',duration:.6,ease:'power3.out'},.05)
-   .fromTo(glyphs,{opacity:0,x:i=>i<3?-45:45,y:i=>i<3?-28:28},{opacity:1,x:0,y:0,duration:.75,stagger:{each:.035,from:'edges'},ease:'power3.inOut'},.2)
-   .fromTo(cover.querySelector('.entry-logo>sup'),{opacity:0},{opacity:1,duration:.2},.8)
-   .to(glyphs,{x:i=>i<3?-innerWidth*.22:innerWidth*.28,opacity:0,duration:.85,stagger:{each:.025,from:'center'},ease:'power4.inOut'},1.5)
-   .to(eye,{x:innerWidth*.5-eyeBounds.left-eyeBounds.width*.5,y:innerHeight*.5-eyeBounds.top-eyeBounds.height*.5,scale:.75,duration:.8,ease:'power3.inOut'},1.4)
-   .to(identity,{opacity:0,duration:.25},2.25)
-   .to(cover,{'--cut-w':innerWidth<=700?'48vw':'24vw','--cut-h':innerWidth<=700?'28vh':'32vh',duration:.75,ease:'power3.inOut'},2.05)
-   .to(cover,{'--cut-w':'100vw','--cut-h':'100vh',duration:1.15,ease:'power4.inOut'},2.75);
+  entry.to(eye,{opacity:1,scaleX:1,scaleY:1,duration:.6,ease:'power3.out'},.08)
+   .to(glyphs,{yPercent:0,duration:.55,stagger:{each:.035,from:'center'},ease:'power4.out'},.24)
+   .to(wordmark.querySelector('sup'),{opacity:1,duration:.2},.65)
+   .to(eye,{scaleY:.08,duration:.12,ease:'power2.in'},.9)
+   .to(eye,{scaleY:1,duration:.22,ease:'power3.out'},1.02)
+   .to(wordmark,{y:24,opacity:0,duration:.25,ease:'power2.in'},1.35)
+   .to(eye,{scaleX:1.15,scaleY:.03,opacity:0,duration:.24,ease:'power3.in'},1.45)
+   .to(top,{yPercent:-100,duration:.9,ease:'power3.inOut'},1.62)
+   .to(bottom,{yPercent:100,duration:.9,ease:'power3.inOut'},1.62);
   if(route==='/'){
-   entry.fromTo('.topline>*',{opacity:0,y:12},{opacity:1,y:0,duration:.55,stagger:.04,ease:'power3.out'},3.05);
-   entry.fromTo('.presence-line>span',{yPercent:110},{yPercent:0,duration:.7,stagger:.07,ease:'power3.out'},2.8);
-   entry.fromTo('.presence-cta,.presence-discover',{opacity:0},{opacity:1,duration:.5,stagger:.04,ease:'power2.out'},3.0);
+   entry.fromTo('.topline>*',{opacity:0,y:12},{opacity:1,y:0,duration:.45,stagger:.04,ease:'power3.out'},2.05);
+   entry.fromTo('.presence-line>span',{yPercent:110},{yPercent:0,duration:.6,stagger:.06,ease:'power3.out'},1.9);
   }
   // The critical cover is released only after CSS, assets and the first animation frame are prepared.
   window.__portfolioBootReady?.();

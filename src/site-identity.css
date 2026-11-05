@@ -1,12 +1,12 @@
 /* One eye mark across the page headers. */
-.site-eye{display:block;width:56px;height:56px;object-fit:contain;filter:invert(1);flex-shrink:0}
+.site-eye{display:block;width:96px;height:64px;object-fit:cover;filter:invert(1);flex-shrink:0}
 .topline .brand{display:inline-flex;align-items:center;width:fit-content;padding:0;min-height:48px}
-.mentor-header .site-eye{width:40px;height:40px;filter:none}
+.mentor-header .site-eye{width:80px;height:56px;filter:none}
 .mentor-header>a{min-width:48px;min-height:48px}
 .process-mast{display:flex;align-items:center;justify-content:space-between;min-height:88px;font:400 14px/20px var(--font)}
 .process-mast a{display:flex;align-items:center;min-height:48px}
-.process-mast .site-eye,.about-nav .site-eye,.contact-mast .site-eye,.credentials-nav .site-eye{width:48px;height:48px}
-@media(max-width:700px){.topline .site-eye{width:48px;height:48px}}
+.process-mast .site-eye,.about-nav .site-eye,.contact-mast .site-eye,.credentials-nav .site-eye{width:96px;height:64px}
+@media(max-width:700px){.site-eye,.topline .site-eye,.process-mast .site-eye,.about-nav .site-eye,.contact-mast .site-eye,.credentials-nav .site-eye{width:80px;height:56px}}
 
 /* Two curved surfaces close over the old page and uncover the new one. */
 .page-turn.page-blink{display:block;position:fixed;inset:0;z-index:130;overflow:hidden;visibility:hidden;pointer-events:none;background:transparent;clip-path:none;perspective:none;isolation:isolate}
@@ -14,5 +14,8 @@
 .page-blink-lid{position:absolute;left:-10%;width:120%;height:100%;display:block;fill:#111;will-change:transform}
 .page-blink-top{top:-50%;transform:translateY(-100%)}
 .page-blink-bottom{top:50%;transform:translateY(100%)}
-.page-blink-eye{position:absolute;top:50%;left:50%;width:96px;height:96px;object-fit:contain;transform:translate(-50%,-50%);opacity:0;pointer-events:none}
-@media(max-width:700px){.page-blink-eye{width:80px;height:80px}}
+.page-blink-eye{position:absolute;top:50%;left:50%;width:clamp(240px,26vw,400px);height:clamp(240px,26vw,400px);object-fit:contain;transform:translate(-50%,-50%);opacity:0;pointer-events:none}
+@media(max-width:700px){.page-blink-eye{width:64vw;height:64vw;max-width:300px;max-height:300px}}
+
+.about-orbit{height:120px}.about-orbit .disc-name{left:50%;transform:translateX(-50%)}
+@media(max-width:600px){.about-orbit{height:104px;margin-bottom:16px}}

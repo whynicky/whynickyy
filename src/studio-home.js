@@ -9,7 +9,7 @@ export function homeMarkup(){return `<div class="home-score"><div class="home-ap
 
 <a class="presence-cta" href="#/contact"><span>Get in touch</span></a>
 <button class="presence-discover" data-chapter-go="1">Discover </button>
-</section><div class="hero-shutter shutter-top" aria-hidden="true"></div><div class="hero-shutter shutter-bottom" aria-hidden="true"></div><div class="hero-afterimage" aria-hidden="true"><span>MEET</span><span>THE</span><span>DEVELOPER.</span><img src="${assetUrl('images/eye-mark-white.png')}" alt=""></div>
+</section><div class="hero-shutter shutter-top" aria-hidden="true"></div><div class="hero-shutter shutter-bottom" aria-hidden="true"></div><div class="hero-afterimage" aria-hidden="true"><span>MEET</span><span>THE</span><span>DEVELOPER.</span></div>
 </div></div>
 <section class="home-essay" data-chapter="1" aria-labelledby="person-heading">
 

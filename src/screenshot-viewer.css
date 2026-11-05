@@ -5,8 +5,8 @@
 .screenshot-viewer[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:24px}
 .screenshot-viewer::backdrop{background:#1119}
 .screenshot-viewer-header{display:flex;align-items:center;justify-content:space-between;gap:24px}
-.screenshot-viewer-brand{display:grid;place-items:center;width:48px;height:48px}
-.screenshot-viewer-brand img{display:block;width:48px;height:48px;object-fit:contain;filter:invert(1)}
+.screenshot-viewer-brand{display:grid;place-items:center;width:80px;height:56px}
+.screenshot-viewer-brand img{display:block;width:80px;height:56px;object-fit:cover;filter:invert(1)}
 .screenshot-viewer button{font:inherit;color:inherit;background:transparent;border:0;border-radius:0;cursor:pointer;min-width:48px;min-height:48px;padding:8px 16px;user-select:none;transition:color .25s cubic-bezier(.22,1,.36,1),background-color .25s cubic-bezier(.22,1,.36,1)}
 .screenshot-viewer button:active{background:#e8e8e3}
 .screenshot-viewer button:focus-visible,.screenshot-viewer-brand:focus-visible{outline:2px solid #315bff;outline-offset:4px}
