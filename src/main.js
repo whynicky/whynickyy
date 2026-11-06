@@ -24,6 +24,7 @@ import './site-identity.css';
 import {createPageTransition} from './page-transition.js';
 import {aiMentor,screenshotGalleryPage,mountScreenshotGallery} from './ai-mentor.js';
 import {footerMarkup} from './site-footer.js';
+import {replaceArrows} from './icons.js';
 import {mountSound} from './sound.js';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
@@ -60,6 +61,7 @@ function draw(restore=false){
  document.body.dataset.chapter=0;
  main.innerHTML=route==='/'?homeMarkup():route==='/work'?workGalleryMarkup():route==='/about'?aboutMarkup():route==='/contact'?contactMarkup():route==='/process'?processMarkup():route==='/credentials'?credentialsMarkup():showGallery?screenshotGalleryPage(project,projectScreens[project.id]):project?projectPage(project,Boolean(projectScreens[project.id])):`<section class="not-found"><h1>Wrong turn.</h1><a href="#/">Back to the beginning</a></section>`;
  if(['/'].includes(route))main.insertAdjacentHTML('beforeend',footerMarkup());
+ replaceArrows(main);
  document.title=`${project?project.name:route==='/'?'Frontend & Creative Developer':route==='/process'?'Notes':route.slice(1).replace(/^./,c=>c.toUpperCase())} - whynicky®`;
 
  document.querySelectorAll('.dock a,.menu-grid a,.inner-nav a,.header-directory a').forEach(a=>{a.hash===`#${route}`?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current');});
