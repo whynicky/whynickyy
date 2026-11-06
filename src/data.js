@@ -2,7 +2,7 @@ import {assetUrl} from './asset-url.js';
 export const projects = [
   {
     "id": "chatra",
-    "cover": "/projects/chatra/gallery/landing.webp",
+    "cover": "/projects/chatra/gallery/subjects.webp",
     "coverAspect": 1440 / 940,
     "name": "Chatra",
     "tag": "Web & mobile · Education",
@@ -15,13 +15,13 @@ export const projects = [
     ],
     "statement": "A learning platform for schools.",
     "images": [
-      "/projects/chatra/screen-1.webp",
-      "/projects/chatra/screen-2.webp"
+      "/projects/chatra/gallery/lectures.webp",
+      "/projects/chatra/gallery/subjects-mobile.webp"
     ],
-    "aspect": 1.6012084592145015,
+    "aspect": 1440 / 940,
     "imageAspects": [
-      1.6012084592145015,
-      0.46153846153846156
+      1440 / 940,
+      390 / 844
     ],
     "notes": [],
     "stack": [
