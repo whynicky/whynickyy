@@ -47,7 +47,7 @@ The visual language carries through the entire site: from the distorted WebGL in
 | [Work](https://whynicky.github.io/whynickyy/#/work) | A circular project gallery with vertical, horizontal and grid layouts. Individual case studies sit behind each project. |
 | [About](https://whynicky.github.io/whynickyy/#/about) | Biography, experience, education and an invitation to make things a little weird. |
 | [Process](https://whynicky.github.io/whynickyy/#/process) | Six stages of working together, a kinetic type composition and a few useful answers. |
-| [Credentials](https://whynicky.github.io/whynickyy/#/credentials) | Four documents arranged as a paper collection. Open, inspect and move between them. |
+| [Credentials](https://whynicky.github.io/whynickyy/#/credentials) | Certificates and diplomas arranged as a paper collection. Open, inspect and move between them. |
 | [Contact](https://whynicky.github.io/whynickyy/#/contact) | A note to whynicky. The form prepares a draft in your email app for you to review and send. |
 
 ### 03 / UNDER THE SURFACE
