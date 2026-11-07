@@ -2,7 +2,7 @@ import {assetUrl} from './asset-url.js';
 export const projects = [
   {
     "id": "chatra",
-    "cover": "/projects/chatra/gallery/subjects.webp",
+    "cover": "/projects/chatra/gallery/landing.webp",
     "coverAspect": 1440 / 940,
     "name": "Chatra",
     "tag": "Web & mobile · Education",
