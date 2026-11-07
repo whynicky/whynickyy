@@ -116,7 +116,6 @@ const galleries = {
   ["scene-1", "Pack a picnic with Teddy"],
   ["scene-0", "Find the missing bear"],
   ["scene-2", "Play with objects in the living story"],
-  ["scene-3", "Help Misha ask for help"],
   ["child-nav-3", "Stars and the pet shop"],
   ["child-world", "My world of familiar places"],
   ["child-account-0", "Child profile"],
