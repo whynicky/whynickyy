@@ -131,6 +131,12 @@ document.addEventListener('keydown',e=>{
 });
 document.querySelector('[data-motion]').setAttribute('aria-pressed',String(!reduced));document.querySelector('[data-motion]').textContent=`Motion ${reduced?'off':'on'}`;
 
+const clock=document.querySelector('.header-clock time');
+const clockFormatter=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+function updateClock(){const now=new Date();clock.textContent=clockFormatter.format(now);clock.dateTime=now.toISOString();}
+updateClock();
+const clockInterval=setInterval(updateClock,1000);
+if(import.meta.hot)import.meta.hot.dispose(()=>clearInterval(clockInterval));
 draw();
 async function playEntrance(){
  let cover=document.querySelector('.entry-cover');if(!cover){document.body.insertAdjacentHTML('beforeend',entranceTemplate);cover=document.querySelector('.entry-cover');}

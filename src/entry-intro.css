@@ -7,7 +7,8 @@
 .entry-identity{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding-bottom:8vh;pointer-events:none}
 .entry-eye{display:block;width:clamp(240px,28vw,400px);height:clamp(240px,28vw,400px);object-fit:contain;filter:none;margin:0;transform-origin:50% 50%;will-change:transform,opacity}
 .entry-cover.entry-iris .entry-logo{position:relative;inset:auto;translate:none;transform:none;display:flex;align-items:center;perspective:none;font:700 clamp(60px,10vw,144px)/1.16 var(--font);letter-spacing:-.075em;color:#fafaf8;white-space:nowrap;clip-path:none;margin-top:-24px}
-.entry-cover.entry-iris .entry-glyph{display:inline-block;overflow:hidden!important;height:1.16em;padding:0 .02em;margin:0 -.01em}
+/* Give each animated letter room for its overhang and descender. */
+.entry-cover.entry-iris .entry-glyph{display:inline-block;overflow:hidden!important;height:auto;padding:.08em .12em .2em;margin:-.08em -.11em -.2em}
 .entry-cover.entry-iris .entry-glyph>span{display:block;padding:0;will-change:transform,opacity}
 .entry-cover.entry-iris .entry-logo>sup{position:relative;align-self:flex-start;top:.35em;margin:0 0 0 .2em;font:500 .38em/1 var(--font);letter-spacing:0;color:inherit}
 @media(max-width:700px){.entry-eye{width:64vw;height:64vw;max-width:320px;max-height:320px}.entry-cover.entry-iris .entry-logo{font-size:14vw;margin-top:-16px}.entry-identity{padding-bottom:4vh}}
