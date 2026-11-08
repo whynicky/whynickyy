@@ -39,8 +39,10 @@ export const projects = [
   },
   {
     "id": "soyle",
-    "cover": "/projects/soyle/gallery/landing.webp",
-    "coverAspect": 1440 / 940,
+    "cover": "/projects/soyle/cover.webp",
+    "coverSmall": "/projects/soyle/cover-small.webp",
+    "coverWidth": 1600,
+    "coverAspect": 4096 / 3203,
     "name": "Söyle",
     "tag": "Web · Family practice",
     "headline": "Speech practice for children and parents.",
@@ -308,5 +310,5 @@ export const projects = [
     ],
     "portrait": true
   }
-].map(project => ({...project, images: project.images.map(assetUrl), cover: project.cover ? assetUrl(project.cover) : null}));
+].map(project => ({...project, images: project.images.map(assetUrl), cover: project.cover ? assetUrl(project.cover) : null, coverSmall: project.coverSmall ? assetUrl(project.coverSmall) : null}));
 export const github="https://github.com/whynicky";
