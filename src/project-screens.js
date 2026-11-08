@@ -107,6 +107,8 @@ const galleries = {
  ],
  soyle: [
   ["landing", "Welcome to Söyle"],
+  ["landing-dark", "Landing page in dark mode"],
+  ["landing-plan-dark", "Weekly practice preview in dark mode"],
   ["child-home", "The playroom"],
   ["child-nav-1", "Activity catalog"],
   ["game-sensory-auditory_choice", "Listen and choose an animal"],
@@ -124,8 +126,8 @@ const galleries = {
   ["parent-assistant", "Family assistant"],
   ["specialist-children", "Specialist caseload"],
   ["specialist-recommendations", "Practice recommendations"],
-  ["admin-exercises", "Exercise management"],
   ["login", "Sign in"],
+  ["register", "Create a parent account"],
  ],
  chatra: [
   ["landing", "Introducing Chatra"],
