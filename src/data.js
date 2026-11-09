@@ -1,6 +1,48 @@
 import {assetUrl} from './asset-url.js';
 export const projects = [
   {
+    "id": "whynicky-studio",
+    "name": "WHYNICKY STUDIO",
+    "cover": "/projects/whynicky-studio/gallery/landing.webp",
+    "coverAspect": 1.5319148936170213,
+    "tag": "Web · Fashion storefront",
+    "headline": "An editorial storefront for a concept clothing label.",
+    "description": "A concept fashion storefront for the Fault Lines collection, combining campaign imagery, a shoppable lookbook and detailed product pages.",
+    "focus": "Design & frontend",
+    "features": [
+      "A responsive homepage with full-screen campaign photography, selected pieces, studio fittings and an editorial lookbook.",
+      "A 24-piece catalog with category filters, sorting and search. Product pages include front, back, model and detail views, size guides and outfit pairings.",
+      "A browser-based shopping bag with persistent selections and a checkout preview."
+    ],
+    "statement": "An editorial storefront for a concept clothing label.",
+    "images": [
+      "/projects/whynicky-studio/gallery/landing.webp",
+      "/projects/whynicky-studio/gallery/lookbook.webp",
+      "/projects/whynicky-studio/gallery/mobile-home.webp"
+    ],
+    "aspect": 1.5319148936170213,
+    "imageAspects": [
+      1.5319148936170213,
+      1.5319148936170213,
+      0.46208530805687204
+    ],
+    "notes": [
+      "Concept storefront with illustrative products and prices. Ordering, payments and shipping are not enabled."
+    ],
+    "stack": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Node.js"
+    ],
+    "contribution": "My contribution: Visual design, frontend implementation, responsive layouts and shopping interactions.",
+    "links": [
+      "https://whynicky.github.io/WHYNICKY-STUDIO/",
+      "https://github.com/whynicky/WHYNICKY-STUDIO"
+    ],
+    "portrait": false
+  },
+  {
     "id": "chatra",
     "cover": "/projects/chatra/gallery/landing.webp",
     "coverAspect": 1440 / 940,
